@@ -1,0 +1,21 @@
+$primary-color: #fc4131;
+
+:export {
+  primaryColor: $primary-color;
+}
+
+.AdminLogin{
+    background-color: #f7f7f7;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .gutter-row {
+    padding: 8px 0;
+    background: #feffff;
+  }
+  
+  
