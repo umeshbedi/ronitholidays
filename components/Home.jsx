@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Col, Row, Typography, Select, Space, Image } from 'antd'
-const { Text, Title, Link } = Typography
+import { Button, Carousel, Col, Icon, Row, Space } from 'antd'
 import { db } from '../firebase'
 import Head from 'next/head'
 import style from '@/styles/component.module.scss'
-import { cityName, category, mobile } from '@/components/variables'
-import { SearchOutlined, StepBackwardOutlined } from '@ant-design/icons'
+import { mobile, homepageImage, Wave } from '@/components/variables'
 import dynamic from 'next/dynamic'
+import { HeartOutlined } from '@ant-design/icons'
 
-import SearchDiv from './SearchDiv'
 
 export default function Home() {
 
@@ -18,9 +16,12 @@ export default function Home() {
     setIsMobile(mobile())
   }, [isMobile])
 
+  useEffect(() => {
+    // document.getElementById("waves").innerHTML = Wave
+  }, [])
+
 
   // console.log(starHotel)
-
 
   return (
     <main>
@@ -32,30 +33,44 @@ export default function Home() {
       </Head>
       <div>
 
-        <div
-          className='homeBanner'
-          style={{
-            backgroundImage: `linear-gradient(
-            90deg,rgba(0,0,0, 0.75),
-            rgba(0,0,0, 0),rgba(0,0,0, 0)
-            ), 
-            url('https://andamantourtravel.com/assets/img/banner-or3.jpg')`,
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 
-          }}
-        >
-          <Row style={{ width: '95%' }}>
-            <Col span={isMobile ? 18 : 10} style={{}}>
-              <p style={{ color: style.primaryColor, fontSize: 20, fontFamily: 'Dancing Script' }}>Relax and Enjoy ! </p>
-              <br />
-              <h1 style={{ fontSize: isMobile ? 35 : 45, color: 'white' }}>Make Your Holiday Memorable</h1>
-              <br />
-              <p style={{ color: 'white' }}>Find Hotel and Ticket with Best Experience</p>
-            </Col>
-          </Row>
+          <div style={{ transform: "rotate(180deg)", position: 'absolute', zIndex: 2, width: '100%', }}>
+            <Wave />
+          </div>
 
+          <Carousel autoplay arrows draggable dotPosition='right' speed={3000}>
+            {
+              homepageImage.map((item, index) => (
+                <div key={index}>
+                  <div
+                    className='homeBanner'
+                    style={{
+                      backgroundImage: `linear-gradient(
+                        90deg,rgba(0,0,0, 0.75),
+                        rgba(0,0,0, 0),rgba(0,0,0, 0)
+                        ), 
+                        url('${item}')`
+                    }}>
+
+                    <Row style={{ width: '95%' }}>
+                      <Col span={isMobile ? 18 : 10} style={{}}>
+
+                        <h1 style={{ fontSize: isMobile ? 35 : 45, color: 'white' }}>Explore the Andman</h1>
+                        <Space direction='vertical' style={{ gap: 20 }}>
+                          <p style={{ color: 'white' }}>Enjoy your Journey in Luxury Cruise</p>
+                          <Button type='primary'>Contact Us</Button>
+                        </Space>
+                      </Col>
+                    </Row>
+
+                  </div>
+                </div>
+              ))
+            }
+
+          </Carousel>
         </div>
-
-        <SearchDiv />
 
         <div style={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p>Homepage content</p>

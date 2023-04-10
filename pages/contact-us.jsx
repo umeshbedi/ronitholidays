@@ -10,10 +10,7 @@ export default function ContactUs() {
       </Head>
       
       <div>
-        <PageHeader
-        pageTitle={'Contact Us'}
-        image={'https://www.airvistara.com/content/dam/airvistara/global/english/common/image/Contact%20Us-26%20Apr.jpg'}
-        />
+       
         <div 
         style={{
           height:200,

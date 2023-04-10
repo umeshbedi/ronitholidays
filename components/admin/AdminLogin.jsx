@@ -16,7 +16,7 @@ export default function AdminLogin({login, isloading}) {
         <div className={style.AdminLogin}>
             <Space direction='vertical'>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img height={50} alt='web3 icons' src='/images/WEB3 Icon.ico' />
+                    <img height={70} alt='ronitholidays Logo icon' src='/images/ronitholidays Logo icon.png' />
                 </div>
                 <Form
                     style={{ maxWidth: 300 }}

@@ -1,7 +1,9 @@
-$primary-color: #fc4131;
+$primary-color: #ff0000;
+$secondary-color:#25527b;
 
 :export {
   primaryColor: $primary-color;
+  secondaryColor:$secondary-color
 }
 
 .AdminLogin{

@@ -14,6 +14,8 @@ const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: fals
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
 const AddHotel = dynamic(() => import('../components/admin/AddHotel'), { ssr: false, loading: () => <Skeleton /> })
 const HotelList = dynamic(() => import('../components/admin/HotelList'), { ssr: false, loading: () => <Skeleton /> })
+const Packages = dynamic(() => import('../components/admin/Packages'), { ssr: false, loading: () => <Skeleton /> })
+const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
 
 
 export default function Admin() {
@@ -24,7 +26,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
-  const [content, setContent] = useState(< Dashboard />)
+  const [content, setContent] = useState(< Packages />)
 
 
   useEffect(() => {
@@ -75,6 +77,12 @@ export default function Admin() {
     }
     else if(e == 'cruiseslist'){
       alert(e)
+    }
+    else if(e == 'Packages'){
+      setContent(<Packages />)
+    }
+    else if(e == 'PackagDetail'){
+      setContent(<PackagesDetails />)
     }
     else{
       setContent(<PageUpdate pageName={e} />)

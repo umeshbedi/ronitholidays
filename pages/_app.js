@@ -25,15 +25,15 @@ export default function App({ Component, pageProps }) {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: '#fc4131',
-            borderRadius: 0,
+            colorPrimary: '#ff0000',
+            borderRadius: 20,
 
           }
         }}
       >
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/images/WEB3 Icon.ico" />
+          <link rel="icon" href="/images/ronitholidays Logo icon.ico" />
         </Head>
         <Layout>
           <div style={{position:'sticky', top:0, zIndex:5}}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { HomeOutlined, PlusOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import { FaNewspaper } from 'react-icons/fa'
 import { Menu } from 'antd';
 
@@ -37,6 +37,14 @@ export default function MenuAdmin({ menuClick }) {
         <Menu.Item key={'homepage'}>
           <p> <HomeOutlined /> Homepage</p>
         </Menu.Item>
+        <Menu.SubMenu title={<p>Package</p>}>
+        <Menu.Item key={'Packages'}>
+          <p> <MedicineBoxOutlined /> Add Package Name</p>
+        </Menu.Item>
+        <Menu.Item key={'PackagDetail'}>
+          <p> <MedicineBoxOutlined /> Add Package Details</p>
+        </Menu.Item>
+        </Menu.SubMenu>
         <Menu.SubMenu title={<p> Hotel</p>}>
           <Menu.Item key={'addhotel'}>
             <p><PlusOutlined /> Add Hotels</p>

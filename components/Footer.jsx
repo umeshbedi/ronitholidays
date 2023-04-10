@@ -1,19 +1,27 @@
 import { Divider } from 'antd'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from '@/styles/component.module.scss'
+import { Wave } from './variables'
 
 export default function Footer() {
+  useEffect(()=>{
+    document.getElementById("footerwave").innerHTML=footerWave
+  },[])
   return (
     <div>
+      
+      <div id='footerwave' style={{marginBottom:-4}}/>
+      
       <div className='footerdiv' style={{ flexDirection: 'row' }}>
-        <div style={{ width: '25%' }}>
-          <Link href={'/'}>
-            <img src="/images/WEB3 Logo Final_h80.png" alt="web3hotel logo" height={60} />
-          </Link>
-          <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500.
-          </p>
+        <div style={{}}>
+          <h2>Cruises</h2>
+          <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> Green Ocean 1</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> ITT Majestic</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> Nautika Lite</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> Green Ocean 2</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> Nautika</Link></div>
         </div>
         <div>
           <h2>Support</h2>
@@ -31,13 +39,49 @@ export default function Footer() {
           <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> Contact Us</Link></div>
         </div>
         <div>
-          <h2>Follow Us</h2>
-          <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <h2>Contact with Us</h2>
+          <Divider style={{ margin: "8% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <div style={{ marginBottom: 5 }}><Link href={"#"}>  9933263867, 9531955441</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> WhatsApp: 9933263867, 9531955441</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> contact@ronitholidays.com</Link></div>
         </div>
       </div>
       <div>
-        <p style={{ textAlign: 'center', padding: '2% 0%', backgroundColor: '#e1e1e1', color: 'grey' }}>© 2023 <Link href={'/'}> Web3hotels.com </Link> - All rights reserved</p>
+        <p style={{ textAlign: 'center', padding: '2% 0%', backgroundColor: '#10263b', color: 'grey' }}>© 2023 <Link href={'/'}> ronitholidays.com </Link> - All rights reserved</p>
       </div>
+
     </div>
   )
 }
+
+
+const footerWave = `
+<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 255" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><style>
+          .path-0{
+            animation:pathAnim-0 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+          }
+          @keyframes pathAnim-0{
+            0%{
+              d: path("M 0,400 C 0,400 0,200 0,200 C 151.33333333333331,162.66666666666669 302.66666666666663,125.33333333333334 450,134 C 597.3333333333334,142.66666666666666 740.6666666666667,197.33333333333331 905,216 C 1069.3333333333333,234.66666666666669 1254.6666666666665,217.33333333333334 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+            25%{
+              d: path("M 0,400 C 0,400 0,200 0,200 C 195.06666666666666,224.53333333333333 390.1333333333333,249.06666666666666 524,252 C 657.8666666666667,254.93333333333334 730.5333333333334,236.26666666666665 873,224 C 1015.4666666666666,211.73333333333335 1227.7333333333333,205.86666666666667 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+            50%{
+              d: path("M 0,400 C 0,400 0,200 0,200 C 170.2666666666667,197.06666666666666 340.5333333333334,194.13333333333335 492,202 C 643.4666666666666,209.86666666666665 776.1333333333334,228.53333333333333 931,230 C 1085.8666666666666,231.46666666666667 1262.9333333333334,215.73333333333335 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+            75%{
+              d: path("M 0,400 C 0,400 0,200 0,200 C 139.06666666666666,185.46666666666667 278.1333333333333,170.93333333333334 459,173 C 639.8666666666667,175.06666666666666 862.5333333333333,193.73333333333335 1033,201 C 1203.4666666666667,208.26666666666665 1321.7333333333333,204.13333333333333 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+            100%{
+              d: path("M 0,400 C 0,400 0,200 0,200 C 151.33333333333331,162.66666666666669 302.66666666666663,125.33333333333334 450,134 C 597.3333333333334,142.66666666666666 740.6666666666667,197.33333333333331 905,216 C 1069.3333333333333,234.66666666666669 1254.6666666666665,217.33333333333334 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+          }</style><path d="M 0,400 C 0,400 0,200 0,200 C 151.33333333333331,162.66666666666669 302.66666666666663,125.33333333333334 450,134 C 597.3333333333334,142.66666666666666 740.6666666666667,197.33333333333331 905,216 C 1069.3333333333333,234.66666666666669 1254.6666666666665,217.33333333333334 1440,200 C 1440,200 1440,400 1440,400 Z" stroke="none" stroke-width="0" 
+          fill="#17334e" fill-opacity="1" 
+          class="transition-all duration-300 ease-in-out delay-150 path-0"
+          >
+          </path>
+          </svg>
+`
