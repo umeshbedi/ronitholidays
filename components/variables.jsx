@@ -81,7 +81,7 @@ export function ImageFooter({ text, onPress }) {
   )
 }
 
-const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.1)'
+export const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.1)'
 
 export function MinusPlus({ text, number, pluOnPress, minusOnPress, subText }) {
   return (
@@ -119,7 +119,7 @@ class="transition duration-300 ease-in-out delay-150">
 
 <style>
           .path-0{
-            animation:pathAnim-0 10s;
+            animation:pathAnim-0 5s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
@@ -143,12 +143,12 @@ class="transition duration-300 ease-in-out delay-150">
           
           <path 
           d="M 0,400 C 0,400 0,133 0,133 C 110.32142857142858,158.07142857142856 220.64285714285717,183.14285714285714 339,177 C 457.35714285714283,170.85714285714286 583.75,133.5 704,119 C 824.25,104.50000000000001 938.3571428571429,112.85714285714288 1060,119 C 1181.642857142857,125.14285714285712 1310.8214285714284,129.07142857142856 1440,133 C 1440,133 1440,400 1440,400 Z" stroke="none" stroke-width="0" 
-          fill="#235c90" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 120)">
+          fill="#235c90" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 140)">
           </path>
           
           <style>
           .path-1{
-            animation:pathAnim-1 5s;
+            animation:pathAnim-1 6s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
@@ -193,4 +193,17 @@ export const homepageImage = [
   "https://www.andamancab.in/uploads/sliders/47665.png",
   "https://www.andamancab.in/uploads/sliders/27283.jpg",
   "https://www.andamancab.in/uploads/sliders/17768.png"
+]
+
+export const activity = [
+  "Scuba Diving",
+  "Kayaking",
+  "Glass Bottom Boat",
+  "Sea Walk",
+  "Snorkeling",
+  "Speed Boat Rides",
+  "Parasailing",
+  "Trekking",
+  "Game Fishing",
+  "Dinner Cruise"
 ]

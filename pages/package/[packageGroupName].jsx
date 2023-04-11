@@ -1,6 +1,7 @@
 // import PageHeader from '@/components/PageHeader'
+import { boxShadow } from '@/components/variables'
 import { db } from '@/firebase'
-import { Skeleton, message } from 'antd'
+import { Image, Skeleton, message } from 'antd'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -47,12 +48,20 @@ export default function TermsAndCondition() {
 
                 <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '3%', }}>
                     <div>
-                        <h1 style={{ fontSize: '200%', marginBottom: '3%', textAlign:'center' }}>Andaman Best {query.packageGroupName} Packages</h1>
+                        <h1 style={{ fontSize: '200%', marginBottom: '3%', textAlign: 'center' }}>Andaman Best {query.packageGroupName} Packages</h1>
 
-                        <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "auto auto auto" }}>
+                        <div style={{ display: 'grid', gridGap: 30, gridTemplateColumns: "repeat(4, auto)" }}>
                             {packageImage.map((image, i) => (
                                 <Link key={i} href={"#"}>
-                                    <img style={{borderRadius:20}} src={image} alt="something" />
+                                    <Image style={{ borderRadius: 20, boxShadow:boxShadow }} src={image} alt="something"
+                                        preview={false}
+                                        placeholder={<Image
+                                            preview={false}
+                                            src='/images/Loading_icon.gif'
+                                            width={250}
+                                            height={250}
+                                            />}
+                                    />
                                 </Link>
                             ))
 

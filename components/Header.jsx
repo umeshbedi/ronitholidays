@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Menu, Col, Row, Button, Drawer, Space, Divider } from 'antd'
 import { } from 'react-icons/fi'
 import Link from 'next/link';
-import { mobile, ferry, cityName } from './variables';
+import { mobile, ferry, cityName, activity } from './variables';
 import { FaAngleDown, FaYenSign } from 'react-icons/fa'
 import { IoIosMenu } from 'react-icons/io'
 import style from '@/styles/component.module.scss'
@@ -107,11 +107,23 @@ export default function Header() {
         </Menu.SubMenu>
 
         <Menu.SubMenu
-          title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
+          title={<p style={{ fontSize: 14 }}>Package{isMobile ? null : <FaAngleDown />}</p>}
         >
-          <Menu.Item key={'activity'} style={{ height: 'fit-content', backgroundColor: 'white' }}>
+          <Menu.Item key={'package'} style={{ height: 'fit-content', backgroundColor: 'white' }}>
             <MegaMenu />
           </Menu.Item>
+        </Menu.SubMenu>
+
+        <Menu.SubMenu
+        title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
+        >
+          {activity.map((act, key)=>(
+            <Menu.Item key={key}>
+            <Link href={'/activity/'+act}>{act}</Link>
+          </Menu.Item>
+          ))
+
+          }
         </Menu.SubMenu>
 
         <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Ferry{isMobile ? null : <FaAngleDown />}</p>}>

@@ -5,7 +5,7 @@ import Head from 'next/head'
 import style from '@/styles/component.module.scss'
 import { mobile, homepageImage, Wave } from '@/components/variables'
 import dynamic from 'next/dynamic'
-import { HeartOutlined } from '@ant-design/icons'
+import { HeartOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
         <meta name="keywords" content="Hotels, hotel booking, hotels near me" />
         <meta name="developer" content="Umesh Bedi (Bedi It Solution)" />
       </Head>
-      <div>
+      <div style={{overflowX:'hidden'}}>
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 
@@ -39,7 +39,10 @@ export default function Home() {
             <Wave />
           </div>
 
-          <Carousel autoplay arrows draggable dotPosition='right' speed={3000}>
+          <Carousel autoplay arrows dots={false} draggable speed={3000}
+          prevArrow={<LeftOutlined/>}
+          nextArrow={<RightOutlined/>}
+          >
             {
               homepageImage.map((item, index) => (
                 <div key={index}>
