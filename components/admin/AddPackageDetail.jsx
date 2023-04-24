@@ -1,36 +1,209 @@
-import { db } from '@/firebase';
-import { Input,Button, Select, Space, message } from 'antd'
-import React, { useState } from 'react'
+import { db } from '@/firebase'
+import { DeleteOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons'
+import { Button, Divider, Form, Input, Select, Space, Tabs, message } from 'antd'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ImageUpload from './ImageUpload';
+import TravelJourney from './TravelJourney';
 
-export default function AddHotel() {
-    
+
+const packagedb = db.collection("package")
+
+export default function AddPackageDetail() {
+
+    const [packageItem, setPackageItem] = useState([])
+    const [singlePackage, setSinglePackage] = useState([])
+
     const [messageApi, contextHolder] = message.useMessage()
-    const [details, setDetails] = useState('')
-    const [about, setAbout] = useState("")
 
-    function AddDetails(){
-        db.doc("menu/KkeYzxQdPQ2WrGWrm6rs").update({
-            content:details
+    const [selectedGroup, setSelectedGroup] = useState(null)
+    const [selectedGroupPackage, setSelectedGroupPackage] = useState(null)
+    const [selectedGroupPackageDetail, setselectedGroupPackageDetail] = useState([])
+    const [selectedSinglePackage, setSelectedSinglePackage] = useState(null)
+    const [sSPD, setsSPD] = useState(null)
+
+    useEffect(() => {
+        packagedb.onSnapshot((snap) => {
+            const packageTemp = []
+            snap.forEach((snapdata) => {
+                const singlePackageTemp = []
+                packagedb.doc(`${snapdata.id}`).collection("singlePackage").onSnapshot((sn) => {
+                    sn.forEach((single) => {
+                        singlePackageTemp.push({ id: single.id, ...single.data() })
+                    })
+                })
+                packageTemp.push({ id: snapdata.id, ...snapdata.data(), singlePackage: singlePackageTemp })
+            })
+            setPackageItem(packageTemp)
         })
-        .then(()=>messageApi.success("Added Successfully!"))
+
+    }, [])
+
+    
+    useEffect(() => {
+        if (selectedGroupPackage != null) {
+            packagedb.doc(`${selectedGroupPackage}`)
+                .collection("singlePackage").onSnapshot((snap) => {
+                    const singlePackageTemp = []
+                    snap.forEach((sndata) => {
+                        singlePackageTemp.push({ id: sndata.id, ...sndata.data() })
+                    })
+                    setSinglePackage(singlePackageTemp)
+                })
+        }
+    }, [selectedGroupPackage])
+
+    useEffect(() => {
+        if (selectedGroup != null) {
+            const result = packageItem.find(f => f.id == selectedGroup)
+            setselectedGroupPackageDetail(result.singlePackage)
+        }
+    }, [selectedGroup])
+
+    useEffect(() => {
+        if (selectedSinglePackage != null) {
+            const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
+            setsSPD(result)
+        }
+    }, [selectedSinglePackage])
+
+
+    function submitPackageDetail(val) {
+        packagedb.doc(`${selectedGroup}`)
+            .collection("singlePackage").doc(`${selectedSinglePackage}`)
+            .update({
+                title: val.packageTitle,
+                subtitle: val.packageSubTitle,
+                highlights: val.highlights,
+                inclusion: val.inclusion,
+                overview: val.overview,
+                exclusion:val.exclusion,
+                metaDescription:val.metaDescription,
+                metaTag:val.metaTag,
+                status:'published'
+            })
+            .then(() => {
+                messageApi.success("Added Package Details Successfully")
+            })
+            .catch((err) => {
+                messageApi.error(err.message)
+            })
+
+    }
+
+    function AddSinglePackageDetail() {
+
+        const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
+        const pos = selectedGroupPackageDetail.findIndex(i => i.id == selectedSinglePackage)
+
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%', border: "solid .3px rgba(0,0,0,.2)" }}>
+                {sSPD != null &&
+                    <Form onFinish={(e) => submitPackageDetail(e)}>
+
+                        <Form.Item name='packageTitle' initialValue={sSPD.title} label={"Package Title"} >
+                            <Input required placeholder='Enter Package Title' />
+                        </Form.Item>
+                        <Form.Item name='packageSubTitle' initialValue={sSPD.subtitle} label={"Package Subtitle"}>
+                            <Input required placeholder='Enter Package SubTitle' />
+                        </Form.Item>
+
+                        <Form.Item name='overview' initialValue={sSPD.overview} label={"OverView"} >
+                            <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
+                        </Form.Item>
+                        
+                        <TravelJourney data={sSPD.travelJourney} groupId={selectedGroup} packageId={selectedSinglePackage}/>
+
+                        <Form.Item name='highlights' initialValue={sSPD.highlights} label={"Highlights"} >
+                            <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
+                        </Form.Item>
+                        <Form.Item name='inclusion' initialValue={sSPD.inclusion} label={"Inclusion"} >
+                            <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
+                        </Form.Item>
+                        <Form.Item name='exclusion' initialValue={sSPD.exclusion} label={"Inclusion"} >
+                            <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
+                        </Form.Item>
+                       
+
+                        <ImageUpload to={"Thumbnails"} groupId={selectedGroup} packageId={selectedSinglePackage} />
+                        <ImageUpload to={"Images"} groupId={selectedGroup} packageId={selectedSinglePackage} />
+                        
+                        <Divider>Seo Section</Divider>
+                        <Form.Item name='metaDescription' initialValue={sSPD.metaDescription} label={"Short Meta Description"} >
+                            <Input required placeholder='Short Description' />
+                        </Form.Item>
+                        <Form.Item name='metaTag' initialValue={sSPD.metaTag} label={"Comma Separated Tags"} >
+                            <Input required placeholder='Enter Tags' />
+                        </Form.Item>
+
+                        <Button type='primary' htmlType='submit'>Publish</Button>
+
+
+                    </Form>
+
+
+                }
+
+            </div>
+        )
     }
 
     return (
         <div>
             {contextHolder}
-            <div style={{ gap: 20,  display: 'flex', flexDirection: 'column' }}>
+            <h1 style={{ fontSize: '150%', marginBottom: 10 }}>Add Package Details</h1>
+            {packageItem.length !== 0 &&
+                <>
+                    <Space>
+                        <p>Select Package Group Name: </p>
+                        <Select
+                            placeholder={"select Package Name"}
+                            onSelect={setSelectedGroup}
+                            value={selectedGroup}
+                            onFocus={() => {
+                                setSelectedGroup(null);
+                                setselectedGroupPackageDetail([]);
+                                setSelectedGroupPackage(null);
+                                setSelectedSinglePackage(null)
+                            }}
+                            options={packageItem.map((item, i) => {
+                                return ({
+                                    value: item.id,
+                                    label: item.name
+                                })
+                            })}
+                        />
+                        {selectedGroup != null &&
+                            <>
+                                <p>Select Package Name: </p>
+                                <Select
+                                    placeholder={"select Package Name"}
+                                    onSelect={setSelectedSinglePackage}
+                                    value={selectedSinglePackage}
+                                    options={selectedGroupPackageDetail.map((item, i) => {
+                                        return ({
+                                            value: item.id,
+                                            label: item.name
+                                        })
+                                    })}
+                                />
+                            </>
+                        }
+                    </Space>
 
-                <div>
-                    <p style={{ marginBottom: 5 }}>Add Details</p>
-                    <ReactQuill
-                     theme='snow' value={details} onChange={setDetails} style={{ height: 400, backgroundColor: 'white', marginBottom: 50 }} />
-                </div>
-                <div>
-                <Button type='primary' onClick={AddDetails}>Save</Button>
-                </div>
-            </div>
+
+                    {selectedSinglePackage != null
+                        ?
+                        <AddSinglePackageDetail />
+                        :
+                        null
+                    }
+
+
+                </>
+            }
+
         </div>
     )
 }

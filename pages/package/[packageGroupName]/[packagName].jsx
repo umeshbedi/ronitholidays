@@ -1,25 +1,48 @@
 // import PageHeader from '@/components/PageHeader'
+import ContactForm from '@/components/ContactForm'
+import String2Html from '@/components/String2Html'
+import { homepageImage } from '@/components/variables'
 import { db } from '@/firebase'
-import { Skeleton, message } from 'antd'
+import { ClockCircleFilled, LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { Carousel, Collapse, Divider, Row, Skeleton, message } from 'antd'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { FaTimesCircle } from 'react-icons/fa'
+import Image from 'next/image'
 
 const PageHeader = dynamic(() => import("@/components/PageHeader"), {
     ssr: false,
     loading: () => <Skeleton />
 })
 
-export default function TermsAndCondition() {
+const demoImage = [
+    "https://www.visitsealife.com/birmingham/media/oyii0ado/sea-life-global.jpg",
+    "https://www.visitsealife.com/brighton/media/uyrf5wtj/hp_banner_011920x875.jpg",
+    "https://www.visitsealife.com/bray/media/ldllotjv/sl-bray-header.jpg",
+]
+
+
+export default function TermsAndCondition({ data }) {
     const [messageApi, contextHolder] = message.useMessage()
     const [fireData, setFireData] = useState(null)
     const { query, push } = useRouter()
-    console.log(query)
+
+    const [visible, setVisible] = useState(false);
+
+    const [packageName, setPackageName] = useState(null)
+    const [packageDetail, setPackageDetail] = useState(null)
+
+    useEffect(() => {
+        // setPackageName(document.getElementById("packageTitle").innerText)
+        // setPackageDetail(document.getElementById("packageDetail").innerText)
+    }, [])
+
 
     useEffect(() => {
         if (query.page !== undefined) {
-            console.log(query.page)
+            // console.log(query.page)
             db.collection('pages').doc(`${query.page}`).get()
                 .then((snap) => {
                     const data = snap.data()
@@ -30,27 +53,168 @@ export default function TermsAndCondition() {
                     })
                 })
                 .catch((err) => {
-                    push("/"+query.page)
+                    push("/" + query.page)
                     messageApi.error(err.message)
                 })
         }
     }, [query])
 
+
+
+    function Include({ icon, name }) {
+        return (
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                <Image src={icon} alt={name} width={24} height={24} />
+                <p style={{ fontSize: '95%' }}>{name}</p>
+            </div>
+        )
+    }
+
+    if (data == undefined) return (<div style={{ height: '30vh', padding: '2%' }}><Skeleton active /></div>)
+
     return (
         <main>
             <Head>
-                <title>{fireData != null ? fireData.title : ""}</title>
+                <title>{data.title}</title>
+                <meta name="description" content={data.metaDescription}></meta>
+                <meta name="keywords" content={data.metaTag}></meta>
             </Head>
             <div>
                 {contextHolder}
-                <PageHeader
-                    pageTitle={fireData != null ? fireData.title : ""}
-                    image={fireData != null ? fireData.image : ""}
-                />
-                <div style={{ display: 'flex', justifyContent: 'center', }}>
-                    <div style={{ width: '80%', margin: '2% 0%' }} id='content' />
+                <Carousel autoplay arrows dots={false} draggable speed={3000}
+                    prevArrow={<LeftOutlined />}
+                    nextArrow={<RightOutlined />}
+                    style={{ width: '90%', marginLeft: '5%', marginTop: '3%', borderRadius: 20 }}
+
+                >
+                    {
+                        data.images.map((item, index) => (
+                            <div key={index}>
+                                <div
+                                    style={{ height: 400, background: `url(${item})`, backgroundSize: 'cover', borderRadius: 20, margin: '0 5px', cursor: 'pointer' }}
+                                    onClick={() => setVisible(true)}
+                                >
+
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                </Carousel>
+
+
+                <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+                    <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
+                        <div style={{ width: "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+                            <h1 id='packageTitle'>{data.title}</h1>
+                            <h3 id='packageDetail' style={{ color: 'grey' }}><ClockCircleFilled /> {data.subtitle}</h3>
+                            <Divider style={{ margin: '2%' }} />
+
+                            <div>
+                                <h2>Includes</h2>
+                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "repeat(3, auto)", marginTop:'3%' }}>
+                                    <Include icon={'/icons/breakfast.svg'} name={'Breakfast'} />
+                                    <Include icon={'/icons/dinner.svg'} name={'Dinner'} />
+                                    <Include icon={'/icons/island-tour.svg'} name={'Island Tour'} />
+                                    <Include icon={'/icons/sightseeing_pack.svg'} name={'Sightseeing'} />
+                                    <Include icon={'/icons/tour-coordinator.svg'} name={'Tour Coordinator'} />
+                                </div>
+                            </div>
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Overview</h2>
+                            <String2Html id={'overview'} string={data.overview} />
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Travel Journey</h2>
+                            <Collapse size='large' defaultActiveKey={0} accordion={true} style={{ background: 'none' }}>
+                                {data.travelJourney.map((tj, i) => (
+                                    <Collapse.Panel header={<h4>{tj.heading}</h4>} key={i}>
+                                        <div>
+                                            <p>{tj.content}</p>
+                                        </div>
+                                    </Collapse.Panel>
+                                ))
+
+                                }
+                            </Collapse>
+
+                            <h2>Highlights</h2>
+                            <String2Html id={'highlights'} string={data.highlights} />
+
+
+                            <h2>Inclusion</h2>
+                            <String2Html id={'inclusion'} string={data.inclusion} />
+
+                            <h2>Exclusions</h2>
+                            <String2Html id={'exclusion'} string={data.exclusion} />
+
+
+                        </div>
+
+
+                        <div style={{ width: '35%', background: 'white', padding: '3%', height: 'fit-content' }}>
+                            <ContactForm
+                                packageName={packageName}
+                                packageDetail={packageDetail}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
     )
+}
+
+
+export async function getStaticPaths() {
+    const allpaths = []
+    db.collection("package").get().then((snap) => {
+        snap.forEach((sndata) => {
+            db.doc(`package/${sndata.id}`).collection("singlePackage").get().then(data => {
+                data.forEach((path) => {
+                    allpaths.push(path.data().slug)
+                })
+            })
+        })
+    })
+
+    return {
+        paths: allpaths.map((path) => (
+            { params: { packageName: path } }
+        )),
+        fallback: true
+    }
+}
+
+export async function getStaticProps(context) {
+    const { packageGroupName, packagName } = context.params
+    const res = await db.collection("package").where("slug", "==", `/package/${packageGroupName}`).get()
+    const entry = res.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+
+    if (entry.length==0) {
+        return {
+            notFound: true
+        };
+    }
+
+    const getData = await db.doc(`package/${entry[0].id}`).collection("singlePackage").where("slug", "==", `/package/${packageGroupName}/${packagName}`).get()
+    const data = getData.docs.map((d) => (d.data()))
+    
+    if (data.length==0) {
+        return {
+            notFound: true
+        };
+    }
+
+    return {
+        props: {
+            data: data[0]
+        },
+        revalidate: 10,
+    }
 }

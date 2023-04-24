@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined } from '@ant-design/icons';
-import { FaNewspaper } from 'react-icons/fa'
+import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined, BookOutlined } from '@ant-design/icons';
+import { FaList, FaNewspaper, FaShip } from 'react-icons/fa'
 import { Menu } from 'antd';
 
 import { mobile } from '../variables';
@@ -37,28 +37,20 @@ export default function MenuAdmin({ menuClick }) {
         <Menu.Item key={'homepage'}>
           <p> <HomeOutlined /> Homepage</p>
         </Menu.Item>
-        <Menu.SubMenu title={<p>Package</p>}>
+        <Menu.SubMenu title={<p> <BookOutlined/> Packages</p>}>
         <Menu.Item key={'Packages'}>
           <p> <MedicineBoxOutlined /> Add Package Name</p>
         </Menu.Item>
         <Menu.Item key={'PackagDetail'}>
-          <p> <MedicineBoxOutlined /> Add Package Details</p>
+          <p> <MedicineBoxOutlined /> Add/Update Details</p>
         </Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu title={<p> Hotel</p>}>
-          <Menu.Item key={'addhotel'}>
-            <p><PlusOutlined /> Add Hotels</p>
-          </Menu.Item>
-          <Menu.Item key={'hotellist'}>
-            <p><PlusOutlined /> Hotel List</p>
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu title={<p> Cruizes</p>}>
+        <Menu.SubMenu title={<p> <FaShip/> Ferry</p>}>
           <Menu.Item key={'addcruises'}>
-            <p><PlusOutlined /> Add Cruises</p>
+            <p><PlusOutlined /> Add Ferry</p>
           </Menu.Item>
           <Menu.Item key={'cruiseslist'}>
-            <p><PlusOutlined /> Cruises List</p>
+            <p><FaList /> Cruises List</p>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu title={<p><FaNewspaper /> Pages</p>}>

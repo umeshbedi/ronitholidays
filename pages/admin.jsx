@@ -12,9 +12,7 @@ const PageUpdate = dynamic(() => import('../components/admin/PageUpdate'), { ssr
 const Dashboard = dynamic(() => import('../components/admin/Dashboard'), { ssr: false, loading: () => <Skeleton /> })
 const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: false, loading: () => <Skeleton /> })
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
-const AddHotel = dynamic(() => import('../components/admin/AddHotel'), { ssr: false, loading: () => <Skeleton /> })
-const HotelList = dynamic(() => import('../components/admin/HotelList'), { ssr: false, loading: () => <Skeleton /> })
-const Packages = dynamic(() => import('../components/admin/Packages'), { ssr: false, loading: () => <Skeleton /> })
+const AddPackage = dynamic(() => import('../components/admin/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
 const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
 
 
@@ -26,7 +24,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
-  const [content, setContent] = useState(< Packages />)
+  const [content, setContent] = useState(< AddPackage />)
 
 
   useEffect(() => {
@@ -66,12 +64,6 @@ export default function Admin() {
     else if(e == 'dashboard'){
       setContent(<Dashboard />)
     }
-    else if(e == 'addhotel'){
-      setContent(<AddHotel />)
-    }
-    else if(e == 'hotellist'){
-      setContent(<HotelList />)
-    }
     else if(e == 'addcruises'){
       alert(e)
     }
@@ -79,7 +71,7 @@ export default function Admin() {
       alert(e)
     }
     else if(e == 'Packages'){
-      setContent(<Packages />)
+      setContent(<AddPackage />)
     }
     else if(e == 'PackagDetail'){
       setContent(<PackagesDetails />)

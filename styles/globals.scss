@@ -38,6 +38,28 @@ body {
   p{
     font-size: 16px;
   }
+  input{
+    width: 100%;
+    padding: 4px 11px;
+    line-height: 1.5;
+    font-size: 14px;
+    border: solid 1px  #d9d9d9;
+    border-radius: 16px;
+  }
+  input:hover{
+    border: solid 1px  #fc4131;
+    outline-style: none;
+    box-shadow: none;
+  }
+  input:focus{
+    outline-style: none;
+    box-shadow: none;
+    border: solid 1px  #fc4131;
+  }
+
+  ::placeholder {
+    color: #d9d9d9;
+  }
   
 }
 
@@ -51,7 +73,7 @@ body {
 }
 
 .pageHeader{
-  height: 300px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,4 +123,19 @@ body {
   font-size: 130%;
   
   
+}
+
+#packageContainer{
+  h1{
+    font-size: 200%;
+  }
+  p{
+    color: grey;
+    line-height: 140%;
+  }
+}
+
+.APDC{
+  display: flex;
+  align-items: center;
 }

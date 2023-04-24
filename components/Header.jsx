@@ -7,7 +7,7 @@ import { FaAngleDown, FaYenSign } from 'react-icons/fa'
 import { IoIosMenu } from 'react-icons/io'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase';
-
+import Image from 'next/image'
 export default function Header() {
 
   const [open, setOpen] = useState(false);
@@ -15,39 +15,47 @@ export default function Header() {
   const [active, setActive] = useState('home')
   const [packages, setPackages] = useState([])
 
-  const menu = db.collection('menu')
-
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
 
-
   useEffect(() => {
-    menu.where("name", "==", "packages").onSnapshot(snap => {
-      const menuTemp = []
-      snap.forEach(i => {
-        // console.log(i.data())
-        menuTemp.push({ ID: i.id, ...i.data() })
-      })
-      setPackages(menuTemp)
-    })
+    db.collection("package").onSnapshot((snap) => {
+      const packageTemp = []
+      snap.forEach((sndata => {
+        const singlePackageTemp = []
+        db.doc(`package/${sndata.id}`)
+          .collection('singlePackage').where("status",'==', 'published').get()
+          .then((newpkg => {
+            newpkg.forEach((pkg) => {
+              singlePackageTemp.push(pkg.data())
+            })
+          }))
 
+        packageTemp.push({ id: sndata.id, ...sndata.data(), singlePackage: singlePackageTemp })
+
+      }))
+
+      setPackages(packageTemp)
+
+    })
   }, [])
-  // console.log(packages.packages)
+
+  
   function MegaMenu() {
     return (
       <Space style={{ alignItems: 'flex-start' }}>
-        {packages[0].menuItems.map((item, index) => {
+        {packages.map((item, index) => {
           return (
             <>
               <Menu
-                style={{ boxShadow: 'none', border: index == packages[0].menuItems.length - 1 ? "none" : 'auto' }}
+                style={{ boxShadow: 'none', border: index == packages.length - 1 ? "none" : 'auto' }}
                 key={index}
               >
                 <Menu.Item style={{ backgroundColor: 'white' }}>
                   <Link href={item.slug}> <p style={{ fontSize: 15 }}><b>{item.name}</b></p></Link>
                 </Menu.Item>
-                {item.menuItems.map((e, key) => (
+                {item.singlePackage.map((e, key) => (
                   <Menu.Item key={key}>
                     <Link href={e.slug}>{e.name}</Link>
                   </Menu.Item>
@@ -110,17 +118,19 @@ export default function Header() {
           title={<p style={{ fontSize: 14 }}>Package{isMobile ? null : <FaAngleDown />}</p>}
         >
           <Menu.Item key={'package'} style={{ height: 'fit-content', backgroundColor: 'white' }}>
-            <MegaMenu />
+            {packages.length != 0 &&
+              <MegaMenu />
+            }
           </Menu.Item>
         </Menu.SubMenu>
 
         <Menu.SubMenu
-        title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
+          title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
         >
-          {activity.map((act, key)=>(
+          {activity.map((act, key) => (
             <Menu.Item key={key}>
-            <Link href={'/activity/'+act}>{act}</Link>
-          </Menu.Item>
+              <Link href={'/activity/' + act}>{act}</Link>
+            </Menu.Item>
           ))
 
           }
@@ -130,7 +140,7 @@ export default function Header() {
           {
             ferry.map((ferry, key) => (
               <Menu.Item key={key}>
-                <Link href={'/cruises/'+ferry}>{ferry}</Link>
+                <Link href={'/cruises/' + ferry}>{ferry}</Link>
               </Menu.Item>
             ))
           }
@@ -174,7 +184,7 @@ export default function Header() {
         </Col>
         <Col span={6} pull={18} style={{}}>
           <Link href={'/'}>
-            <img src='/images/ronitholidays Logo Final_h80.png' height={45} />
+            <Image src='/images/ronitholidays Logo Final_h80.png' height={45} width={200} alt='ronitholidays Logo Final'/>
           </Link>
         </Col>
       </Row>
