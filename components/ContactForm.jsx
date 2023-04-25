@@ -1,17 +1,26 @@
-import { Button, DatePicker, Form, Input, Modal, Space } from 'antd'
+import { DeleteFilled, PlusOutlined } from '@ant-design/icons'
+import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd'
 import React, { useState } from 'react'
 
-export default function ContactForm({packageName, packageDetail}) {
+export default function ContactForm({ packageName, packageDetail }) {
     const [date, setDate] = useState(null)
     const [loading, setLoading] = useState(false)
     const [msg, showMsg] = Modal.useModal()
-    
-    
+
+    const [passengers, setPassengers] = useState([])
+
+    const genders = ["Male", "Female", "Other"]
+
+    const [psName, setPsName] = useState(null)
+    const [psAge, setPsAge] = useState(null)
+    const [psGender, setPsGender] = useState(null)
+    const [psAadhar, setPsAadhar] = useState(null)
+
     async function sendEmail(e) {
         const emailBody = {
-          "sender": { "name": "Ronit Holidays", "email": "no-reply@ronitholidays.com" },
-          "to": [{ "email": "umeshkumarbedi@gmail.com", "name": "Ronitholidays" }],
-          "htmlContent": `<!DOCTYPE html> 
+            "sender": { "name": "Ronit Holidays", "email": "no-reply@ronitholidays.com" },
+            "to": [{ "email": "ronitholidays1@gmail.com", "name": "Ronitholidays" }],
+            "htmlContent": `<!DOCTYPE html> 
           <html> 
           <head>
           <meta charset="UTF-8">
@@ -34,33 +43,42 @@ export default function ContactForm({packageName, packageDetail}) {
           <p>Message: <span style="font-weight: bold;">${e.message}</span></p>
           </div>
           </body> </html>`,
-    
-          "subject": "New Query from ronhitholidays.com",
-          "replyTo": { "email": "no-reply@ronitholidays.com", "name": "Ronitholidays" },
-          "tags": ["hotel", "room"]
+
+            "subject": "New Query from ronhitholidays.com",
+            "replyTo": { "email": "no-reply@ronitholidays.com", "name": "Ronitholidays" },
+            "tags": ["hotel", "room"]
         }
         setLoading(true)
-    
+
         fetch("https://api.sendinblue.com/v3/smtp/email", {
-          method: 'POST',
-          headers: {
-            "api-key": process.env.NEXT_PUBLIC_SEND_EMAIL,
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(emailBody)
+            method: 'POST',
+            headers: {
+                "api-key": process.env.NEXT_PUBLIC_SEND_EMAIL,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(emailBody)
         })
-          .then(res => res.json())
-          .then(res => {
-            msg.success({
-              title: "Query sent successfully!",
-              content: "Congratulations! Your query has been received. Our representative will contact you soon with email or phone. Happy Journey!"
-            });
-            setLoading(false)
-          })
-          .catch(err => { console.log(err); setLoading(false) })
-    
-      }
+            .then(res => res.json())
+            .then(res => {
+                msg.success({
+                    title: "Query sent successfully!",
+                    content: "Congratulations! Your query has been received. Our representative will contact you soon with email or phone. Happy Journey!"
+                });
+                setLoading(false)
+            })
+            .catch(err => { console.log(err); setLoading(false) })
+
+    }
+
+    function addPassenger() {
+        if (psAge != null && psAadhar != null && psGender != null && psName != null) {
+            setPassengers([...passengers, {
+                psName, psAge, psGender, psAadhar
+            }])
+        }else{msg.info({title:'Attention!', content:"All fields are rquired"})}
+    }
+
     return (
         <div>
             {showMsg}
@@ -99,9 +117,37 @@ export default function ContactForm({packageName, packageDetail}) {
                     />
 
                     <Form.Item name={"message"} style={{ margin: 0 }} required >
-                        <Input.TextArea rows={4} placeholder='Write Message' required/>
+                        <Input.TextArea rows={4} placeholder='Write Message' required />
                     </Form.Item>
+                    <h3>Add Passenger Details (including self)</h3>
+                    {passengers.map((ps, i) => (
+                        <p key={i}><i><b>#{i+1}</b> {ps.psName} | {ps.psAge} | {ps.psGender} | {ps.psAadhar} </i>
+                        <DeleteFilled onClick={()=>{
+                             setPassengers([
+                                ...passengers.slice(0, i),
+                                ...passengers.slice(i + 1, passengers.length)
+                              ]);
+                        }} 
+                        style={{color:'red', cursor:'pointer', marginLeft:5}}/></p>
+                    ))}
+                    <Space>
+                        <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
+                        <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
+                        <Select
+                            placeholder={"Gender"}
+                            onSelect={setPsGender}
+                            options={genders.map((item, i) => {
+                                return ({
+                                    label: item,
+                                    value: item
+                                })
+                            })} />
+                        <Input type='number' placeholder='Aadhar Card' required onChange={(e) => setPsAadhar(e.target.value)} />
 
+                    </Space>
+                    <div>
+                        <Button onClick={addPassenger} type='dashed'><PlusOutlined /> Add Passengers</Button>
+                    </div>
 
                     <Button type='primary' htmlType='submit' size='large' loading={loading}>Send Query</Button>
                 </div>

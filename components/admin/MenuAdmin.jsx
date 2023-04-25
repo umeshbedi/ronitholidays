@@ -37,22 +37,17 @@ export default function MenuAdmin({ menuClick }) {
         <Menu.Item key={'homepage'}>
           <p> <HomeOutlined /> Homepage</p>
         </Menu.Item>
-        <Menu.SubMenu title={<p> <BookOutlined/> Packages</p>}>
-        <Menu.Item key={'Packages'}>
-          <p> <MedicineBoxOutlined /> Add Package Name</p>
-        </Menu.Item>
-        <Menu.Item key={'PackagDetail'}>
-          <p> <MedicineBoxOutlined /> Add/Update Details</p>
-        </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu title={<p> <FaShip/> Ferry</p>}>
-          <Menu.Item key={'addcruises'}>
-            <p><PlusOutlined /> Add Ferry</p>
+        <Menu.SubMenu title={<p> <BookOutlined /> Packages</p>}>
+          <Menu.Item key={'Packages'}>
+            <p> <MedicineBoxOutlined /> Add Package Name</p>
           </Menu.Item>
-          <Menu.Item key={'cruiseslist'}>
-            <p><FaList /> Cruises List</p>
+          <Menu.Item key={'PackagDetail'}>
+            <p> <MedicineBoxOutlined /> Add/Update Details</p>
           </Menu.Item>
         </Menu.SubMenu>
+        <Menu.Item key={'addcruises'}>
+          <p><FaShip /> Ferry</p>
+        </Menu.Item>
         <Menu.SubMenu title={<p><FaNewspaper /> Pages</p>}>
           <Menu.Item key={'about-us'} >
             <p>About Us</p>

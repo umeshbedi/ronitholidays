@@ -17,7 +17,8 @@ $secondary-dark:#17334e;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: Roboto;
+  // font-family: Roboto;
+  font-family: Book Antiqua;
 }
 
 
@@ -138,4 +139,17 @@ body {
 .APDC{
   display: flex;
   align-items: center;
+}
+
+.ant-tabs-card >.ant-tabs-nav .ant-tabs-tab-active{
+  background: #25527b;  
+
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: white;
+}
+
+
+#ticketCollapse>.ant-collapse .ant-collapse-content>.ant-collapse-content-box{
+background: #e1f1ff;
 }
