@@ -14,6 +14,7 @@ const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: fals
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
 const AddPackage = dynamic(() => import('../components/admin/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
 const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
+const Ferry = dynamic(() => import('../components/admin/Ferry'), { ssr: false, loading: () => <Skeleton /> })
 
 
 export default function Admin() {
@@ -24,7 +25,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
-  const [content, setContent] = useState(< AddPackage />)
+  const [content, setContent] = useState(< Ferry />)
 
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function Admin() {
       setContent(<Dashboard />)
     }
     else if(e == 'addcruises'){
-      alert(e)
+      setContent(<Ferry />)
     }
     else if(e == 'cruiseslist'){
       alert(e)
@@ -111,10 +112,6 @@ export default function Admin() {
 
   return (
     <main>
-      <Head>
-        <title>Admin Panel</title>
-      </Head>
-
       <Layout
         style={{ minHeight: '100vh' }}
       >

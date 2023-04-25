@@ -15,6 +15,8 @@ export default function Header() {
   const [active, setActive] = useState('home')
   const [packages, setPackages] = useState([])
 
+  const [ferryList, setFerryList] = useState([])
+
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
@@ -40,6 +42,16 @@ export default function Header() {
 
     })
   }, [])
+
+  useEffect(()=>{
+    db.collection('ferry').onSnapshot((snap)=>{
+      const tempFerry = []
+      snap.forEach((sndata)=>{
+        tempFerry.push(sndata.data())
+      })
+      setFerryList(tempFerry)
+    })
+  },[])
 
   
   function MegaMenu() {
@@ -127,6 +139,7 @@ export default function Header() {
         <Menu.SubMenu
           title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
         >
+          <div style={{display:'grid', gridTemplateColumns:"repeat(4, auto)"}}>
           {activity.map((act, key) => (
             <Menu.Item key={key}>
               <Link href={'/activity/' + act}>{act}</Link>
@@ -134,13 +147,14 @@ export default function Header() {
           ))
 
           }
+          </div>
         </Menu.SubMenu>
 
         <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Ferry{isMobile ? null : <FaAngleDown />}</p>}>
           {
-            ferry.map((ferry, key) => (
+            ferryList.map((ferry, key) => (
               <Menu.Item key={key}>
-                <Link href={'/cruises/' + ferry}>{ferry}</Link>
+                <Link target='blank' href={ferry.slug}>{ferry.name}</Link>
               </Menu.Item>
             ))
           }

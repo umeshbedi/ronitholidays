@@ -9,59 +9,19 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { FaTimesCircle } from 'react-icons/fa'
 import Image from 'next/image'
-
-const PageHeader = dynamic(() => import("@/components/PageHeader"), {
-    ssr: false,
-    loading: () => <Skeleton />
-})
-
-const demoImage = [
-    "https://www.visitsealife.com/birmingham/media/oyii0ado/sea-life-global.jpg",
-    "https://www.visitsealife.com/brighton/media/uyrf5wtj/hp_banner_011920x875.jpg",
-    "https://www.visitsealife.com/bray/media/ldllotjv/sl-bray-header.jpg",
-]
 
 
 export default function TermsAndCondition({ data }) {
     const [messageApi, contextHolder] = message.useMessage()
-    const [fireData, setFireData] = useState(null)
-    const { query, push } = useRouter()
-
+   
     const [visible, setVisible] = useState(false);
 
     const [packageName, setPackageName] = useState(null)
     const [packageDetail, setPackageDetail] = useState(null)
 
-    useEffect(() => {
-        // setPackageName(document.getElementById("packageTitle").innerText)
-        // setPackageDetail(document.getElementById("packageDetail").innerText)
-    }, [])
 
-
-    useEffect(() => {
-        if (query.page !== undefined) {
-            // console.log(query.page)
-            db.collection('pages').doc(`${query.page}`).get()
-                .then((snap) => {
-                    const data = snap.data()
-                    document.getElementById('content').innerHTML = data.data
-                    setFireData({
-                        title: data.title,
-                        image: data.image
-                    })
-                })
-                .catch((err) => {
-                    push("/" + query.page)
-                    messageApi.error(err.message)
-                })
-        }
-    }, [query])
-
-
-
-    function Include({ icon, name }) {
+   function Include({ icon, name }) {
         return (
             <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <Image src={icon} alt={name} width={24} height={24} />
