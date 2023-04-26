@@ -64,7 +64,7 @@ export default function Ferry() {
                 <Space>
                     <p>Select Ferry: </p>
                     <Select
-                        placeholder={"select Package Name"}
+                        placeholder={"select Ferry Name"}
                         onSelect={setSelectedFerry}
                         value={selectedFerry}
                         // onFocus={()=>setSfD(null)}

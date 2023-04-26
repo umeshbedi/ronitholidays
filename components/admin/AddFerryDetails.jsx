@@ -24,7 +24,7 @@ export default function AddFerryDetails({ details, ferryId }) {
 
     // console.log(terms)
     useEffect(() => {
-        ferrydb.doc(`${ferryId}`).onSnapshot((snap) => {
+        ferrydb.doc(`${ferryId}`).get().then((snap) => {
             setTicket(snap.data().ticket)
             setClasses(snap.data().classes)
             setSelectedTicket(null)
