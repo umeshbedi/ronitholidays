@@ -15,6 +15,8 @@ const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr
 const AddPackage = dynamic(() => import('../components/admin/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
 const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
 const Ferry = dynamic(() => import('../components/admin/Ferry'), { ssr: false, loading: () => <Skeleton /> })
+const Island = dynamic(() => import('../components/admin/Island'), { ssr: false, loading: () => <Skeleton /> })
+const Drive2Web = dynamic(() => import('../components/admin/Drive2Web'), { ssr: false, loading: () => <Skeleton /> })
 
 
 export default function Admin() {
@@ -25,7 +27,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
-  const [content, setContent] = useState(< Ferry />)
+  const [content, setContent] = useState(< Island />)
 
 
   useEffect(() => {
@@ -76,6 +78,12 @@ export default function Admin() {
     }
     else if(e == 'PackagDetail'){
       setContent(<PackagesDetails />)
+    }
+    else if(e == 'island'){
+      setContent(<Island />)
+    }
+    else if(e == 'drive2web'){
+      setContent(<Island />)
     }
     else{
       setContent(<PageUpdate pageName={e} />)

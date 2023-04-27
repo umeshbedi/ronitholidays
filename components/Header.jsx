@@ -16,13 +16,14 @@ export default function Header() {
   const [packages, setPackages] = useState([])
 
   const [ferryList, setFerryList] = useState([])
+  const [islandList, setIslandList] = useState([])
 
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
 
   useEffect(() => {
-    db.collection("package").onSnapshot((snap) => {
+    db.collection("package").get().then((snap) => {
       const packageTemp = []
       snap.forEach((sndata => {
         const singlePackageTemp = []
@@ -44,12 +45,20 @@ export default function Header() {
   }, [])
 
   useEffect(()=>{
-    db.collection('ferry').onSnapshot((snap)=>{
+    db.collection('ferry').get().then((snap)=>{
       const tempFerry = []
       snap.forEach((sndata)=>{
         tempFerry.push(sndata.data())
       })
       setFerryList(tempFerry)
+    })
+
+    db.collection("island").get().then((snap)=>{
+      const tempIsland = []
+      snap.forEach((sndata)=>{
+        tempIsland.push(sndata.data())
+      })
+      setIslandList(tempIsland)
     })
   },[])
 
@@ -118,9 +127,9 @@ export default function Header() {
 
         <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Island{isMobile ? null : <FaAngleDown />}</p>}>
           {
-            cityName.map((name, key) => (
+            islandList.map((name, key) => (
               <Menu.Item key={key}>
-                <Link href={'#'}>{name}</Link>
+                <Link target='blank' href={name.slug}>{name.name}</Link>
               </Menu.Item>
             ))
           }

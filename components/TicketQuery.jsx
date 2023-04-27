@@ -17,7 +17,7 @@ export default function TicketQuery({open, data, cancel}) {
       >
         <div style={{ flexDirection: 'column', display: 'flex', gap: 10, padding: '2%' }}>
           <h2>Fill the form given below:</h2>
-          <ContactForm/>
+          <ContactForm to={'ferry'}/>
         </div>
       </Modal>
   )

@@ -6,6 +6,7 @@ import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
 import { v4 as uuid } from 'uuid'
 import firebase from 'firebase/compat/app';
 
+
 const ferrydb = db.collection('ferry')
 
 export default function AddFerryDetails({ details, ferryId }) {
@@ -23,13 +24,18 @@ export default function AddFerryDetails({ details, ferryId }) {
     const [image, setImage] = useState(details.image)
 
     // console.log(terms)
-    useEffect(() => {
+    function updateTicket() {
         ferrydb.doc(`${ferryId}`).get().then((snap) => {
             setTicket(snap.data().ticket)
             setClasses(snap.data().classes)
-            setSelectedTicket(null)
+            // setSelectedTicket(null)
         })
-    }, [ferryId])
+    }
+
+    useEffect(() => {
+        updateTicket()
+    }, [])
+
 
     function addTicket(e) {
         e.preventDefault();
@@ -44,10 +50,13 @@ export default function AddFerryDetails({ details, ferryId }) {
             duration: tg.duration.value,
             ticketId: uid
         }
-        console.log(ticket)
+        // console.log(ticket)
         ferrydb.doc(`${ferryId}`).update({
             ticket: firebase.firestore.FieldValue.arrayUnion(ticket)
-        }).then(() => console.log("added"))
+        }).then(() => {
+            updateTicket()
+            console.log("added")
+        })
 
     }
     //
@@ -61,7 +70,30 @@ export default function AddFerryDetails({ details, ferryId }) {
         }
         ferrydb.doc(`${ferryId}`).update({
             classes: firebase.firestore.FieldValue.arrayUnion(ticketClass)
-        }).then(() => console.log("added"))
+        }).then(() => {
+            updateTicket()
+            console.log("added")
+        })
+    }
+
+    function deleteTicket(i) {
+
+        const removedClass = classes.filter(f => f.ticketId != ticket[i].ticketId)
+        console.log(removedClass)
+        ferrydb.doc(`${ferryId}`).update({
+            classes: removedClass
+        })
+        const temPTicket = ticket
+        temPTicket.splice(i, 1)
+        ferrydb.doc(`${ferryId}`).update({
+            ticket: temPTicket
+        }).then(() => {
+            msg.success("deleted");
+            setSelectedTicket(null);
+            updateTicket()
+        })
+
+
     }
 
     function submit() {
@@ -86,7 +118,6 @@ export default function AddFerryDetails({ details, ferryId }) {
                         <div style={{ marginBottom: 10 }}>
                             <p>Class Name: {cl.className} {" | "}
                                 <span>Price: ₹{cl.price}</span>
-                                <span style={{ color: 'red', cursor: 'pointer' }}> <DeleteFilled /></span>
                             </p>
                         </div>
 
@@ -102,10 +133,10 @@ export default function AddFerryDetails({ details, ferryId }) {
         <div style={{ marginTop: '2%', flexDirection: 'column', display: 'flex', gap: 20 }}>
             {showMsg}
             <div>
-            <Space>
-            <h3 >Header Image Url:</h3>
-            <input required defaultValue={details.image} placeholder='Enter Meta Description' onChange={(e)=>setImage(e.target.value)}/>
-            </Space>
+                <Space>
+                    <h3 >Header Image Url:</h3>
+                    <input required defaultValue={details.image} placeholder='Enter Meta Description' onChange={(e) => setImage(e.target.value)} />
+                </Space>
             </div>
             <div>
                 <h3 style={{ marginBottom: 10 }}>About {details.name}:</h3>
@@ -126,7 +157,7 @@ export default function AddFerryDetails({ details, ferryId }) {
                                 <span>dep: {tk.departure}, arrival: {tk.arrival}</span>{" | "}
                                 <span>distance: {tk.distance}</span>{" | "}
                                 <span>duration: {tk.duration}</span>
-                                <span style={{ color: 'red', cursor: 'pointer' }}> <DeleteFilled /></span>
+                                <span style={{ color: 'red', cursor: 'pointer' }} onClick={() => { deleteTicket(i) }}> <DeleteFilled /></span>
                             </p>
                         </div>
 
@@ -192,13 +223,13 @@ export default function AddFerryDetails({ details, ferryId }) {
             </div>
             <Divider>SEO Section</Divider>
             <div>
-                <Space style={{marginRight:10}}>
+                <Space style={{ marginRight: 10 }}>
                     <p>Meata Description:</p>
-                    <input required defaultValue={details.metaDescription} placeholder='Enter Meta Description' onChange={(e)=>setMetaDescription(e.target.value)}/>
+                    <input required defaultValue={details.metaDescription} placeholder='Enter Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
                 </Space>
                 <Space>
                     <p>Meata Tag:</p>
-                    <input required defaultValue={details.metaTag} placeholder='Enter Meta Tag' onChange={(e)=>setMetaTag(e.target.value)}/>
+                    <input required defaultValue={details.metaTag} placeholder='Enter Meta Tag' onChange={(e) => setMetaTag(e.target.value)} />
                 </Space>
             </div>
             <div>

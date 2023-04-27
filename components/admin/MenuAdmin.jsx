@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined, BookOutlined } from '@ant-design/icons';
-import { FaList, FaNewspaper, FaShip } from 'react-icons/fa'
+import { FaGoogleDrive, FaList, FaMountain, FaNewspaper, FaShip } from 'react-icons/fa'
 import { Menu } from 'antd';
 
 import { mobile } from '../variables';
@@ -48,6 +48,9 @@ export default function MenuAdmin({ menuClick }) {
         <Menu.Item key={'addcruises'}>
           <p><FaShip /> Ferry</p>
         </Menu.Item>
+        <Menu.Item key={'island'}>
+          <p><FaMountain /> Island</p>
+        </Menu.Item>
         <Menu.SubMenu title={<p><FaNewspaper /> Pages</p>}>
           <Menu.Item key={'about-us'} >
             <p>About Us</p>
@@ -62,7 +65,9 @@ export default function MenuAdmin({ menuClick }) {
             <p>Disclaimer</p>
           </Menu.Item>
         </Menu.SubMenu>
-
+        <Menu.Item key={'drive2web'}>
+          <p><FaGoogleDrive/> Drive2Web</p>
+        </Menu.Item>
 
       </Menu>
     </div>

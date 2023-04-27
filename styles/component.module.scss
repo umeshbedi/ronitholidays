@@ -1,11 +1,11 @@
 $primary-color: #ff0000;
 $secondary-color:#25527b;
-
-$om:#e1f1ff;
+$lightGrey:rgb(241, 241, 241);
 
 :export {
   primaryColor: $primary-color;
-  secondaryColor:$secondary-color
+  secondaryColor:$secondary-color;
+  lightGrey:$lightGrey;
 }
 
 .AdminLogin{

@@ -2,7 +2,7 @@ import { DeleteFilled, PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd'
 import React, { useState } from 'react'
 
-export default function ContactForm({ packageName, packageDetail }) {
+export default function ContactForm({ packageName, packageDetail, to }) {
     const [date, setDate] = useState(null)
     const [loading, setLoading] = useState(false)
     const [msg, showMsg] = Modal.useModal()
@@ -76,7 +76,7 @@ export default function ContactForm({ packageName, packageDetail }) {
             setPassengers([...passengers, {
                 psName, psAge, psGender, psAadhar
             }])
-        }else{msg.info({title:'Attention!', content:"All fields are rquired"})}
+        } else { msg.info({ title: 'Attention!', content: "All fields are rquired" }) }
     }
 
     return (
@@ -114,40 +114,48 @@ export default function ContactForm({ packageName, packageDetail }) {
                     <DatePicker size='large'
                         onChange={(e, d) => setDate(d)}
                         format={"DD-MM-YYYY"}
+                        
                     />
 
                     <Form.Item name={"message"} style={{ margin: 0 }} required >
                         <Input.TextArea rows={4} placeholder='Write Message' required />
                     </Form.Item>
-                    <h3>Add Passenger Details (including self)</h3>
-                    {passengers.map((ps, i) => (
-                        <p key={i}><i><b>#{i+1}</b> {ps.psName} | {ps.psAge} | {ps.psGender} | {ps.psAadhar} </i>
-                        <DeleteFilled onClick={()=>{
-                             setPassengers([
-                                ...passengers.slice(0, i),
-                                ...passengers.slice(i + 1, passengers.length)
-                              ]);
-                        }} 
-                        style={{color:'red', cursor:'pointer', marginLeft:5}}/></p>
-                    ))}
-                    <Space>
-                        <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
-                        <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
-                        <Select
-                            placeholder={"Gender"}
-                            onSelect={setPsGender}
-                            options={genders.map((item, i) => {
-                                return ({
-                                    label: item,
-                                    value: item
-                                })
-                            })} />
-                        <Input type='number' placeholder='Aadhar Card' required onChange={(e) => setPsAadhar(e.target.value)} />
 
-                    </Space>
-                    <div>
-                        <Button onClick={addPassenger} type='dashed'><PlusOutlined /> Add Passengers</Button>
+                    {to=='ferry'&&
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
+                        <h3>Add Passenger Details (including self)</h3>
+                        {passengers.map((ps, i) => (
+                            <p key={i}><i><b>#{i + 1}</b> {ps.psName} | {ps.psAge} | {ps.psGender} | {ps.psAadhar} </i>
+                                <DeleteFilled onClick={() => {
+                                    setPassengers([
+                                        ...passengers.slice(0, i),
+                                        ...passengers.slice(i + 1, passengers.length)
+                                    ]);
+                                }}
+                                    style={{ color: 'red', cursor: 'pointer', marginLeft: 5 }} /></p>
+                        ))}
+                        <Space>
+                            <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
+                            <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
+                            <Select
+                                placeholder={"Gender"}
+                                onSelect={setPsGender}
+                                options={genders.map((item, i) => {
+                                    return ({
+                                        label: item,
+                                        value: item
+                                    })
+                                })} />
+                            <Input type='number' placeholder='Aadhar Card' required onChange={(e) => setPsAadhar(e.target.value)} />
+
+                        </Space>
+                        <div>
+                            <Button onClick={addPassenger} type='dashed'><PlusOutlined /> Add Passengers</Button>
+                        </div>
+                    
                     </div>
+                    }
+
 
                     <Button type='primary' htmlType='submit' size='large' loading={loading}>Send Query</Button>
                 </div>
