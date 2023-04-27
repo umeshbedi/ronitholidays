@@ -83,7 +83,7 @@ export default function Admin() {
       setContent(<Island />)
     }
     else if(e == 'drive2web'){
-      setContent(<Island />)
+      setContent(<Drive2Web />)
     }
     else{
       setContent(<PageUpdate pageName={e} />)
