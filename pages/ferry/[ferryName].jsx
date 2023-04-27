@@ -5,6 +5,7 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import TicketQuery from '@/components/TicketQuery'
+import WaveSvg from '@/components/WaveSvg'
 
 
 export default function Slug({ data }) {
@@ -43,17 +44,16 @@ export default function Slug({ data }) {
 
       <div>
         {showMsg}
-        <div style={{ display: 'flex', justifyContent: 'center', }}>
-          <div style={{
-            width: '90%',
-            height: 400,
-            backgroundSize: 'cover',
-            backgroundImage: `url("https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-small-fresh-table-sea-blue-background-image_785331.jpg")`,
-            borderRadius: 20,
-            marginTop: '3%'
-          }}
-          />
-        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                    <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
+                        <WaveSvg fill={style.lightGrey} />
+                    </div>
+                    <img src={data.image} alt={data.name}
+                        style={{ height: 450, width: '100%', objectFit: 'cover' }}
+                    />
+                </div>
+        
         <div style={{ display: 'flex', justifyContent: 'center', }}>
 
           <div style={{ width: '90%', display: "flex", gap: '3%', marginTop: '3%' }}>

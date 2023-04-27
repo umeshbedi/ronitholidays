@@ -10,20 +10,21 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import WaveSvg from '@/components/WaveSvg'
+import style from '@/styles/component.module.scss'
 
 
 export default function TermsAndCondition({ data }) {
-    const [messageApi, contextHolder] = message.useMessage()
-   
+
     const [visible, setVisible] = useState(false);
 
     const [packageName, setPackageName] = useState(null)
     const [packageDetail, setPackageDetail] = useState(null)
 
 
-   function Include({ icon, name }) {
+    function Include({ icon, name }) {
         return (
-            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Image src={icon} alt={name} width={24} height={24} />
                 <p style={{ fontSize: '95%' }}>{name}</p>
             </div>
@@ -40,27 +41,30 @@ export default function TermsAndCondition({ data }) {
                 <meta name="keywords" content={data.metaTag}></meta>
             </Head>
             <div>
-                {contextHolder}
-                <Carousel autoplay arrows dots={false} draggable speed={3000}
-                    prevArrow={<LeftOutlined />}
-                    nextArrow={<RightOutlined />}
-                    style={{ width: '90%', marginLeft: '5%', marginTop: '3%', borderRadius: 20 }}
+                <div style={{display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
+                    <div style={{ width: '100%', height: '68px', position: 'absolute', zIndex: 1 }}>
+                        <WaveSvg fill={style.lightGrey} />
+                    </div>
+                    <Carousel autoplay arrows dots={false} draggable speed={3000}
+                        prevArrow={<LeftOutlined />}
+                        nextArrow={<RightOutlined />}
+                    >
+                        {
+                            data.images.map((item, index) => (
+                                <div key={index}>
+                                    <div
+                                        style={{ height: 400, background: `url(${item})`, backgroundSize: 'cover', cursor: 'pointer' }}
+                                        onClick={() => setVisible(true)}
+                                    >
 
-                >
-                    {
-                        data.images.map((item, index) => (
-                            <div key={index}>
-                                <div
-                                    style={{ height: 400, background: `url(${item})`, backgroundSize: 'cover', borderRadius: 20, margin: '0 5px', cursor: 'pointer' }}
-                                    onClick={() => setVisible(true)}
-                                >
-
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
 
-                </Carousel>
+                    </Carousel>
+
+                </div>
 
 
                 <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
@@ -72,7 +76,7 @@ export default function TermsAndCondition({ data }) {
 
                             <div>
                                 <h2>Includes</h2>
-                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "repeat(3, auto)", marginTop:'3%' }}>
+                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "repeat(3, auto)", marginTop: '3%' }}>
                                     <Include icon={'/icons/breakfast.svg'} name={'Breakfast'} />
                                     <Include icon={'/icons/dinner.svg'} name={'Dinner'} />
                                     <Include icon={'/icons/island-tour.svg'} name={'Island Tour'} />
@@ -156,7 +160,7 @@ export async function getStaticProps(context) {
         return ({ id: entry.id, ...entry.data() })
     });
 
-    if (entry.length==0) {
+    if (entry.length == 0) {
         return {
             notFound: true
         };
@@ -164,8 +168,8 @@ export async function getStaticProps(context) {
 
     const getData = await db.doc(`package/${entry[0].id}`).collection("singlePackage").where("slug", "==", `/package/${packageGroupName}/${packagName}`).get()
     const data = getData.docs.map((d) => (d.data()))
-    
-    if (data.length==0) {
+
+    if (data.length == 0) {
         return {
             notFound: true
         };
