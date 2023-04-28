@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Space, Button, Divider, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import JoditEditor from 'jodit-react';
 import { db } from '@/firebase';
 import firebase from 'firebase/compat/app';
+import style from '@/styles/component.module.scss'
 
 
-export default function AddIslandDetails({ IslandId, IslandSlug }) {
+export default function AddIslandDetails({ IslandId, IslandSlug, SIPD, action, update, addnewPlace }) {
     const [thumbnail, setThumbnail] = useState("")
     const [name, setName] = useState("")
     const [about, setAbout] = useState("")
@@ -14,11 +15,29 @@ export default function AddIslandDetails({ IslandId, IslandSlug }) {
 
     const [msg, showMsg] = message.useMessage()
 
+    const nameRef = useRef()
+    const thumbRef = useRef()
+    const metaDecRef = useRef()
+
+    useEffect(() => {
+        if (SIPD != null && action == 'edit') {
+            thumbRef.current.value = SIPD.thumbnail;
+            nameRef.current.value = SIPD.name;
+            metaDecRef.current.value = SIPD.metaDescription;
+            setAbout(SIPD.about)
+        }else{
+            thumbRef.current.value = "";
+            nameRef.current.value = "";
+            metaDecRef.current.value = "";
+            setAbout("")
+        }
+    }, [SIPD, action])
+
     function addIslandItem() {
-        if (thumbnail != "" && name != "" && about != ""&& about!="<p><br></p>"&&metaDescription!="") {
+        if (thumbnail != "" && name != "" && about != "" && about != "<p><br></p>" && metaDescription != "") {
             db.doc(`island/${IslandId}`).update({
                 data: firebase.firestore.FieldValue.arrayUnion({
-                    thumbnail, name, about,metaDescription,
+                    thumbnail, name, about, metaDescription,
                     slug: `${IslandSlug}/${name.split(" ").join("-")}`
                 })
             }).then(() => {
@@ -26,6 +45,10 @@ export default function AddIslandDetails({ IslandId, IslandSlug }) {
                 setThumbnail("")
                 setName("")
                 setAbout("")
+                thumbRef.current.value = "";
+                nameRef.current.value = "";
+                metaDecRef.current.value = "";
+                
             })
         } else {
             msg.error("All fields are required")
@@ -36,30 +59,43 @@ export default function AddIslandDetails({ IslandId, IslandSlug }) {
             {showMsg}
             <Divider />
             <div style={{ flexDirection: 'column', display: 'flex', gap: 10 }}>
+                {SIPD!=null&&
+                    <h2 style={{color:style.secondaryColor, marginBottom:15}}><i> Edit {SIPD.name}</i></h2>
+                }
                 <div>
                     <Space>
                         <h3 >Name of Place:</h3>
-                        <input required placeholder='Enter Name of Place' onChange={(e) => setName(e.target.value)} />
+                        <input ref={nameRef} required placeholder='Enter Name of Place' onChange={(e) => setName(e.target.value)} />
                     </Space>
                 </div>
                 <div>
                     <Space>
                         <h3 >Thumbnail Url:</h3>
-                        <input required placeholder='Enter Thumbnail Url' onChange={(e) => setThumbnail(e.target.value)} />
+                        <input ref={thumbRef} required placeholder='Enter Thumbnail Url' onChange={(e) => setThumbnail(e.target.value)} />
                     </Space>
                 </div>
                 <div>
                     <h3 style={{ marginBottom: 10 }}>About Place:</h3>
-                    <JoditEditor onChange={e => { setAbout(e) }} />
+                    <JoditEditor value={about} onChange={e => { setAbout(e) }} />
                 </div>
                 <div>
                     <Space>
                         <h3 >Meta Description:</h3>
-                        <input required placeholder='Enter short Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
+                        <input ref={metaDecRef} required placeholder='Enter short Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
                     </Space>
                 </div>
+                <Divider/>
                 <div>
-                    <Button onClick={addIslandItem} type='primary'><PlusOutlined /> Add Place</Button>
+                    <Space>
+                        {action=='new'?
+                        (<Button onClick={addIslandItem} type='primary'><PlusOutlined /> Add Place</Button>)
+                        :
+                        (<>
+                        <Button onClick={()=>update(name, about, metaDescription, thumbnail)} type='primary'> Submit changes</Button>
+                        <Button onClick={addnewPlace} ><PlusOutlined /> Add New Place</Button>
+                        </>)
+                    }
+                    </Space>
                 </div>
             </div>
         </div>

@@ -28,20 +28,35 @@ body {
   max-width: 100vw;
   background-color: rgb(241, 241, 241);
 
+
   a {
     color: inherit;
     text-decoration: none;
-
+    font-size: 18px;
   }
 
   a:hover {
     color: #fc4131;
+    
   }
 
   p {
-    font-size: 16px;
+    font-size: 18px;
   }
-
+  h1{
+    font-size: 30px;
+  }
+  h3{
+    font-size: 18px;
+  }
+  h4{
+    font-size: 18px;
+  }
+  h2{
+    font-size: 24px;
+  }
+  
+ 
   input {
     width: 100%;
     padding: 4px 11px;
@@ -135,14 +150,15 @@ body {
 }
 
 #packageContainer {
-  h1 {
-    font-size: 200%;
-  }
-
   p {
-    color: grey;
-    line-height: 140%;
+   line-height: 140%;
   }
+  li{
+    font-size: 18px;
+    margin-left: 5%;
+  }
+  
+  
 }
 
 .APDC {
@@ -167,4 +183,20 @@ body {
 #cardImage:hover {
   transition: .5s;
   transform: scale(1.02);
+}
+
+#menuDiv{
+  p{
+    font-size: 15px;
+  }
+  a{
+    font-size: 15px;
+  }
+}
+
+#aboutFerry, #termAndCondtionFerry,#aboutIsland{
+  img{
+    width: 100%;
+    height: auto;
+  }
 }

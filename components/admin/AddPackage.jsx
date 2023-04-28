@@ -110,7 +110,8 @@ export default function AddPackage() {
                     exclusion: "",
                     metaDescription: "",
                     metaTag: "",
-                    status: 'draft'
+                    status: 'draft',
+                    includeIcon:[]
 
                 })
                 .then(() => {

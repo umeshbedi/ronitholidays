@@ -15,18 +15,18 @@ export default function Slug({ data }) {
   const [openModal, setOpenModal] = useState(false)
   const [modalData, setModalData] = useState({})
 
-  if (data == undefined) return <Skeleton />
+  if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
   
   const tabItem = [
     {
       label: `About ${data.name}`,
       key: 1,
-      children: <String2Html id={'about'} string={data.about} />,
+      children: <String2Html id={'aboutFerry'} string={data.about} />,
     },
     {
       label: `Terms and Conditions`,
       key: 2,
-      children: <String2Html id={'termAndCondtion'} string={data.termAndCondtion} />,
+      children: <String2Html id={'termAndCondtionFerry'} string={data.termAndCondtion} />,
     }
   ]
 

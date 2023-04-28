@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 export default function IslandName({ data }) {
 
-    if (data == undefined) return <Skeleton />
+    if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
     console.log(data)
     return (
         <main>
