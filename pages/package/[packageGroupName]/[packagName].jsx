@@ -25,8 +25,8 @@ export default function TermsAndCondition({ data }) {
     function Include({ icon, name }) {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Image src={icon} alt={name} width={24} height={24} />
-                <p style={{ fontSize: '95%' }}>{name}</p>
+                <Image src={icon} alt={name} width={40} height={40} />
+                <p >{name}</p>
             </div>
         )
     }
@@ -40,7 +40,7 @@ export default function TermsAndCondition({ data }) {
                 <meta name="description" content={data.metaDescription}></meta>
                 <meta name="keywords" content={data.metaTag}></meta>
             </Head>
-            <div>
+            <div id='packageDiv'>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
                     <div style={{ width: '100%', height: '68px', position: 'absolute', zIndex: 1 }}>
                         <WaveSvg fill={style.lightGrey} />
@@ -71,17 +71,16 @@ export default function TermsAndCondition({ data }) {
                     <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
                         <div style={{ width: "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
                             <h1 id='packageTitle'>{data.title}</h1>
-                            <h3 id='packageDetail' style={{ color: 'grey' }}><ClockCircleFilled /> {data.subtitle}</h3>
+                            <h3 id='packageDetail' ><ClockCircleFilled /> {data.subtitle}</h3>
                             <Divider style={{ margin: '2%' }} />
 
                             <div>
                                 <h2>Includes</h2>
-                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "repeat(3, auto)", marginTop: '3%' }}>
-                                    <Include icon={'/icons/breakfast.svg'} name={'Breakfast'} />
-                                    <Include icon={'/icons/dinner.svg'} name={'Dinner'} />
-                                    <Include icon={'/icons/island-tour.svg'} name={'Island Tour'} />
-                                    <Include icon={'/icons/sightseeing_pack.svg'} name={'Sightseeing'} />
-                                    <Include icon={'/icons/tour-coordinator.svg'} name={'Tour Coordinator'} />
+                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: "repeat(4, auto)", marginTop: '3%' }}>
+                                    {data.includeIcon.map((item, i)=>(
+                                     <Include key={i} icon={item.icon} name={item.name} />
+                                    ))}
+                                    
                                 </div>
                             </div>
 

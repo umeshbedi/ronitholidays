@@ -19,6 +19,10 @@ export default function Island() {
     const [selectedIsland, setselectedIsland] = useState(null)
     const [islandItem, setislandItem] = useState([])
     const [SID, setSID] = useState(null)
+    const [SIPD, setSIPD] = useState(null)
+    const [SIPI, setSIPI] = useState(null)
+
+    const [action, setAction] = useState("new")
 
     const [msg, showMsg] = message.useMessage()
 
@@ -48,8 +52,12 @@ export default function Island() {
 
     function deleteIsland() {
         if (confirm("are you sure want to delete??")) {
-            Islanddb.doc(`${selectedIsland}`).delete().then(() => msg.success("deleted"))
+            Islanddb.doc(`${selectedIsland}`).delete().then(() =>
+                msg.success("deleted"))
             setselectedIsland(null)
+            setSIPD(null)
+            setSIPI(null)
+            setAction("new")
         } else { console.log("denied") }
     }
 
@@ -58,16 +66,30 @@ export default function Island() {
             const result = islandItem.find(f => f.id == selectedIsland)
             setSID(result)
         }
-    }, [selectedIsland,islandItem])
+    }, [selectedIsland, islandItem])
 
     // console.log(SID)
 
+    function updatePlace(name, about, metaDescription, thumbnail) {
+        const tempSIPD = SID.data
+        const editedPlace = {about, metaDescription, name, thumbnail,
+            slug: tempSIPD[SIPI].slug,
+            
+        }
+        tempSIPD[SIPI] = editedPlace
+        Islanddb.doc(`${selectedIsland}`).update({
+            data:tempSIPD
+        }).then(()=>{
+            msg.success("updated")
+        })
+    }
+
     function deletePlace(i) {
         const tempPlace = SID.data
-        tempPlace.splice(i,1)
+        tempPlace.splice(i, 1)
         Islanddb.doc(`${selectedIsland}`).update({
-            data:tempPlace
-        }).then(()=>msg.success("deleted"))
+            data: tempPlace
+        }).then(() => {msg.success("deleted");setSIPD(null);setAction("new"); setSIPI(null)})
     }
 
     return (
@@ -100,14 +122,16 @@ export default function Island() {
                         {SID.data.length != 0 &&
                             <div>
                                 <Divider />
-                                <h3 style={{marginBottom:'2%'}}>Places of {SID.name}</h3>
+                                <h3 style={{ marginBottom: '2%' }}>Places of {SID.name}</h3>
                                 {SID.data.map((d, i) => (
                                     <div key={i} style={{ display: 'flex', gap: 10, color: '#25527b' }}>
                                         <p> <b> #{i + 1}:</b></p>
                                         <div style={{ marginBottom: 10 }}>
                                             <p>{d.name}  {" | "}
-                                                <span style={{cursor:'pointer'}}><EditFilled/> {" | "} <DeleteFilled 
-                                                onClick={()=>deletePlace(i)} style={{color:'red'}}/></span>
+                                                <span style={{ cursor: 'pointer' }}><EditFilled onClick={() => {
+                                                    setAction("edit"); setSIPD(d); setSIPI(i)
+                                                }} /> {" | "} <DeleteFilled
+                                                        onClick={() => deletePlace(i)} style={{ color: 'red' }} /></span>
                                             </p>
                                         </div>
 
@@ -115,7 +139,14 @@ export default function Island() {
                                 ))}
                             </div>
                         }
-                        <AddIslandDetails IslandSlug={SID.slug} IslandId={selectedIsland} />
+                        <AddIslandDetails
+                            action={action}
+                            SIPD={SIPD}
+                            IslandSlug={SID.slug}
+                            IslandId={selectedIsland}
+                            update={updatePlace}
+                            addnewPlace={()=>{setSIPD(null);setAction("new"); setSIPI(null)}}
+                        />
                     </>
                 }
             </div>

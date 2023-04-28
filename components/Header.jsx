@@ -74,11 +74,11 @@ export default function Header() {
                 key={index}
               >
                 <Menu.Item style={{ backgroundColor: 'white' }}>
-                  <Link href={item.slug}> <p style={{ fontSize: 15 }}><b>{item.name}</b></p></Link>
+                  <Link target='blank' href={item.slug}> <p ><b>{item.name}</b></p></Link>
                 </Menu.Item>
                 {item.singlePackage.map((e, key) => (
                   <Menu.Item key={key}>
-                    <Link href={e.slug}>{e.name}</Link>
+                    <Link target='blank' href={e.slug}>{e.name}</Link>
                   </Menu.Item>
                 ))
 
@@ -116,16 +116,16 @@ export default function Header() {
         <Menu.Item key={'home'}>
           <Link href={'/'}>Home</Link>
         </Menu.Item>
-        <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Know{isMobile ? null : <FaAngleDown />}</p>}>
+        <Menu.SubMenu title={<p >Know{isMobile ? null : <FaAngleDown />}</p>}>
           <Menu.Item key={'about'}>
-            <Link href={'/page/about-us'}>About Us</Link>
+            <Link target='blank' href={'/page/about-us'}>About Us</Link>
           </Menu.Item>
           <Menu.Item key={'visit_andman'}>
-            <Link href={'#'}>How to Visit Andman</Link>
+            <Link target='blank' href={'#'}>How to Visit Andman</Link>
           </Menu.Item>
         </Menu.SubMenu>
 
-        <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Island{isMobile ? null : <FaAngleDown />}</p>}>
+        <Menu.SubMenu title={<p >Island{isMobile ? null : <FaAngleDown />}</p>}>
           {
             islandList.map((name, key) => (
               <Menu.Item key={key}>
@@ -136,7 +136,7 @@ export default function Header() {
         </Menu.SubMenu>
 
         <Menu.SubMenu
-          title={<p style={{ fontSize: 14 }}>Package{isMobile ? null : <FaAngleDown />}</p>}
+          title={<p >Package{isMobile ? null : <FaAngleDown />}</p>}
         >
           <Menu.Item key={'package'} style={{ height: 'fit-content', backgroundColor: 'white' }}>
             {packages.length != 0 &&
@@ -146,12 +146,12 @@ export default function Header() {
         </Menu.SubMenu>
 
         <Menu.SubMenu
-          title={<p style={{ fontSize: 14 }}>Activity{isMobile ? null : <FaAngleDown />}</p>}
+          title={<p >Activity{isMobile ? null : <FaAngleDown />}</p>}
         >
           <div style={{display:'grid', gridTemplateColumns:"repeat(4, auto)"}}>
           {activity.map((act, key) => (
             <Menu.Item key={key}>
-              <Link href={'/activity/' + act}>{act}</Link>
+              <Link target='blank' href={'/activity/' + act}>{act}</Link>
             </Menu.Item>
           ))
 
@@ -159,7 +159,7 @@ export default function Header() {
           </div>
         </Menu.SubMenu>
 
-        <Menu.SubMenu title={<p style={{ fontSize: 14 }}>Ferry{isMobile ? null : <FaAngleDown />}</p>}>
+        <Menu.SubMenu title={<p >Ferry{isMobile ? null : <FaAngleDown />}</p>}>
           {
             ferryList.map((ferry, key) => (
               <Menu.Item key={key}>
@@ -169,17 +169,17 @@ export default function Header() {
           }
         </Menu.SubMenu>
         <Menu.Item key={'blog'}>
-          <Link href={'/blog'}>Blog</Link>
+          <Link target='blank' href={'/blog'}>Blog</Link>
         </Menu.Item>
         <Menu.Item key={'contact'}>
-          <Link href={'/contact-us'}>Contact Us</Link>
+          <Link target='blank' href={'/contact-us'}>Contact Us</Link>
         </Menu.Item>
       </Menu>
     )
   }
 
   return (
-    <div style={{ padding: '2% 5% 1% 5%', backgroundColor: 'white', }}>
+    <div style={{ padding: '2% 5% 1% 5%', backgroundColor: 'white', }} id='menuDiv'>
 
       <Drawer
         placement='right'

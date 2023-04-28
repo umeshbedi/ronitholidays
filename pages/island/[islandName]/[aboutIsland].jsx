@@ -10,11 +10,11 @@ import { boxShadow } from '@/components/variables'
 
 export default function AboutIsland({ data, headerImage, islandItem, headerImgAlt }) {
     // console.log(islandItem)
-    if (data == undefined) return <Skeleton />
+    if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
     const remainingData = data.filter((f)=>{
         return f.slug!=islandItem.slug;
     })
-    console.log(remainingData)
+    // console.log(remainingData)
     return (
         <main>
             <Head>

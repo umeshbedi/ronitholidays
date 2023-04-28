@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ImageUpload from './ImageUpload';
 import TravelJourney from './TravelJourney';
+import { IncludesIconName } from '../variables';
 
 
 const packagedb = db.collection("package")
@@ -22,6 +23,8 @@ export default function AddPackageDetail() {
     const [selectedGroupPackageDetail, setselectedGroupPackageDetail] = useState([])
     const [selectedSinglePackage, setSelectedSinglePackage] = useState(null)
     const [sSPD, setsSPD] = useState(null)
+    
+    let tempIcon = []
 
     useEffect(() => {
         packagedb.onSnapshot((snap) => {
@@ -40,7 +43,7 @@ export default function AddPackageDetail() {
 
     }, [])
 
-    
+
     useEffect(() => {
         if (selectedGroupPackage != null) {
             packagedb.doc(`${selectedGroupPackage}`)
@@ -65,11 +68,19 @@ export default function AddPackageDetail() {
         if (selectedSinglePackage != null) {
             const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
             setsSPD(result)
+            // setIncludeIcon(result.includeIcon)
         }
     }, [selectedSinglePackage])
 
 
     function submitPackageDetail(val) {
+
+        const tempIncludeIcon = []
+        tempIcon.forEach((item)=>{
+            const res = IncludesIconName.find(f=>f.name==item)
+            tempIncludeIcon.push(res)
+        });
+
         packagedb.doc(`${selectedGroup}`)
             .collection("singlePackage").doc(`${selectedSinglePackage}`)
             .update({
@@ -78,10 +89,11 @@ export default function AddPackageDetail() {
                 highlights: val.highlights,
                 inclusion: val.inclusion,
                 overview: val.overview,
-                exclusion:val.exclusion,
-                metaDescription:val.metaDescription,
-                metaTag:val.metaTag,
-                status:'published'
+                exclusion: val.exclusion,
+                metaDescription: val.metaDescription,
+                metaTag: val.metaTag,
+                status: 'published',
+                includeIcon:tempIncludeIcon
             })
             .then(() => {
                 messageApi.success("Added Package Details Successfully")
@@ -109,11 +121,39 @@ export default function AddPackageDetail() {
                             <Input required placeholder='Enter Package SubTitle' />
                         </Form.Item>
 
+                        <Form.Item name='includeIcon' label={"Include Icon"}>
+                            <Select
+                                mode="multiple"
+                                allowClear
+                                style={{
+                                  width: '100%',
+                                }}
+                                placeholder={"select includes icon and Name"}
+                                defaultValue={sSPD.includeIcon.map((item)=>{
+                                    return item.name;
+                                })}
+                                
+                                onChange={(e)=>{
+                                    const tempArr = e;
+                                    tempIcon = [...tempArr]
+                                    // console.log(temparrr)
+
+                                }}
+                                options={IncludesIconName.map((item) => {
+                                    return {
+                                        label: item.name,
+                                        value: item.name
+                                    }
+                                })}
+                            />
+                        </Form.Item>
+
+
                         <Form.Item name='overview' initialValue={sSPD.overview} label={"OverView"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
                         </Form.Item>
-                        
-                        <TravelJourney data={sSPD.travelJourney} groupId={selectedGroup} packageId={selectedSinglePackage}/>
+
+                        <TravelJourney data={sSPD.travelJourney} groupId={selectedGroup} packageId={selectedSinglePackage} />
 
                         <Form.Item name='highlights' initialValue={sSPD.highlights} label={"Highlights"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
@@ -124,11 +164,11 @@ export default function AddPackageDetail() {
                         <Form.Item name='exclusion' initialValue={sSPD.exclusion} label={"Inclusion"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
                         </Form.Item>
-                       
+
 
                         <ImageUpload to={"Thumbnails"} groupId={selectedGroup} packageId={selectedSinglePackage} />
                         <ImageUpload to={"Images"} groupId={selectedGroup} packageId={selectedSinglePackage} />
-                        
+
                         <Divider>Seo Section</Divider>
                         <Form.Item name='metaDescription' initialValue={sSPD.metaDescription} label={"Short Meta Description"} >
                             <Input required placeholder='Short Description' />
