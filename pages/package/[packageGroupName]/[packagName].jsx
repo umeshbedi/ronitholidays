@@ -91,6 +91,11 @@ export default function TermsAndCondition({ data }) {
 
                             <Divider style={{ margin: '2%' }} />
 
+                            <h2>Highlights</h2>
+                            <String2Html id={'highlights'} string={data.highlights} />
+
+                            <Divider style={{ margin: '2%' }} />
+
                             <h2>Travel Journey</h2>
                             <Collapse size='large' defaultActiveKey={0} accordion={true} style={{ background: 'none' }}>
                                 {data.travelJourney.map((tj, i) => (
@@ -104,12 +109,12 @@ export default function TermsAndCondition({ data }) {
                                 }
                             </Collapse>
 
-                            <h2>Highlights</h2>
-                            <String2Html id={'highlights'} string={data.highlights} />
-
+                            <Divider style={{ margin: '2%' }} />
 
                             <h2>Inclusion</h2>
                             <String2Html id={'inclusion'} string={data.inclusion} />
+
+                            <Divider style={{ margin: '2%' }} />
 
                             <h2>Exclusions</h2>
                             <String2Html id={'exclusion'} string={data.exclusion} />

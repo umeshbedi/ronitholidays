@@ -24,6 +24,9 @@ export default function AddIslandDetails({ IslandId, IslandSlug, SIPD, action, u
             thumbRef.current.value = SIPD.thumbnail;
             nameRef.current.value = SIPD.name;
             metaDecRef.current.value = SIPD.metaDescription;
+            setName(SIPD.name)
+            setThumbnail(SIPD.thumbnail)
+            setMetaDescription(SIPD.metaDescription)
             setAbout(SIPD.about)
         }else{
             thumbRef.current.value = "";

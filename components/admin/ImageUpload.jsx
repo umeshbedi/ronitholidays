@@ -13,14 +13,14 @@ export default function ImageUpload({ to, groupId, packageId }) {
     useEffect(() => {
         packagedb.onSnapshot((snap) => {
             if (to == "Thumbnails") {
-                if (snap.data().thumbnail!="") {
+                if (snap.data().thumbnail != "") {
                     setImages([snap.data().thumbnail])
-                }else{
+                } else {
                     setImages([])
                 }
             }
             else {
-                setImages(snap.data().images)
+                to != 'Photos' ? setImages(snap.data().images) : setImages([]);
             }
 
         })
@@ -50,12 +50,22 @@ export default function ImageUpload({ to, groupId, packageId }) {
                         if (to == "Images") {
                             packagedb.update({
                                 images: firebase.firestore.FieldValue.arrayUnion(data.link)
-                            }).then(() => messageApi.open({ key: 'updatable', type: 'success', content: 'Loaded' }))
+                            }).then(() => messageApi.open({ key: 'updatable', type: 'success', content: 'Uploaded' }))
+                        }
+                        else if (to == "Photos") {
+                            db.collection("media").add({
+                                deletehash: data.deletehash,
+                                imageID: data.id,
+                                link: data.link,
+                                width: data.width,
+                                height: data.height,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            }).then(() => messageApi.open({ key: 'updatable', type: 'success', content: 'Uploaded' }))
                         }
                         else {
                             packagedb.update({
                                 thumbnail: data.link
-                            }).then(() => messageApi.open({ key: 'updatable', type: 'success', content: 'Loaded' }))
+                            }).then(() => messageApi.open({ key: 'updatable', type: 'success', content: 'Uploaded' }))
                         }
 
 
@@ -118,7 +128,7 @@ export default function ImageUpload({ to, groupId, packageId }) {
                                 packagedb.update({
                                     images: firebase.firestore.FieldValue.arrayRemove(image)
                                 })
-                            }else{
+                            } else {
                                 packagedb.update({
                                     thumbnail: ""
                                 })

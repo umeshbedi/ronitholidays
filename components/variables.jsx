@@ -81,7 +81,7 @@ export function ImageFooter({ text, onPress }) {
   )
 }
 
-export const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.1)'
+export const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.3)'
 
 export function MinusPlus({ text, number, pluOnPress, minusOnPress, subText }) {
   return (

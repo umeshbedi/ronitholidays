@@ -9,8 +9,8 @@ import Link from 'next/link'
 
 export default function IslandName({ data }) {
 
-    if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
-    console.log(data)
+    if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
+    // console.log(data)
     return (
         <main>
             <Head>
@@ -28,20 +28,43 @@ export default function IslandName({ data }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3%', gap: 30 }}>
                     <h1>Places to Visit in {data.name}</h1>
-                    <div style={{ display: 'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '7%' }}>
-                        {data.data.map((item, i) => (
-                            <Link key={i} href={item.slug}>
-                                <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width:260 }}>
-                                    <Image
-                                        src={item.thumbnail}
-                                        alt={item.name}
-                                        preview={false}
-                                        width={260} height={280}
-                                        style={{ objectFit: 'cover', borderTopLeftRadius: 20, borderTopRightRadius: 20 }} />
-                                    <h2 style={{ padding: '5%' }}>{item.name}</h2>
-                                </div>
-                            </Link>
-                        ))}
+                    <div style={{ display: 'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: '90%', justifyContent: 'center' }}>
+                        {data.data.map((item, i) => {
+                            var newUrl = "";
+                            const splitedUrl = item.thumbnail.split(".");
+                            
+                            if (splitedUrl=="imgur") {
+                                splitedUrl[2] = splitedUrl[2] + "m";
+                                newUrl = splitedUrl.join('.')
+                            }else{
+                                newUrl=item.thumbnail
+                            }
+
+                            return (
+                                <Link key={i} href={item.slug}>
+                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 260, height: 370, overflow: 'hidden' }}>
+                                        <Image
+                                            src={newUrl}
+                                            alt={item.name}
+                                            preview={false}
+                                            width={260} height={280}
+                                            placeholder={
+                                                <Image
+                                                    preview={false}
+                                                    src="/images/Loading_icon.gif"
+                                                    width={260}
+                                                    height={280}
+                                                    style={{ objectFit: 'cover' }}
+                                                />
+                                            }
+                                            style={{ objectFit: 'cover', borderTopLeftRadius: 20, borderTopRightRadius: 20 }} />
+                                        <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <h2 style={{ padding: '5%' }}>{item.name}</h2>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )
+                        })}
                     </div>
                 </div>
             </div>

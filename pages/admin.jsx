@@ -17,6 +17,7 @@ const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDeta
 const Ferry = dynamic(() => import('../components/admin/Ferry'), { ssr: false, loading: () => <Skeleton /> })
 const Island = dynamic(() => import('../components/admin/Island'), { ssr: false, loading: () => <Skeleton /> })
 const Drive2Web = dynamic(() => import('../components/admin/Drive2Web'), { ssr: false, loading: () => <Skeleton /> })
+const Media = dynamic(() => import('../components/admin/Media'), { ssr: false, loading: () => <Skeleton /> })
 
 
 export default function Admin() {
@@ -84,6 +85,9 @@ export default function Admin() {
     }
     else if(e == 'drive2web'){
       setContent(<Drive2Web />)
+    }
+    else if(e == 'media'){
+      setContent(<Media />)
     }
     else{
       setContent(<PageUpdate pageName={e} />)
