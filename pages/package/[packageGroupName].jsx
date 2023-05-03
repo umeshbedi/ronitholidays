@@ -35,8 +35,18 @@ export default function TermsAndCondition({ entry, data }) {
                         <h1 style={{ fontSize: '200%', marginBottom: '3%', textAlign: 'center' }}>Andaman Best {entry.name} Packages</h1>
 
                         <div style={{ display: 'grid', gridGap: 30, gridTemplateColumns: "repeat(4, auto)" }}>
-                            {data.map((image, i) => (
-                                <Link key={i} href={image.slug}>
+                            {data.map((image, i) => {
+                                var newUrl = "";
+                                const splitedUrl = image.thumbnail.split(".");
+                                
+                                if (splitedUrl=="imgur") {
+                                    splitedUrl[2] = splitedUrl[2] + "m";
+                                    newUrl = splitedUrl.join('.')
+                                }else{
+                                    newUrl=image.thumbnail
+                                }
+                                return(
+                                <Link key={i} href={newUrl}>
                                     <Image 
                                         style={{ borderRadius: 20, boxShadow: boxShadow }} 
                                         src={image.thumbnail} alt={image.name}
@@ -46,10 +56,11 @@ export default function TermsAndCondition({ entry, data }) {
                                             src='/images/Loading_icon.gif'
                                             width={250}
                                             height={250}
+                                            style={{objectFit:'cover'}}
                                         />}
                                     />
                                 </Link>
-                            ))
+                            )})
 
                             }
                         </div>

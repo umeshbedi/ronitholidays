@@ -23,7 +23,7 @@ export default function AddPackageDetail() {
     const [selectedGroupPackageDetail, setselectedGroupPackageDetail] = useState([])
     const [selectedSinglePackage, setSelectedSinglePackage] = useState(null)
     const [sSPD, setsSPD] = useState(null)
-    
+
     let tempIcon = []
 
     useEffect(() => {
@@ -76,8 +76,8 @@ export default function AddPackageDetail() {
     function submitPackageDetail(val) {
 
         const tempIncludeIcon = []
-        tempIcon.forEach((item)=>{
-            const res = IncludesIconName.find(f=>f.name==item)
+        tempIcon.forEach((item) => {
+            const res = IncludesIconName.find(f => f.name == item)
             tempIncludeIcon.push(res)
         });
 
@@ -93,7 +93,7 @@ export default function AddPackageDetail() {
                 metaDescription: val.metaDescription,
                 metaTag: val.metaTag,
                 status: 'published',
-                includeIcon:tempIncludeIcon
+                includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon
             })
             .then(() => {
                 messageApi.success("Added Package Details Successfully")
@@ -105,9 +105,6 @@ export default function AddPackageDetail() {
     }
 
     function AddSinglePackageDetail() {
-
-        const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
-        const pos = selectedGroupPackageDetail.findIndex(i => i.id == selectedSinglePackage)
 
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%', border: "solid .3px rgba(0,0,0,.2)" }}>
@@ -126,14 +123,14 @@ export default function AddPackageDetail() {
                                 mode="multiple"
                                 allowClear
                                 style={{
-                                  width: '100%',
+                                    width: '100%',
                                 }}
                                 placeholder={"select includes icon and Name"}
-                                defaultValue={sSPD.includeIcon.map((item)=>{
+                                defaultValue={sSPD.includeIcon.map((item) => {
                                     return item.name;
                                 })}
-                                
-                                onChange={(e)=>{
+
+                                onChange={(e) => {
                                     const tempArr = e;
                                     tempIcon = [...tempArr]
                                     // console.log(temparrr)
