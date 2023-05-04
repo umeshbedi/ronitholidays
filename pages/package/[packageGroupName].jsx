@@ -46,10 +46,10 @@ export default function TermsAndCondition({ entry, data }) {
                                     newUrl=image.thumbnail
                                 }
                                 return(
-                                <Link key={i} href={newUrl}>
+                                <Link key={i} href={image.slug}>
                                     <Image 
                                         style={{ borderRadius: 20, boxShadow: boxShadow }} 
-                                        src={image.thumbnail} alt={image.name}
+                                        src={newUrl} alt={image.name}
                                         preview={false}
                                         placeholder={<Image
                                             preview={false}
