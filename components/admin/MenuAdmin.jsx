@@ -19,11 +19,10 @@ export default function MenuAdmin({ menuClick }) {
       <Menu
         mode={'inline'}
         style={{
-          textTransform: 'uppercase',
+          // textTransform: 'uppercase',
           fontWeight: 'bold',
           height: '100%',
           borderRight: 0,
-          // backgroundColor:'green'
         }}
         disabledOverflow
         onClick={(e) => menuClick(e.key)}
@@ -52,8 +51,20 @@ export default function MenuAdmin({ menuClick }) {
           <p><FaMountain /> Island</p>
         </Menu.Item>
         <Menu.SubMenu title={<p><FaNewspaper /> Pages</p>}>
-          <Menu.Item key={'about-us'} >
-            <p>About Us</p>
+          <Menu.Item key={'about-us'}>
+            <p >About Us</p>
+          </Menu.Item>
+          <Menu.Item key={'contact-us'}>
+            <p>Contact Us</p>
+          </Menu.Item>
+          <Menu.Item key={'about-andman'}>
+            <p >About Andman</p>
+          </Menu.Item>
+          <Menu.Item key={'how-to-reach-andman'}>
+            <p >How to reach Andman</p>
+          </Menu.Item>
+          <Menu.Item key={'how-to-visit-andman'}>
+            <p >How to Visit Andman</p>
           </Menu.Item>
           <Menu.Item key={'terms-and-condition'} >
             <p>Terms & Condition</p>
@@ -66,10 +77,10 @@ export default function MenuAdmin({ menuClick }) {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key={'drive2web'}>
-          <p><FaGoogleDrive/> Drive2Web</p>
+          <p><FaGoogleDrive /> Drive2Web</p>
         </Menu.Item>
         <Menu.Item key={'media'}>
-          <p><FaImage/> Media</p>
+          <p><FaImage /> Media</p>
         </Menu.Item>
 
       </Menu>

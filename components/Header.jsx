@@ -117,11 +117,17 @@ export default function Header() {
           <Link href={'/'}>Home</Link>
         </Menu.Item>
         <Menu.SubMenu title={<p >Know{isMobile ? null : <FaAngleDown />}</p>}>
-          <Menu.Item key={'about'}>
-            <Link target='blank' href={'/page/about-us'}>About Us</Link>
+          <Menu.Item key={'about-us'}>
+            <Link target='blank' href={'/about-us'}>About Us</Link>
           </Menu.Item>
-          <Menu.Item key={'visit_andman'}>
-            <Link target='blank' href={'#'}>How to Visit Andman</Link>
+          <Menu.Item key={'about-andman'}>
+            <Link target='blank' href={'/about-andman'}>About Andman</Link>
+          </Menu.Item>
+          <Menu.Item key={'how-to-reach-andman'}>
+            <Link target='blank' href={'/how-to-reach-andman'}>How to reach Andman</Link>
+          </Menu.Item>
+          <Menu.Item key={'visit-andman'}>
+            <Link target='blank' href={'/how-to-visit-andman'}>How to Visit Andman</Link>
           </Menu.Item>
         </Menu.SubMenu>
 
@@ -151,7 +157,7 @@ export default function Header() {
           <div style={{display:'grid', gridTemplateColumns:"repeat(4, auto)"}}>
           {activity.map((act, key) => (
             <Menu.Item key={key}>
-              <Link target='blank' href={'/activity/' + act}>{act}</Link>
+              <Link target='blank' href={'/activity' + act}>{act}</Link>
             </Menu.Item>
           ))
 

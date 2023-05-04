@@ -14,7 +14,7 @@ export default function Media() {
   useEffect(() => {
     mediadb
       .orderBy('createdAt', 'desc')
-      .limit(10)
+      .limit(20)
       .onSnapshot((snap) => {
         const tempMedia = []
         snap.forEach((sndata) => {

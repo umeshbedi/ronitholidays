@@ -1,6 +1,6 @@
-import WaveSvg from '@/components/WaveSvg'
 import Head from 'next/head'
 import React from 'react'
+import WaveSvg from '@/components/WaveSvg'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
 import { Card, Image, Skeleton } from 'antd'
@@ -15,6 +15,7 @@ export default function IslandName({ data }) {
         <main>
             <Head>
                 <title>{data.name}</title>
+                <meta name="description" content={data.metaDescription}></meta>
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
