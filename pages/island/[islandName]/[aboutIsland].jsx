@@ -19,6 +19,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
         <main>
             <Head>
                 <title>{islandItem.name}</title>
+                <meta name="description" content={islandItem.metaDescription}></meta>
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>

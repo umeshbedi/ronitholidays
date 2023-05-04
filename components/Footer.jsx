@@ -1,40 +1,52 @@
 import { Divider } from 'antd'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
-import { Wave } from './variables'
+import { db } from '@/firebase'
 
 export default function Footer() {
-  useEffect(()=>{
-    document.getElementById("footerwave").innerHTML=footerWave
-  },[])
+  const [ferryList, setFerryList] = useState([])
+  useEffect(() => {
+    document.getElementById("footerwave").innerHTML = footerWave
+    db.collection('ferry').get().then((snap) => {
+      const tempFerry = []
+      snap.forEach((sndata) => {
+        tempFerry.push(sndata.data())
+      })
+      setFerryList(tempFerry)
+    })
+  }, [])
+
+
   return (
     <div>
-      
-      <div id='footerwave' style={{marginBottom:-4}}/>
-      
+
+      <div id='footerwave' style={{ marginBottom: -4 }} />
+
       <div className='footerdiv' style={{ flexDirection: 'row' }}>
         <div style={{}}>
           <h2>Cruises</h2>
           <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> Green Ocean 1</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> ITT Majestic</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> Nautika Lite</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> Green Ocean 2</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> Nautika</Link></div>
+          {
+            ferryList.map((ferry, key) => (
+              <div key={key} style={{ marginBottom: 5 }}>
+                <Link href={ferry.slug}>{ferry.name}</Link>
+              </div>
+            ))
+          }
         </div>
         <div>
           <h2>Support</h2>
           <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"/page/terms-and-condition"}> Terms & Condition</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/page/disclaimer"}> Disclaimer</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/page/privacy-policy"}> Privacy Policy</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"/terms-and-condition"}> Terms & Condition</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"/disclaimer"}> Disclaimer</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"/privacy-policy"}> Privacy Policy</Link></div>
 
         </div>
         <div>
           <h2>Useful Links</h2>
           <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"/page/about-us"}> About Us</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"/about-us"}> About Us</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/activity"}> Activity</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> Contact Us</Link></div>
         </div>
@@ -43,7 +55,7 @@ export default function Footer() {
           <Divider style={{ margin: "8% 0%", backgroundColor: style.primaryColor, height: 2 }} />
           <div style={{ marginBottom: 5 }}><Link href={"#"}>  9933263867, 9531955441</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"#"}> WhatsApp: 9933263867, 9531955441</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> contact@ronitholidays.com</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> contact@ronitholidays.com</Link></div>
         </div>
       </div>
       <div>

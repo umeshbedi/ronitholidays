@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { message, Layout, Skeleton, Dropdown } from 'antd';
+import { message, Layout, Skeleton, Dropdown, Modal } from 'antd';
 const { Header, Sider } = Layout
 import { UserOutlined, LogoutOutlined, MailOutlined } from '@ant-design/icons'
 import { auth, db } from '@/firebase';
@@ -29,6 +29,8 @@ export default function Admin() {
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
   const [content, setContent] = useState(< Island />)
+
+  const [open, setOpen] = useState(false)
 
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function Admin() {
       setContent(<Drive2Web />)
     }
     else if(e == 'media'){
-      setContent(<Media />)
+      setOpen(true)
     }
     else{
       setContent(<PageUpdate pageName={e} />)
@@ -162,6 +164,13 @@ export default function Admin() {
         </Layout>
 
       </Layout>
+      <Modal
+                open={open}
+                onCancel={() => setOpen(false)}
+                footer={[]}
+            >
+                <Media />
+            </Modal>
     </main>
   )
 }

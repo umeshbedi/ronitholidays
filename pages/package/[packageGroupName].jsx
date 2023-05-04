@@ -10,14 +10,6 @@ import React, { useEffect, useState } from 'react'
 export default function TermsAndCondition({ entry, data }) {
     const [messageApi, contextHolder] = message.useMessage()
     
-    const packageImage = [
-        "https://cdn.experienceandamans.com/images/andaman-honeymoon-4-days.jpg",
-        "https://cdn.experienceandamans.com/images/andaman-honeymoon-5-days.jpg",
-        "https://cdn.experienceandamans.com/images/andaman-yatra-honeymoon.jpg",
-        "https://cdn.experienceandamans.com/images/exotic-andaman-honeymoon-6night-7days.jpg",
-        "https://cdn.experienceandamans.com/images/andaman-bliss-honeymoon.jpg",
-        "https://cdn.experienceandamans.com/images/honeymoon-extravaganza.jpg"
-    ]
 
     if (entry==undefined) return(<div style={{height:'30vh', padding:'2%'}}><Skeleton active/></div>)
 
