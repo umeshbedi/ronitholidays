@@ -42,18 +42,18 @@ export default function IslandName({ data }) {
 
                             return (
                                 <Link key={i} href={item.slug}>
-                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 260, height: 370, overflow: 'hidden' }}>
+                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden' }}>
                                         <Image
                                             src={newUrl}
                                             alt={item.name}
                                             preview={false}
-                                            width={260} height={280}
+                                            width={250} height={250}
                                             placeholder={
                                                 <Image
                                                     preview={false}
                                                     src="/images/Loading_icon.gif"
-                                                    width={260}
-                                                    height={280}
+                                                    width={250}
+                                                    height={250}
                                                     style={{ objectFit: 'cover' }}
                                                 />
                                             }
