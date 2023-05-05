@@ -149,13 +149,15 @@ body {
 
 }
 
-#packageContainer {
+#packageContainer, #extraPages {
   p {
    line-height: 140%;
+   text-align: justify;
   }
   li{
     font-size: 18px;
     margin-left: 5%;
+    line-height: 140%;
   }
   
   

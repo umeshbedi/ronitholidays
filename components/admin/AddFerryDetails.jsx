@@ -140,11 +140,11 @@ export default function AddFerryDetails({ details, ferryId }) {
             </div>
             <div>
                 <h3 style={{ marginBottom: 10 }}>About {details.name}:</h3>
-                <JoditEditor onChange={e => { setAbout(e) }} value={details.about} />
+                <JoditEditor onBlur={e => { setAbout(e) }} value={details.about} />
             </div>
             <div>
                 <h3 style={{ marginBottom: 10 }}>Terms and Conditions of {details.name}:</h3>
-                <JoditEditor onChange={e => { setTerms(e) }} value={details.termAndCondtion} />
+                <JoditEditor onBlur={e => { setTerms(e) }} value={details.termAndCondtion} />
             </div>
             <Divider />
             <div>
