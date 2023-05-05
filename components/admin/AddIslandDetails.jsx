@@ -79,7 +79,7 @@ export default function AddIslandDetails({ IslandId, IslandSlug, SIPD, action, u
                 </div>
                 <div>
                     <h3 style={{ marginBottom: 10 }}>About Place:</h3>
-                    <JoditEditor value={about} onChange={e => { setAbout(e) }} />
+                    <JoditEditor value={about} onBlur={e => { setAbout(e) }} />
                 </div>
                 <div>
                     <Space>

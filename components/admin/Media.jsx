@@ -73,7 +73,7 @@ export default function Media() {
                     mediadb.doc(`${image.id}`).delete()
                   }}
                 />
-                <Button style={{ borderRadius: 0 }}
+                <Button block style={{ borderRadius: 0 }}
                   onClick={() => {
                     navigator.clipboard.writeText(image.link).then(()=>{
                       msg.success("Copied")

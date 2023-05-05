@@ -71,7 +71,7 @@ export default function PageUpdate({ pageName }) {
                     <input ref={headerImageRef} defaultValue={headerImage} placeholder='Enter header Image url' onChange={(e)=>setHeaderImage(e.target.value)}/>
                 </Form.Item>
                 <Form.Item >
-                    <JoditEditor onChange={e => { setAbout(e) }} value={about} />
+                    <JoditEditor onBlur={e => setAbout(e)} value={about} />
                 </Form.Item>
 
                 <Form.Item label="Meta Description">
