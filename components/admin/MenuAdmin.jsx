@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined, BookOutlined } from '@ant-design/icons';
-import { FaGoogleDrive, FaImage, FaList, FaMountain, FaNewspaper, FaShip } from 'react-icons/fa'
+import { FaGoogleDrive, FaImage, FaList, FaMountain, FaNewspaper, FaShip, FaSwimmer } from 'react-icons/fa'
 import { Menu } from 'antd';
 
 import { mobile } from '../variables';
@@ -50,6 +50,9 @@ export default function MenuAdmin({ menuClick }) {
         <Menu.Item key={'island'}>
           <p><FaMountain /> Island</p>
         </Menu.Item>
+        <Menu.Item key={'activity'}>
+          <p><FaSwimmer /> Activity</p>
+        </Menu.Item>
         <Menu.SubMenu title={<p><FaNewspaper /> Pages</p>}>
           <Menu.Item key={'about-us'}>
             <p >About Us</p>
@@ -63,8 +66,8 @@ export default function MenuAdmin({ menuClick }) {
           <Menu.Item key={'how-to-reach-andman'}>
             <p >How to reach Andman</p>
           </Menu.Item>
-          <Menu.Item key={'how-to-visit-andman'}>
-            <p >How to Visit Andman</p>
+          <Menu.Item key={'dos-and-dont'}>
+            <p >Do's & Dont't</p>
           </Menu.Item>
           <Menu.Item key={'terms-and-condition'} >
             <p>Terms & Condition</p>
@@ -76,9 +79,6 @@ export default function MenuAdmin({ menuClick }) {
             <p>Disclaimer</p>
           </Menu.Item>
         </Menu.SubMenu>
-        <Menu.Item key={'drive2web'}>
-          <p><FaGoogleDrive /> Drive2Web</p>
-        </Menu.Item>
         <Menu.Item key={'media'}>
           <p><FaImage /> Media</p>
         </Menu.Item>

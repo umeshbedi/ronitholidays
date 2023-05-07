@@ -8,7 +8,9 @@ import { IoIosMenu } from 'react-icons/io'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase';
 import Image from 'next/image'
-export default function Header() {
+
+
+export default function Header({Island, }) {
 
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false)
@@ -23,7 +25,7 @@ export default function Header() {
   }, [isMobile])
 
   useEffect(() => {
-    db.collection("package").get().then((snap) => {
+    db.collection("package").onSnapshot((snap) => {
       const packageTemp = []
       snap.forEach((sndata => {
         const singlePackageTemp = []
@@ -45,7 +47,7 @@ export default function Header() {
   }, [])
 
   useEffect(()=>{
-    db.collection('ferry').get().then((snap)=>{
+    db.collection('ferry').onSnapshot((snap)=>{
       const tempFerry = []
       snap.forEach((sndata)=>{
         tempFerry.push(sndata.data())
@@ -53,7 +55,7 @@ export default function Header() {
       setFerryList(tempFerry)
     })
 
-    db.collection("island").get().then((snap)=>{
+    db.collection("island").onSnapshot((snap)=>{
       const tempIsland = []
       snap.forEach((sndata)=>{
         tempIsland.push(sndata.data())
@@ -126,8 +128,8 @@ export default function Header() {
           <Menu.Item key={'how-to-reach-andman'}>
             <Link target='blank' href={'/how-to-reach-andman'}>How to reach Andman</Link>
           </Menu.Item>
-          <Menu.Item key={'visit-andman'}>
-            <Link target='blank' href={'/how-to-visit-andman'}>How to Visit Andman</Link>
+          <Menu.Item key={'dos-and-dont'}>
+            <Link target='blank' href={'/dos-and-dont'}>Do's & Dont't</Link>
           </Menu.Item>
         </Menu.SubMenu>
 
