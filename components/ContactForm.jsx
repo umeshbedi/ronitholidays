@@ -2,7 +2,7 @@ import { DeleteFilled, PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd'
 import React, { useState } from 'react'
 
-export default function ContactForm({ packageName, packageDetail, to }) {
+export default function ContactForm({ packageName, packageDetail, to, data }) {
     const [date, setDate] = useState(null)
     const [loading, setLoading] = useState(false)
     const [msg, showMsg] = Modal.useModal()

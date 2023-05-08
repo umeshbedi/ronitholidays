@@ -67,7 +67,7 @@ export default function MenuAdmin({ menuClick }) {
             <p >How to reach Andman</p>
           </Menu.Item>
           <Menu.Item key={'dos-and-dont'}>
-            <p >Do's & Dont't</p>
+            <p >{"Do's & Don't"}</p>
           </Menu.Item>
           <Menu.Item key={'terms-and-condition'} >
             <p>Terms & Condition</p>

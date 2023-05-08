@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Menu, Col, Row, Button, Drawer, Space, Divider } from 'antd'
 import { } from 'react-icons/fi'
 import Link from 'next/link';
-import { mobile, ferry, cityName, activity } from './variables';
+import { mobile } from './variables';
 import { FaAngleDown, FaYenSign } from 'react-icons/fa'
 import { IoIosMenu } from 'react-icons/io'
 import style from '@/styles/component.module.scss'
@@ -10,7 +10,7 @@ import { db } from '@/firebase';
 import Image from 'next/image'
 
 
-export default function Header({Island, }) {
+export default function Header({ Island, }) {
 
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false)
@@ -19,6 +19,7 @@ export default function Header({Island, }) {
 
   const [ferryList, setFerryList] = useState([])
   const [islandList, setIslandList] = useState([])
+  const [activity, setActivity] = useState([])
 
   useEffect(() => {
     setIsMobile(mobile())
@@ -28,16 +29,17 @@ export default function Header({Island, }) {
     db.collection("package").onSnapshot((snap) => {
       const packageTemp = []
       snap.forEach((sndata => {
+        const data = sndata.data()
         const singlePackageTemp = []
         db.doc(`package/${sndata.id}`)
-          .collection('singlePackage').where("status",'==', 'published').get()
+          .collection('singlePackage').where("status", '==', 'published').get()
           .then((newpkg => {
             newpkg.forEach((pkg) => {
-              singlePackageTemp.push(pkg.data())
+              singlePackageTemp.push({name:pkg.data().name, slug:pkg.data().slug})
             })
           }))
 
-        packageTemp.push({ id: sndata.id, ...sndata.data(), singlePackage: singlePackageTemp })
+        packageTemp.push({ name: data.name, slug:data.slug, singlePackage: singlePackageTemp })
 
       }))
 
@@ -46,25 +48,37 @@ export default function Header({Island, }) {
     })
   }, [])
 
-  useEffect(()=>{
-    db.collection('ferry').onSnapshot((snap)=>{
+  useEffect(() => {
+    db.collection('ferry').onSnapshot((snap) => {
       const tempFerry = []
-      snap.forEach((sndata)=>{
-        tempFerry.push(sndata.data())
+      snap.forEach((sndata) => {
+        tempFerry.push({name:sndata.data().name, slug:sndata.data().slug})
       })
       setFerryList(tempFerry)
     })
+  }, [])
 
-    db.collection("island").onSnapshot((snap)=>{
+  useEffect(() => {
+    db.collection("island").onSnapshot((snap) => {
       const tempIsland = []
-      snap.forEach((sndata)=>{
-        tempIsland.push(sndata.data())
+      snap.forEach((sndata) => {
+        tempIsland.push({slug:sndata.data().slug, name:sndata.data().name})
       })
       setIslandList(tempIsland)
     })
-  },[])
+  }, [])
 
-  
+  useEffect(() => {
+    db.collection("activity").onSnapshot((snap) => {
+      const tempActivity = []
+      snap.forEach((sndata) => {
+        tempActivity.push({slug:sndata.data().slug, name:sndata.data().name})
+      })
+      setActivity(tempActivity)
+    })
+  }, [])
+
+
   function MegaMenu() {
     return (
       <Space style={{ alignItems: 'flex-start' }}>
@@ -73,7 +87,7 @@ export default function Header({Island, }) {
             <>
               <Menu
                 style={{ boxShadow: 'none', border: index == packages.length - 1 ? "none" : 'auto' }}
-                key={index}
+                key={item.name+index}
               >
                 <Menu.Item style={{ backgroundColor: 'white' }}>
                   <Link target='blank' href={item.slug}> <p ><b>{item.name}</b></p></Link>
@@ -129,14 +143,14 @@ export default function Header({Island, }) {
             <Link target='blank' href={'/how-to-reach-andman'}>How to reach Andman</Link>
           </Menu.Item>
           <Menu.Item key={'dos-and-dont'}>
-            <Link target='blank' href={'/dos-and-dont'}>Do's & Dont't</Link>
+            <Link target='blank' href={'/dos-and-dont'}>{"Do's & Don't"}</Link>
           </Menu.Item>
         </Menu.SubMenu>
 
         <Menu.SubMenu title={<p >Island{isMobile ? null : <FaAngleDown />}</p>}>
           {
             islandList.map((name, key) => (
-              <Menu.Item key={key}>
+              <Menu.Item key={name.name+key}>
                 <Link target='blank' href={name.slug}>{name.name}</Link>
               </Menu.Item>
             ))
@@ -156,14 +170,14 @@ export default function Header({Island, }) {
         <Menu.SubMenu
           title={<p >Activity{isMobile ? null : <FaAngleDown />}</p>}
         >
-          <div style={{display:'grid', gridTemplateColumns:"repeat(4, auto)"}}>
-          {activity.map((act, key) => (
-            <Menu.Item key={key}>
-              <Link target='blank' href={'/activity' + act}>{act}</Link>
-            </Menu.Item>
-          ))
+          <div style={{ display: 'grid', gridTemplateColumns: "repeat(4, auto)" }}>
+            {activity.map((act, key) => (
+              <Menu.Item key={key}>
+                <Link target='blank' href={act.slug}>{act.name}</Link>
+              </Menu.Item>
+            ))
 
-          }
+            }
           </div>
         </Menu.SubMenu>
 
@@ -215,7 +229,7 @@ export default function Header({Island, }) {
         </Col>
         <Col span={6} pull={18} style={{}}>
           <Link href={'/'}>
-            <Image src='/images/ronitholidays Logo Final_h80.png' height={45} width={200} alt='ronitholidays Logo Final'/>
+            <Image src='/images/ronitholidays Logo Final_h80.png' height={45} width={200} alt='ronitholidays Logo Final' />
           </Link>
         </Col>
       </Row>

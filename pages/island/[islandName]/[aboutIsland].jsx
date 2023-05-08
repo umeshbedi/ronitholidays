@@ -41,11 +41,11 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                         </div>
                         
                         <div style={{ width: '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection:'column', display:'flex', alignItems:'center' }}>
-                            <h2>Visit Other Places of {headerImgAlt}</h2>
+                            <h2 style={{textAlign:'center'}}>Visit Other Places of {headerImgAlt}</h2>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
                             {remainingData.map((item, i) => (
                             <Link key={i} href={item.slug}>
-                                <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width:260, marginBottom:'4%' }}>
+                                <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width:260, marginBottom:30 }}>
                                     <Image
                                         src={item.thumbnail}
                                         alt={item.name}
@@ -53,7 +53,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                                         width={260}
                                         height={280}
                                         style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                                    <h2 style={{ padding: '5%' }}>{item.name}</h2>
+                                    <h2 style={{ padding: '5%', textAlign:'center' }}>{item.name}</h2>
                                 </div>
                             </Link>
                         )).slice(0,5)}
