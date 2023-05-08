@@ -30,11 +30,13 @@ export default function Pages({ data, path }) {
                             src={data.headerImage} alt={data.title}
                             width={"100%"}
                             style={{ height: 400, objectFit: 'cover' }}
-                            placeholder={<Skeleton.Button active style={{ width: '100%', height: 400 }} />}
+                            placeholder={<Skeleton.Button active block style={{ width: '100%', height: 400 }} />}
                         />
                     </div>
                 }
+                
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3%' }}>
+                
                     <div style={{ width: '80%' }}>
                         <String2Html id={"extraPages"} string={data.about} />
                         

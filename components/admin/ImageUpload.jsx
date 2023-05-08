@@ -72,7 +72,7 @@ export default function ImageUpload({ to, groupId, packageId }) {
                     } else {
                         messageApi.error(result.data.error)
                     }
-                    console.log(result.data)
+                    // console.log(result.data)
                     setImageObj(null)
                 })
         }

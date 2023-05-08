@@ -38,7 +38,7 @@ export default function Ferry() {
                 metaDescription: "",
                 metaTag: ""
             }).then(() => { msg.success("Added new ferry Succussfully!"); setOpen(false) })
-            console.log(ferryName)
+            // console.log(ferryName)
         } else { msg.error("Please enter ferry name") }
     }
 

@@ -2,9 +2,8 @@ import { db } from '@/firebase';
 import { DeleteFilled, DeleteOutlined, EditFilled, PlusOutlined } from '@ant-design/icons'
 import { Button, Divider, Input, Modal, Select, Space, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import AddFerryDetails from './AddFerryDetails';
 import AddIslandDetails from './AddIslandDetails';
-import style from '@/styles/component.module.scss'
+
 
 const Islanddb = db.collection("island")
 
@@ -147,6 +146,7 @@ export default function Island() {
                             update={updatePlace}
                             addnewPlace={()=>{setSIPD(null);setAction("new"); setSIPI(null)}}
                         />
+                        
                     </>
                 }
             </div>
