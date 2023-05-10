@@ -18,7 +18,7 @@ export default function TermsAndCondition({ entry, data }) {
             <Head>
                 <title>Andaman Best {entry.name} Packages</title>
                 <meta name="description" content={entry.metaDescription}/>
-                <meta property="og:image" content="http://example.com/image.png"/>
+                
             </Head>
             <div>
                 {contextHolder}

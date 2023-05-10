@@ -6,6 +6,7 @@ import { ConfigProvider, Layout } from 'antd'
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import SHeader from '@/components/skeleton/SHeader'
+import { db } from '@/firebase';
 
 const Header = dynamic(() => import('../components/Header'), {
   ssr: false,
@@ -50,3 +51,4 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
+

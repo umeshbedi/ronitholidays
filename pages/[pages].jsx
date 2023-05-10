@@ -18,6 +18,7 @@ export default function Pages({ data, path }) {
             <Head>
                 <title>{data.title}</title>
                 <meta name="description" content={data.metaDescription} />
+                <meta property='og:image' content={data.headerImage}></meta>
             </Head>
             <div>
                 {data.headerImage != "" &&

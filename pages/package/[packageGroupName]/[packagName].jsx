@@ -39,6 +39,7 @@ export default function TermsAndCondition({ data }) {
                 <title>{data.title}</title>
                 <meta name="description" content={data.metaDescription}></meta>
                 <meta name="keywords" content={data.metaTag}></meta>
+                <meta property="og:image" content={data.thumbnail}/>
             </Head>
             <div id='packageDiv'>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
