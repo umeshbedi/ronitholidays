@@ -59,7 +59,9 @@ export default function Header({ Island, }) {
   }, [])
 
   useEffect(() => {
-    db.collection("island").onSnapshot((snap) => {
+    db.collection("island")
+    .orderBy("order", "asc")
+    .onSnapshot((snap) => {
       const tempIsland = []
       snap.forEach((sndata) => {
         tempIsland.push({slug:sndata.data().slug, name:sndata.data().name})

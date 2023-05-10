@@ -20,6 +20,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
             <Head>
                 <title>{islandItem.name}</title>
                 <meta name="description" content={islandItem.metaDescription}></meta>
+                <meta property='og:image' content={islandItem.thumbnail}></meta>
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -44,7 +45,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                             <h2 style={{textAlign:'center'}}>Visit Other Places of {headerImgAlt}</h2>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
                             {remainingData.map((item, i) => (
-                            <Link key={i} href={item.slug}>
+                            <Link key={i} target='blank' href={item.slug}>
                                 <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width:260, marginBottom:30 }}>
                                     <Image
                                         src={item.thumbnail}

@@ -3,9 +3,16 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
+import { mobile } from './variables'
 
 export default function Footer() {
   const [ferryList, setFerryList] = useState([])
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(mobile())
+  }, [isMobile])
+
   useEffect(() => {
     document.getElementById("footerwave").innerHTML = footerWave
     db.collection('ferry').get().then((snap) => {
@@ -23,10 +30,10 @@ export default function Footer() {
 
       <div id='footerwave' style={{ marginBottom: -4 }} />
 
-      <div className='footerdiv' style={{ flexDirection: 'row' }}>
+      <div className='footerdiv' style={{ display:'grid', gridTemplateColumns:`repeat(${isMobile?'1':'4'}, auto)` }}>
         <div style={{}}>
           <h2>Cruises</h2>
-          <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
           {
             ferryList.map((ferry, key) => (
               <div key={key} style={{ marginBottom: 5 }}>
@@ -37,7 +44,7 @@ export default function Footer() {
         </div>
         <div>
           <h2>Support</h2>
-          <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
           <div style={{ marginBottom: 5 }}><Link href={"/terms-and-condition"}> Terms & Condition</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/disclaimer"}> Disclaimer</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/privacy-policy"}> Privacy Policy</Link></div>
@@ -45,14 +52,14 @@ export default function Footer() {
         </div>
         <div>
           <h2>Useful Links</h2>
-          <Divider style={{ margin: "15% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
           <div style={{ marginBottom: 5 }}><Link href={"/about-us"}> About Us</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/activity"}> Activity</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> Contact Us</Link></div>
         </div>
         <div>
           <h2>Contact with Us</h2>
-          <Divider style={{ margin: "8% 0%", backgroundColor: style.primaryColor, height: 2 }} />
+          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
           <div style={{ marginBottom: 5 }}><Link href={"#"}>  9933263867, 9531955441</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"#"}> WhatsApp: 9933263867, 9531955441</Link></div>
           <div style={{ marginBottom: 5 }}><Link href={"#"}> contact@ronitholidays.com</Link></div>

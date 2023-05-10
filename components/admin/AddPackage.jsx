@@ -1,7 +1,8 @@
 import { db } from '@/firebase'
-import { DeleteOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons'
-import { Button, Divider, Form, Input, Select, Space, Tabs, message } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { DeleteOutlined, EditOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons'
+import { Button, Divider, Form, Input, Modal, Select, Space, Tabs, message } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
+import style from '@/styles/component.module.scss'
 
 
 const packagedb = db.collection("package")
@@ -15,6 +16,11 @@ export default function AddPackage() {
     const [selectedGroup, setSelectedGroup] = useState(null)
     const [selectedSinglePackage, setSelectedSinglePackage] = useState(null)
 
+    const [edit, setEdit] = useState(false)
+
+    const orderRef = useRef()
+    const nameRef = useRef()
+    const metaDescriptionRef = useRef()
 
     useEffect(() => {
         packagedb.onSnapshot((snap) => {
@@ -32,7 +38,7 @@ export default function AddPackage() {
         })
 
     }, [])
-    console.log(packageItem)
+    // console.log(packageItem)
     useEffect(() => {
         if (selectedSinglePackage != null) {
             packagedb.doc(`${selectedSinglePackage}`)
@@ -49,23 +55,30 @@ export default function AddPackage() {
 
     function AddPacakgeGroup(value) {
         const slug = value.package_name.split(" ").join("-")
-        packagedb.add({
-            name: value.package_name,
-            slug: `/package/${slug}`,
-            meteDescription:value.meteDescription
-        })
-            .then(() => {
-                messageApi.success("Added new Package Group Successfully!")
+        if (edit) {
+            packagedb.doc(`${selectedSinglePackage}`).update({
+                name: value.package_name,
+                meteDescription: value.meteDescription,
+                order: Number(value.order)
             })
-            .catch((err) => {
-                messageApi.error(err.message)
+                .then(() => {messageApi.success("Updated!")})
+                .catch((err) => {messageApi.error(err.message)})
+        }else{
+            packagedb.add({
+                name: value.package_name,
+                slug: `/package/${slug}`,
+                meteDescription: value.meteDescription,
+                order: Number(value.order)
             })
+                .then(() => {messageApi.success("Added new Package Group Successfully!")})
+                .catch((err) => {messageApi.error(err.message)})
+        }
 
     }
 
     function deleteGroup() {
         packagedb.doc(`${selectedSinglePackage}`).delete()
-            .then(() => messageApi.success("Deleted Successfully!"))
+            .then(() => { messageApi.success("Deleted Successfully!"); setSelectedGroup(null) })
             .catch((e) => messageApi.error(e.message))
     }
 
@@ -111,7 +124,7 @@ export default function AddPackage() {
                     metaDescription: "",
                     metaTag: "",
                     status: 'draft',
-                    includeIcon:[]
+                    includeIcon: []
 
                 })
                 .then(() => {
@@ -129,12 +142,15 @@ export default function AddPackage() {
                     singlePackage.map((res, i) => (
                         <Form key={i}>
                             <Space>
-                                <Form.Item name='package_id' initialValue={res.name} label={`Package #${i + 1}`} style={{ margin: 0, fontWeight: 'bold' }}>
+                            <Form.Item name='package_id' initialValue={res.name} label={`Package #${i + 1}`} style={{ margin: 0, fontWeight: 'bold' }}>
                                     <Input required placeholder='Enter Package Name' />
                                 </Form.Item>
-
-                                {/* <Button type='dashed' style={{ color: 'grey' }} htmlType='submit' >< SaveOutlined />Save</Button> */}
-                                <Button type='dashed' style={{ color: 'grey' }} onClick={() => deleteSinglePackage(res.id)} >< DeleteOutlined />Delete</Button>
+                                <Form.Item label="Order No." style={{ margin: 0, fontWeight: 'bold' }}>
+                                    <Input placeholder='Enter Order No.' />
+                                </Form.Item>
+                                
+                                <Button type='dashed' style={{ color: 'grey' }} >< SaveOutlined /></Button>
+                                <Button type='dashed' style={{ color: 'red' }} onClick={() => deleteSinglePackage(res.id)} >< DeleteOutlined /></Button>
                             </Space>
                         </Form>
                     ))
@@ -173,7 +189,23 @@ export default function AddPackage() {
                             })}
                         />
                         {selectedGroup != null &&
-                            <Button type='dashed' style={{ color: 'red', background: 'none' }} onClick={deleteGroup}><DeleteOutlined /> Delete Selected Package Group</Button>
+                            <Space>
+                                <Button type='dashed'
+                                    style={{ color: style.secondaryColor, background: 'none' }}
+                                    onClick={() => {
+                                        const res = packageItem.find(f => f.id == selectedSinglePackage)
+                                        nameRef.current.value = res.name
+                                        orderRef.current.value = res.order
+                                        metaDescriptionRef.current.value = res.meteDescription
+                                        setEdit(true)
+                                        const a = document.createElement("a")
+                                        a.href = "#addPackageGroup"
+                                        a.click()
+                                    }}>
+                                    <EditOutlined />
+                                </Button>
+                                <Button type='dashed' style={{ color: 'red', background: 'none' }} onClick={deleteGroup}><DeleteOutlined /></Button>
+                            </Space>
                         }
                     </Space>
 
@@ -189,22 +221,41 @@ export default function AddPackage() {
             }
             <Divider />
             {/* Add new package group name div */}
-            <div style={{ width: 'fit-content' }}>
-                <Form style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%', border: "solid .3px rgba(0,0,0,.2)" }}
+            <div style={{ width: 'fit-content', marginBottom:'3%' }}>
+                <h2 id='addPackageGroup' style={{ color: style.secondaryColor }}><i>{edit ? "Edit" : "Add New Package Group"}</i></h2>
+                <Form style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%' }}
                     onFinish={(e) => AddPacakgeGroup(e)}
                 >
-                    <Space>
-                        <Form.Item name='package_name' label="Group Name" style={{ margin: 0 }}>
-                            <Input required placeholder='Enter Package Group Name' />
-                        </Form.Item>
-                        <Form.Item name='meteDescription' label="Short Description" style={{ margin: 0 }}>
-                            <Input required placeholder='Enter Short Meta Description' />
-                        </Form.Item>
-                        <Button type='dashed' style={{ color: 'grey' }} htmlType='submit'>< PlusOutlined />Add New Package Group</Button>
-                    </Space>
+
+                    <Form.Item name='order' label="Order No." style={{ margin: 0 }}>
+                        <input ref={orderRef} defaultValue={0} required type='number' placeholder='Enter Order No.' />
+                    </Form.Item>
+                    <Form.Item name='package_name' label="Group Name" style={{ margin: 0 }}>
+                        <input ref={nameRef} required placeholder='Enter Package Group Name' />
+                    </Form.Item>
+                    <Form.Item name='meteDescription' label="Short Description" style={{ margin: 0 }}>
+                        <input ref={metaDescriptionRef} required placeholder='Enter Short Meta Description' />
+                    </Form.Item>
+                    <div>
+                        {edit ?
+                            (<Space>
+                                <Button type='primary' htmlType='submit'>Update</Button>
+                                <Button type='dashed' style={{ color: 'grey' }} onClick={()=>{
+                                    setEdit(false);
+                                    orderRef.current.value = 0
+                                    nameRef.current.value = ""
+                                    metaDescriptionRef.current.value = ""
+                                }}>< PlusOutlined />Add New</Button>
+                            </Space>)
+                            :
+                            <Button type='dashed' style={{ color: 'grey' }} htmlType='submit'>< PlusOutlined />Add</Button>
+                        }
+                    </div>
 
                 </Form>
             </div>
+
+
         </div>
     )
 }

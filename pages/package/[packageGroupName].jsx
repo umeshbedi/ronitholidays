@@ -17,7 +17,8 @@ export default function TermsAndCondition({ entry, data }) {
         <main>
             <Head>
                 <title>Andaman Best {entry.name} Packages</title>
-                <meta name="description" content={entry.metaDescription}></meta>
+                <meta name="description" content={entry.metaDescription}/>
+                <meta property="og:image" content="http://example.com/image.png"/>
             </Head>
             <div>
                 {contextHolder}
@@ -38,7 +39,7 @@ export default function TermsAndCondition({ entry, data }) {
                                     newUrl=image.thumbnail
                                 }
                                 return(
-                                <Link key={i} href={image.slug}>
+                                <Link target='blank' key={i} href={image.slug}>
                                     <Image 
                                         style={{ borderRadius: 20, boxShadow: boxShadow }} 
                                         src={newUrl} alt={image.name}
