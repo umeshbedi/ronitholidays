@@ -39,7 +39,8 @@ export default function Slug({ data }) {
     <main>
       <Head>
         <title>{data.name}</title>
-        <meta name="description" content={"om raom ommm"} />
+        <meta name="description" content={data.metaDescription} />
+        <meta property='og:image' content={data.image}></meta>
       </Head>
 
       <div>

@@ -21,6 +21,7 @@ export default function ActivityName({ data }) {
       <Head>
         <title>{data.name}</title>
         <meta name="description" content={data.metaDescription}></meta>
+        <meta property='og:image' content={data.thumbnail}></meta>
       </Head>
       <div>
         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
