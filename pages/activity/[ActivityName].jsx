@@ -42,7 +42,7 @@ export default function ActivityName({ data }) {
             </div>
 
             <div style={{ width: '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
-              <h2 style={{textAlign:"center"}}>Activities in {data.name}</h2>
+              <h2 style={{ textAlign: "center" }}>Activities in {data.name}</h2>
               <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
               {data.data.map((item, i) => (
                 <div key={i} id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 250, marginBottom: 30 }}>

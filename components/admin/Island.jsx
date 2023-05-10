@@ -1,7 +1,7 @@
 import { db } from '@/firebase';
-import { DeleteFilled, DeleteOutlined, EditFilled, PlusOutlined } from '@ant-design/icons'
-import { Button, Divider, Input, Modal, Select, Space, message } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { DeleteFilled, DeleteOutlined, EditFilled, EditOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Divider, Form, Input, Modal, Select, Space, message } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
 import AddIslandDetails from './AddIslandDetails';
 
 
@@ -10,10 +10,13 @@ const Islanddb = db.collection("island")
 export default function Island() {
     const [open, setOpen] = useState(false);
 
-    const [islandName, setislandName] = useState("")
-    const [islandThumb, setIslandThumb] = useState("")
+    const [name, setname] = useState("")
+    const [thumbnail, setthumbnail] = useState("")
     const [headerImage, setHeaderImage] = useState("")
     const [metaDescription, setMetaDescription] = useState("")
+    const [order, setOrder] = useState(0)
+
+    const [edit, setEdit] = useState(false)
 
     const [selectedIsland, setselectedIsland] = useState(null)
     const [islandItem, setislandItem] = useState([])
@@ -25,28 +28,56 @@ export default function Island() {
 
     const [msg, showMsg] = message.useMessage()
 
+    var orderRef = useRef(null)
+    var nameRef = useRef(null)
+    var headerImageRef = useRef(null)
+    var thumbnailRef = useRef(null)
+    var metaDescriptionRef = useRef(null)
+
     useEffect(() => {
         Islanddb.onSnapshot((snap) => {
             const tempIsland = []
             snap.forEach((sndata => {
                 tempIsland.push({ id: sndata.id, ...sndata.data() })
+
             }))
             setislandItem(tempIsland)
         })
     }, [])
 
     function addNewIsland() {
-        if (islandName != "" && islandThumb != "" && headerImage != "" && metaDescription != "") {
+        if (name != "" && thumbnail != "" && headerImage != "" && metaDescription != "") {
             Islanddb.add({
-                name: islandName,
-                slug: `/island/${islandName.split(" ").join("-")}`,
-                thumbnail: islandThumb,
+                name,
+                slug: `/island/${name.split(" ").join("-")}`,
+                thumbnail,
                 headerImage, metaDescription,
+                order,
                 data: []
 
             }).then(() => { msg.success("Added new Island Succussfully!"); setOpen(false) })
-            // console.log(islandName)
+            // console.log(name)
         } else { msg.error("All Fields are required") }
+    }
+
+    function editIsland() {
+        Islanddb.doc(`${selectedIsland}`).update({
+            name, order, metaDescription, headerImage, thumbnail
+        }).then(() => {
+            msg.success("Updated")
+            setname("")
+            setthumbnail("")
+            setHeaderImage("")
+            setMetaDescription("")
+            setOrder(0)
+            nameRef.current.value = "";
+            orderRef.current.value = 0;
+            headerImageRef.current.value = "";
+            thumbnailRef.current.value = "";
+            metaDescriptionRef.current.value = "";
+            setEdit(false)
+            setOpen(false)
+        })
     }
 
     function deleteIsland() {
@@ -71,14 +102,15 @@ export default function Island() {
 
     function updatePlace(name, about, metaDescription, thumbnail) {
         const tempSIPD = SID.data
-        const editedPlace = {about, metaDescription, name, thumbnail,
+        const editedPlace = {
+            about, metaDescription, name, thumbnail,
             slug: tempSIPD[SIPI].slug,
-            
+
         }
         tempSIPD[SIPI] = editedPlace
         Islanddb.doc(`${selectedIsland}`).update({
-            data:tempSIPD
-        }).then(()=>{
+            data: tempSIPD
+        }).then(() => {
             msg.success("updated")
         })
     }
@@ -88,7 +120,7 @@ export default function Island() {
         tempPlace.splice(i, 1)
         Islanddb.doc(`${selectedIsland}`).update({
             data: tempPlace
-        }).then(() => {msg.success("deleted");setSIPD(null);setAction("new"); setSIPI(null)})
+        }).then(() => { msg.success("deleted"); setSIPD(null); setAction("new"); setSIPI(null) })
     }
 
     return (
@@ -110,8 +142,35 @@ export default function Island() {
                         })}
                     />
                     {selectedIsland != null &&
-                        <Button type='dashed' style={{ color: 'red', background: 'none' }}
-                            onClick={deleteIsland}><DeleteOutlined /> Delete Island</Button>
+                        <Space>
+                            <Button type='dashed'
+                                style={{ color: '#25527b', background: 'none' }}
+                                onClick={() => {
+                                    setOpen(true)
+                                    setEdit(true)
+                                    setname(SID.name)
+                                    setthumbnail(SID.thumbnail)
+                                    setHeaderImage(SID.headerImage)
+                                    setMetaDescription(SID.metaDescription)
+                                    setOrder(SID.order)
+                                    setTimeout(() => {
+                                        nameRef.current.value = SID.name;
+                                        orderRef.current.value = SID.order;
+                                        headerImageRef.current.value = SID.headerImage;
+                                        thumbnailRef.current.value = SID.thumbnail;
+                                        metaDescriptionRef.current.value = SID.metaDescription;
+                                    }, 100);
+
+                                }}>
+                                <EditOutlined />
+                            </Button>
+                            <Button type='dashed'
+                                style={{ color: 'red', background: 'none' }}
+                                onClick={deleteIsland}>
+                                <DeleteOutlined />
+                            </Button>
+
+                        </Space>
                     }
 
                 </Space>
@@ -144,9 +203,9 @@ export default function Island() {
                             IslandSlug={SID.slug}
                             IslandId={selectedIsland}
                             update={updatePlace}
-                            addnewPlace={()=>{setSIPD(null);setAction("new"); setSIPI(null)}}
+                            addnewPlace={() => { setSIPD(null); setAction("new"); setSIPI(null) }}
                         />
-                        
+
                     </>
                 }
             </div>
@@ -155,17 +214,40 @@ export default function Island() {
             {/* ///PopUp Modal SEction//// */}
             <Modal
                 open={open}
-                onCancel={() => setOpen(false)}
+                onCancel={() => {
+                    setname("")
+                    setthumbnail("")
+                    setHeaderImage("")
+                    setMetaDescription("")
+                    setOrder(0)
+                    nameRef.current.value = "";
+                    orderRef.current.value = 0;
+                    headerImageRef.current.value = "";
+                    thumbnailRef.current.value = "";
+                    metaDescriptionRef.current.value = "";
+                    setEdit(false)
+                    setOpen(false)
+                }}
                 footer={[
-                    <Button type='primary' key={'btn'} onClick={addNewIsland}>Add</Button>,
+                    <Button type='primary' key={'btn'} onClick={edit ? editIsland : addNewIsland}>{edit ? "Update" : "Add"}</Button>,
                 ]}
             >
                 <div style={{ flexDirection: 'column', display: 'flex', gap: 10, padding: '1%' }}>
-                    <p>Island Name, Header Image and Thumbnail:</p>
-                    <Input placeholder='Enter Island Name' onChange={(e) => setislandName(e.target.value)} />
-                    <Input placeholder='Enter Header Image Url' onChange={(e) => setHeaderImage(e.target.value)} />
-                    <Input placeholder='Enter Thumbnail Url' onChange={(e) => setIslandThumb(e.target.value)} />
-                    <Input placeholder='Enter Short Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
+                    <div>Order No.:
+                        <input ref={orderRef} type='number' placeholder='Enter Order No.' onChange={(e) => setOrder(e.target.valueAsNumber)} />
+                    </div>
+                    <div>Island Name:
+                        <input ref={nameRef} placeholder='Enter Island Name' onChange={(e) => setname(e.target.value)} />
+                    </div>
+                    <div>Header Image Url:
+                        <input ref={headerImageRef} placeholder='Enter Header Image Url' onChange={(e) => setHeaderImage(e.target.value)} />
+                    </div>
+                    <div>Thumbnail Url:
+                        <input ref={thumbnailRef} placeholder='Enter Thumbnail Url' onChange={(e) => setthumbnail(e.target.value)} />
+                    </div>
+                    <div>Meta Description:
+                        <input ref={metaDescriptionRef} placeholder='Enter Short Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
+                    </div>
 
                 </div>
             </Modal>

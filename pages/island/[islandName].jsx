@@ -16,6 +16,7 @@ export default function IslandName({ data }) {
             <Head>
                 <title>{data.name}</title>
                 <meta name="description" content={data.metaDescription}></meta>
+                <meta property='og:image' content={data.headerImage}></meta>
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -42,7 +43,7 @@ export default function IslandName({ data }) {
                             }
 
                             return (
-                                <Link key={i} href={item.slug}>
+                                <Link target='blank' key={i} href={item.slug}>
                                     <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden' }}>
                                         <Image
                                             src={newUrl}

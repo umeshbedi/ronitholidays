@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
       >
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/images/ronitholidays Logo icon.ico" />
+          <link rel="icon" href="/images/ronitholidays Logo icon.png" />
         </Head>
         <Layout>
           <div style={{position:'sticky', top:0, zIndex:5}}>

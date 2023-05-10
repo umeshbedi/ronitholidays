@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ContactForm from './ContactForm'
 import style from '@/styles/component.module.scss'
 import { Table } from 'antd';
 import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
+import { mobile } from './variables';
 
 export default function ContactUsPage() {
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+      setIsMobile(mobile())
+    }, [isMobile])
 
     const dataSource = [
         {
@@ -24,7 +30,7 @@ export default function ContactUsPage() {
             <p>Feel free to get in touch with us.</p>
             <br />
             <br />
-            <div style={{ display: 'grid', gridTemplateColumns: "60% 40%" }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile?"auto":"60% 40%" }}>
                 <div style={{ background: 'white', padding: '5%', height: 'fit-content' }}>
                     <ContactForm
                         packageName={"Contact Us"}
