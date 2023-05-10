@@ -38,7 +38,17 @@ export default function AddPackage() {
         })
 
     }, [])
-    // console.log(packageItem)
+    
+    function updateSinglePackage(e) {
+        packagedb.doc(`${selectedSinglePackage}`)
+        .collection("singlePackage")
+        .doc(`${e.id}`)
+        .update({order:Number(e.order), name:e.name})
+        .then(()=>messageApi.success("saved"))
+        .catch(e=>messageApi.error(e.message))
+        
+    }
+
     useEffect(() => {
         if (selectedSinglePackage != null) {
             packagedb.doc(`${selectedSinglePackage}`)
@@ -61,17 +71,17 @@ export default function AddPackage() {
                 meteDescription: value.meteDescription,
                 order: Number(value.order)
             })
-                .then(() => {messageApi.success("Updated!")})
-                .catch((err) => {messageApi.error(err.message)})
-        }else{
+                .then(() => { messageApi.success("Updated!") })
+                .catch((err) => { messageApi.error(err.message) })
+        } else {
             packagedb.add({
                 name: value.package_name,
                 slug: `/package/${slug}`,
                 meteDescription: value.meteDescription,
                 order: Number(value.order)
             })
-                .then(() => {messageApi.success("Added new Package Group Successfully!")})
-                .catch((err) => {messageApi.error(err.message)})
+                .then(() => { messageApi.success("Added new Package Group Successfully!") })
+                .catch((err) => { messageApi.error(err.message) })
         }
 
     }
@@ -140,16 +150,17 @@ export default function AddPackage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%', border: "solid .3px rgba(0,0,0,.2)", width: 'fit-content' }}>
                 {result !== undefined &&
                     singlePackage.map((res, i) => (
-                        <Form key={i}>
+                        <Form key={i} onFinish={updateSinglePackage}>
                             <Space>
-                            <Form.Item name='package_id' initialValue={res.name} label={`Package #${i + 1}`} style={{ margin: 0, fontWeight: 'bold' }}>
+                                <Form.Item name='id' initialValue={res.id} style={{ margin: 0, fontWeight: 'bold' }} />
+                                <Form.Item name='name' initialValue={res.name} label={`Package #${i + 1}`} style={{ margin: 0, fontWeight: 'bold' }}>
                                     <Input required placeholder='Enter Package Name' />
                                 </Form.Item>
-                                <Form.Item label="Order No." style={{ margin: 0, fontWeight: 'bold' }}>
-                                    <Input placeholder='Enter Order No.' />
+                                <Form.Item label="Order No." name="order" initialValue={res.order} style={{ margin: 0, fontWeight: 'bold' }}>
+                                    <Input type='number' defaultValue={res.order} placeholder='Enter Order No.' />
                                 </Form.Item>
-                                
-                                <Button type='dashed' style={{ color: 'grey' }} >< SaveOutlined /></Button>
+
+                                <Button type='dashed' style={{ color: 'grey' }} htmlType='submit'>< SaveOutlined /></Button>
                                 <Button type='dashed' style={{ color: 'red' }} onClick={() => deleteSinglePackage(res.id)} >< DeleteOutlined /></Button>
                             </Space>
                         </Form>
@@ -221,7 +232,7 @@ export default function AddPackage() {
             }
             <Divider />
             {/* Add new package group name div */}
-            <div style={{ width: 'fit-content', marginBottom:'3%' }}>
+            <div style={{ width: 'fit-content', marginBottom: '3%' }}>
                 <h2 id='addPackageGroup' style={{ color: style.secondaryColor }}><i>{edit ? "Edit" : "Add New Package Group"}</i></h2>
                 <Form style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, padding: '1%' }}
                     onFinish={(e) => AddPacakgeGroup(e)}
@@ -240,7 +251,7 @@ export default function AddPackage() {
                         {edit ?
                             (<Space>
                                 <Button type='primary' htmlType='submit'>Update</Button>
-                                <Button type='dashed' style={{ color: 'grey' }} onClick={()=>{
+                                <Button type='dashed' style={{ color: 'grey' }} onClick={() => {
                                     setEdit(false);
                                     orderRef.current.value = 0
                                     nameRef.current.value = ""

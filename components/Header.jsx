@@ -26,13 +26,18 @@ export default function Header({ Island, }) {
   }, [isMobile])
 
   useEffect(() => {
-    db.collection("package").onSnapshot((snap) => {
+    db.collection("package")
+    .orderBy("order", "asc")
+    .onSnapshot((snap) => {
       const packageTemp = []
       snap.forEach((sndata => {
         const data = sndata.data()
         const singlePackageTemp = []
         db.doc(`package/${sndata.id}`)
-          .collection('singlePackage').where("status", '==', 'published').get()
+          .collection('singlePackage')
+          .where("status", '==', 'published')
+          .orderBy("order", "asc")
+          .get()
           .then((newpkg => {
             newpkg.forEach((pkg) => {
               singlePackageTemp.push({name:pkg.data().name, slug:pkg.data().slug})
@@ -71,7 +76,9 @@ export default function Header({ Island, }) {
   }, [])
 
   useEffect(() => {
-    db.collection("activity").onSnapshot((snap) => {
+    db.collection("activity")
+    .orderBy("order", "asc")
+    .onSnapshot((snap) => {
       const tempActivity = []
       snap.forEach((sndata) => {
         tempActivity.push({slug:sndata.data().slug, name:sndata.data().name})
