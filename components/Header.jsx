@@ -130,10 +130,10 @@ export default function Header({ Island, }) {
           float: 'right',
           width: isMobile ? '100%' : 'auto',
           borderBottom: 0,
-
+          
         }}
         disabledOverflow
-        onClick={(e) => setActive(e.key)}
+        onClick={(e) => {setActive(e.key);setOpen(false)}}
         activeKey={active}
 
       >
@@ -217,6 +217,7 @@ export default function Header({ Island, }) {
         width={'70%'}
         open={open}
         onClose={() => setOpen(false)}
+        
 
       >
         <RespMenu />

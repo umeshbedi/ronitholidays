@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '@/firebase'
 import style from '@/styles/component.module.scss'
 import WaveSvg from '@/components/WaveSvg'
@@ -6,15 +6,24 @@ import Head from 'next/head'
 import { Divider, Image, Skeleton } from 'antd'
 import String2Html from '@/components/String2Html'
 import Link from 'next/link'
-import { boxShadow } from '@/components/variables'
+import { boxShadow, mobile } from '@/components/variables'
 
 export default function AboutIsland({ data, headerImage, islandItem, headerImgAlt }) {
     // console.log(islandItem)
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        setIsMobile(mobile())
+      }, [isMobile])
+      
+    
     if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
     const remainingData = data.filter((f)=>{
         return f.slug!=islandItem.slug;
     })
-    // console.log(remainingData)
+
+    
+    
     return (
         <main>
             <Head>
@@ -24,24 +33,24 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
+                    <div style={{ width: '100%', height: isMobile?"30px":'68px', position: 'absolute' }}>
                         <WaveSvg fill={style.lightGrey} />
                     </div>
                     <img src={headerImage} alt={headerImgAlt}
-                        style={{ height: 450, width: '100%', objectFit: 'cover' }}
+                        style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
                     />
                 </div>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-                    <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
-                        <div style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+                    <div style={{ width: '90%', display: isMobile?"block":"flex", gap: '4%', marginTop: '3%' }}>
+                        <div style={{ width: isMobile?'100%':"70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
                             <h1>About {islandItem.name}</h1>
                             <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
                             <String2Html id={'aboutIsland'} string={islandItem.about}/>
 
                         </div>
                         
-                        <div style={{ width: '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection:'column', display:'flex', alignItems:'center' }}>
+                        <div style={{ width: isMobile?'100%':'30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection:'column', display:'flex', alignItems:'center' }}>
                             <h2 style={{textAlign:'center'}}>Visit Other Places of {headerImgAlt}</h2>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
                             {remainingData.map((item, i) => (

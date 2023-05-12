@@ -1,14 +1,19 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import WaveSvg from '@/components/WaveSvg'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
 import { Card, Image, Skeleton } from 'antd'
-import { boxShadow } from '@/components/variables'
+import { boxShadow, mobile } from '@/components/variables'
 import Link from 'next/link'
 
 export default function IslandName({ data }) {
+    const [isMobile, setIsMobile] = useState(false)
 
+    useEffect(() => {
+        setIsMobile(mobile())
+      }, [isMobile])
+      
     if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
     // console.log(data)
     return (
@@ -20,17 +25,17 @@ export default function IslandName({ data }) {
             </Head>
             <div>
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
+                    <div style={{ width: '100%', height: isMobile?"30px":'68px', position: 'absolute' }}>
                         <WaveSvg fill={style.lightGrey} />
                     </div>
                     <img src={data.headerImage} alt={data.name}
-                        style={{ height: 450, width: '100%', objectFit: 'cover' }}
+                        style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
                     />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3%', gap: 30 }}>
                     <h1>Places to Visit in {data.name}</h1>
-                    <div style={{ display: 'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: '90%', justifyContent: 'center' }}>
+                    <div style={{ display: isMobile?"block":'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: isMobile?"auto":'90%', justifyContent: 'center', }}>
                         {data.data.map((item, i) => {
                             var newUrl = "";
                             const splitedUrl = item.thumbnail.split(".");
@@ -44,7 +49,7 @@ export default function IslandName({ data }) {
 
                             return (
                                 <Link target='blank' key={i} href={item.slug}>
-                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden' }}>
+                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden', marginBottom:isMobile?30:"auto" }}>
                                         <Image
                                             src={newUrl}
                                             alt={item.name}
