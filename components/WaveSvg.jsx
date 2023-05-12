@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { mobile } from './variables'
 
 export default function WaveSvg({fill}) {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        setIsMobile(mobile())
+      }, [isMobile])
+      
     return (
-        <svg width="100%" height="68px"
+        <svg width="100%" height={isMobile?30:68}
             viewBox="0 0 1280 140"
             preserveAspectRatio="none"
             xmlns="http://www.w3.org/2000/svg">
