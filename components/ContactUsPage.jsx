@@ -41,19 +41,21 @@ export default function ContactUsPage() {
                     <div style={{display:'flex',color:'white', flexDirection:'column', alignItems:'center', gap:10}}>
                         <FiMapPin style={{fontSize:35}}/>
                         <h2 style={{color:style.primaryColor}}>Address</h2>
-                        <p style={{textAlign:'center', lineHeight:'140%'}}>Shop No. 01, Pulikeezu Bhavan Bargat Line, near juvenile home, DRDO TRANSIST, Nayagaon, Port Blair, Andaman and Nicobar Islands 744106</p>
+                        <p style={{textAlign:'center', lineHeight:'140%'}}>
+                        Sardar Bhagwan Singh Shopping Complex, Dollygunj, Port Blair, Andaman and Nicobar Islands 744103
+                            </p>
                         <hr style={{width:'80%'}}/>
                     </div>
                     <div style={{display:'flex',color:'white', flexDirection:'column', alignItems:'center', gap:10}}>
                         <FiMail style={{fontSize:35}}/>
                         <h2 style={{color:style.primaryColor}}>Email</h2>
-                        <p style={{textAlign:'center', lineHeight:'140%'}}>contact@ronitholidays.com</p>
+                        <p style={{textAlign:'center', lineHeight:'140%'}}>ronittravels1@gmail.com</p>
                         <hr style={{width:'80%'}}/>
                     </div>
                     <div style={{display:'flex',color:'white', flexDirection:'column', alignItems:'center', gap:10}}>
                         <FiPhone style={{fontSize:35}}/>
                         <h2 style={{color:style.primaryColor}}>Contact No.</h2>
-                        <p style={{textAlign:'center', lineHeight:'140%'}}>9933263867, 9531955441</p>
+                        <p style={{textAlign:'center', lineHeight:'140%'}}>+91 9434261139, +91 9933267038</p>
                         
                     </div>
                 </div>

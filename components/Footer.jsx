@@ -60,9 +60,8 @@ export default function Footer() {
         <div>
           <h2>Contact with Us</h2>
           <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"#"}>  9933263867, 9531955441</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> WhatsApp: 9933263867, 9531955441</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> contact@ronitholidays.com</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> +91 9434261139, +91 9933267038</Link></div>
+          <div style={{ marginBottom: 5 }}><Link href={"#"}> ronittravels1@gmail.com</Link></div>
         </div>
       </div>
       <div>
