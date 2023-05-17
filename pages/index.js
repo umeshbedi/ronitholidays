@@ -10,6 +10,8 @@ import Packages from '@/components/homepage/Packages'
 import Island from '@/components/homepage/Island'
 import FerryCarousel from '@/components/homepage/Ferries'
 import ActivityCarousel from '@/components/homepage/Activities'
+import Authorities from '@/components/homepage/Authorities'
+import Testimonials from '@/components/homepage/Testimonials'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
 
@@ -44,8 +46,12 @@ export default function Home({ data, packageList, activityData, ferryData, islan
         <Island data={islandData}/>
         
         <FerryCarousel ferryData={ferryData}/>
-
+        
         <ActivityCarousel activityData={activityData}/>
+        
+        <Testimonials/>
+
+        <Authorities/>
 
         
       </div>

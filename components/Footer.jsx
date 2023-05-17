@@ -4,25 +4,58 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
 import { mobile } from './variables'
+import { FaPhoneAlt } from 'react-icons/fa'
+import { FiMail } from 'react-icons/fi'
 
 export default function Footer() {
   const [ferryList, setFerryList] = useState([])
   const [isMobile, setIsMobile] = useState(false)
+  const [activityList, setActivityList] = useState([])
 
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
 
   useEffect(() => {
+
     document.getElementById("footerwave").innerHTML = footerWave
+
     db.collection('ferry').get().then((snap) => {
       const tempFerry = []
       snap.forEach((sndata) => {
-        tempFerry.push(sndata.data())
+        const data = sndata.data()
+        tempFerry.push({ name: data.name, slug: data.slug })
       })
       setFerryList(tempFerry)
     })
+
+    //Getting Activity
+    db.collection("activity")
+    .orderBy("order", "asc")
+    .limit(6)
+    .get().then((snap) => {
+      const tempActivity = []
+      snap.forEach((sndata) => {
+        const data = sndata.data()
+        tempActivity.push({ name: data.name, slug: data.slug })
+      })
+      setActivityList(tempActivity)
+    });
+
   }, [])
+
+  function Element({ heading, items }) {
+    return (
+      <div>
+        <h2 style={{ paddingBottom: 15, borderBottom: `2px solid ${style.primaryColor}`, display: 'inline' }}>{heading}</h2>
+        <div style={{ marginTop: 30 }}>
+          {items.map((item, i) => (
+            <div key={i} style={{ marginBottom: 5 }}><Link target='blank' href={item.link}>{item.name}</Link></div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
 
   return (
@@ -30,42 +63,56 @@ export default function Footer() {
 
       <div id='footerwave' style={{ marginBottom: -4 }} />
 
-      <div className='footerdiv' style={{ display:'grid', gridTemplateColumns:`repeat(${isMobile?'1':'4'}, auto)` }}>
-        <div style={{}}>
-          <h2>Cruises</h2>
-          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          {
-            ferryList.map((ferry, key) => (
-              <div key={key} style={{ marginBottom: 5 }}>
-                <Link href={ferry.slug}>{ferry.name}</Link>
-              </div>
-            ))
-          }
-        </div>
-        <div>
-          <h2>Support</h2>
-          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"/terms-and-condition"}> Terms & Condition</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/disclaimer"}> Disclaimer</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/privacy-policy"}> Privacy Policy</Link></div>
+      <div className='footerdiv' style={{
+        display: isMobile ? "flex" : 'grid',
+        flexDirection: 'column',
+        gridTemplateColumns: `repeat(4, auto)`,
+        gap: 30
 
-        </div>
-        <div>
-          <h2>Useful Links</h2>
-          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"/about-us"}> About Us</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/activity"}> Activity</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"/contact-us"}> Contact Us</Link></div>
-        </div>
-        <div>
-          <h2>Contact with Us</h2>
-          <Divider style={{ margin: "5% 0%", backgroundColor: style.primaryColor, height: 2 }} />
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> +91 9434261139, +91 9933267038</Link></div>
-          <div style={{ marginBottom: 5 }}><Link href={"#"}> ronittravels1@gmail.com</Link></div>
-        </div>
+      }}
+      >
+        <Element
+          heading={"Cruises"}
+          items={ferryList.map((ferry, i) => {
+            return {
+              name: ferry.name,
+              link: ferry.slug
+            }
+          })}
+        />
+
+        <Element
+          heading={"Activity"}
+          items={activityList.map((ferry, i) => {
+            return {
+              name: ferry.name,
+              link: ferry.slug
+            }
+          })}
+        />
+        <Element
+          heading={"Useful Links"}
+          items={[
+            
+          ]}
+        />
+
+        <Element
+          heading={"Contact with Us"}
+          items={[
+            { name: <><FaPhoneAlt /> +91 9434261139, +91 9933267038</>, link: "#" },
+            { name: <><FiMail /> ronittravels1@gmail.com</>, link: 'mailto:ronittravels1@gmail.com' },
+            { name: "Terms & Condition", link: '/terms-and-condition' },
+            { name: "Disclaimer", link: '/disclaimer' },
+            { name: "Privacy Policy", link: '/privacy-policy' },
+          ]}
+        />
+
+
+
       </div>
       <div>
-        <p style={{ textAlign: 'center', padding: '2% 0%', backgroundColor: '#10263b', color: 'grey' }}>© 2023 <Link href={'/'}> ronitholidays.com </Link> - All rights reserved</p>
+        <p style={{ textAlign: 'center', padding: '20px 0', backgroundColor: '#10263b', color: 'grey' }}>© 2023 <Link href={'/'}> ronitholidays.com </Link> - All rights reserved</p>
       </div>
 
     </div>

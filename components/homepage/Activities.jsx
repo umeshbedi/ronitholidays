@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { boxShadow, mobile } from '../variables';
+import Title from './Title';
 
 const responsive = {
   desktop: {
@@ -24,20 +26,42 @@ const responsive = {
 
 
 export default function ActivityCarousel({ activityData }) {
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(mobile())
+  }, [isMobile])
+
   return (
 
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'lightgrey', padding: '4% 0' }}>
-      <div style={{ width: "80%" }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      background: "url('/images/istockphoto-1168080557-612x612.jpg')",
+      padding: '4% 0',
+
+
+    }}
+    >
+      <Title red={"Trending"} blue={"Activities"} />
+      <div style={{ width: isMobile ? "90%" : "80%", marginTop: 20 }}>
         <Carousel
           responsive={responsive}
           ssr={true} // means to render carousel on server-side.
           infinite={true}
           customTransition="all 1.5s"
-          containerClass="carousel-container"
+          containerClass="Activity-carousel"
           removeArrowOnDeviceType={["tablet", "mobile"]}
+
         >
           {activityData.map((item, i) => (
-            <Link key={i} target='blank' href={item.slug}>
+            <Link
+              data-aos-anchor-placement="top-bottom"
+              data-aos="fade-up"
+              data-aos-duration="2000"
+              key={i} target='blank' href={item.slug}>
               <div style={{
                 width: 250,
                 height: 250,
@@ -45,27 +69,15 @@ export default function ActivityCarousel({ activityData }) {
                 backgroundSize: 'cover',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'flex-end'
+                justifyContent: 'flex-end',
+                boxShadow: boxShadow
               }}>
-                <div
-                  style={{
-                    padding: '3%',
-                    color: 'white',
-                    background: "rgba(0,0,0,.4)",
-                    borderRadius: "0 0 10px 10px",
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <p>{item.name}</p>
-                  <FaLongArrowAltRight style={{ marginLeft: 10 }} />
-                </div>
+
               </div>
             </Link>
           ))
           }
-          
+
         </Carousel>
       </div>
     </div>

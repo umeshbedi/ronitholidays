@@ -21,9 +21,9 @@ export default function Island({ data }) {
             padding:'5% 0 10% 0'
         }}
         >
-            <h1 style={{color:'white'}}>{"Andaman's Best Islands"}</h1>
+            <h1 style={{color:'white', textAlign:'center', padding:'0 5%'}}>{"Andaman's Best Islands"}</h1>
             <img src="/images/noun-decorative-line-4253409 - white.svg" alt="decorative line" style={{width:300, }}/>
-            <p style={{color:'white'}}>Andaman Islands tourism has some of the most exotic and offbeat islands that one can experience.</p>
+            <p style={{color:'white', textAlign:'center', padding:'0 5%'}}>Andaman Islands tourism has some of the most exotic and offbeat islands that one can experience.</p>
             <div style={{
                 display: isMobile ? "block" : 'grid',
                 gridTemplateColumns: "repeat(4, auto)",
@@ -44,7 +44,10 @@ export default function Island({ data }) {
                     }
 
                     return (
-                        <Link target='blank' key={i} href={item.slug}>
+                        <Link 
+                        data-aos="flip-left"
+                        data-aos-duration="2000"
+                        target='blank' key={i} href={item.slug}>
                             <div id='cardImage' style={{ 
                                 background: 'white', 
                                 display: 'flex', 

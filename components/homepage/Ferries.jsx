@@ -1,8 +1,9 @@
 import { Image } from "antd";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactCardCarousel from "react-card-carousel";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { mobile } from "../variables";
 
 function CONTAINER_STYLE() {
     return {
@@ -17,11 +18,18 @@ function CONTAINER_STYLE() {
     };
 }
 
+
+
 export default function FerryCarousel({ ferryData }) {
-    console.log(ferryData)
+    
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+
     return (
         <div style={{
-            gap: 30,
             padding: '5% 0',
         }}>
             <h1 style={{ textAlign: 'center' }}>Popular Cruise</h1>
@@ -33,15 +41,16 @@ export default function FerryCarousel({ ferryData }) {
                     {ferryData.map((item, i) => (
 
                         <div key={i} style={{
-                            width: "500px",
-                            height: '300px',
+                            width: isMobile?300: 500,
+                            height: 300,
                             borderRadius: "10px",
                             boxSizing: "border-box",
                             background: `url(${item.thumbnail})`,
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'flex-end',
-                            backgroundSize: 'cover'
+                            backgroundSize: 'cover',
+                            backgroundPositionX:'center'
                         }}>
                             <Link href={item.slug} target="blank"
                             style={{

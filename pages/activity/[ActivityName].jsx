@@ -24,7 +24,11 @@ export default function ActivityName({ data }) {
         <meta property='og:image' content={data.thumbnail}></meta>
       </Head>
       <div>
-        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+        <div
+          data-aos="fade-down"
+          data-aos-anchor-placement="top-bottom"
+          data-aos-duration="2000"
+          style={{ display: 'flex', alignItems: 'flex-end' }}>
           <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
             <WaveSvg fill={style.lightGrey} />
           </div>
@@ -35,26 +39,34 @@ export default function ActivityName({ data }) {
 
         <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
           <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
-            <div style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+            <div
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-duration="2000"
+              style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
               <h1>About {data.name}</h1>
               <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
               <String2Html id={'aboutIsland'} string={data.about} />
 
             </div>
 
-            <div style={{ width: '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+            <div style={{ width: '30%', background: 'white', padding: '3% 0 0 0', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
               <h2 style={{ textAlign: "center" }}>Activities in {data.name}</h2>
               <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
               {data.data.map((item, i) => (
-                <div key={i} id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 250, marginBottom: 30 }}>
+                <div
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="top-bottom"
+                  data-aos-duration="2000"
+                  key={i} id='cardImage' 
+                  style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: "100%", marginBottom: i!=(data.data.length-1)?30:0 }}>
                   <Image
                     src={item.thumbnail}
                     alt={item.name}
                     preview={false}
-                    width={250}
-                    height={250}
+                    width={"100%"}
                     style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                  <p style={{ padding: '5% 5% 0 5%', textAlign: 'center', fontWeight: 'bold' }}>{item.name}</p>
+                  <h2 style={{ padding: '5% 5% 0 5%', textAlign: 'center' }}>{item.name}</h2>
 
                   <Divider>
                     <p style={{ padding: '2px 10px', borderRadius: 20, border: `solid 1px ${style.lightGrey}` }}>{item.duration}</p>

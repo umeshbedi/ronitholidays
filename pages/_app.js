@@ -7,12 +7,15 @@ import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import SHeader from '@/components/skeleton/SHeader'
 import { db } from '@/firebase';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 
 const Header = dynamic(() => import('../components/Header'), {
   ssr: false,
   loading: () => <SHeader />
 });
-const Footer = dynamic(() => import('../components/Footer'), {ssr:false, loading:()=><></>});
+const Footer = dynamic(() => import('../components/Footer'), { ssr: false, loading: () => <></> });
 
 
 
@@ -20,7 +23,10 @@ export default function App({ Component, pageProps }) {
   const [path, setPath] = useState('/')
   useEffect(() => {
     setPath(window.location.pathname)
+    AOS.init();
   }, [])
+  
+  
   return (
     <>
       <ConfigProvider
@@ -35,11 +41,10 @@ export default function App({ Component, pageProps }) {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/images/ronitholidays Logo icon.png" />
-          
         </Head>
         <Layout>
-          <div style={{position:'sticky', top:0, zIndex:5}}>
-          <Header />
+          <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
+            <Header />
           </div>
 
           <Component {...pageProps} />
@@ -51,5 +56,7 @@ export default function App({ Component, pageProps }) {
       </ConfigProvider>
     </>
   )
+
+  
 }
 

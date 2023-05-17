@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 $primary-color: #ff0000;
 $secondary-color: #10263b;
 $secondary-dark: #17334e;
@@ -19,7 +17,7 @@ $secondary-dark: #17334e;
   padding: 0;
   margin: 0;
   // font-family: Roboto;
-  font-family: Book Antiqua;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 }
 
 
@@ -103,10 +101,9 @@ body {
 
 .homeBanner {
   width: 100%;
-  height: 550px;
   display: flex;
   align-items: center;
-  padding-left: 7%;
+  padding-left: 10%;
   background-size: cover;
   // background-position-y: bottom;
 }
@@ -223,4 +220,14 @@ body {
 
 .ant-drawer .ant-drawer-body{
   padding: 0;
+}
+
+.mySwiper{
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 350px;
+    margin-bottom: 50px;
+  }
+  
 }
