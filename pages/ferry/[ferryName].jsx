@@ -10,13 +10,13 @@ import WaveSvg from '@/components/WaveSvg'
 
 export default function Slug({ data }) {
 
-  
+
   const [msg, showMsg] = message.useMessage()
   const [openModal, setOpenModal] = useState(false)
   const [modalData, setModalData] = useState({})
 
-  if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
-  
+  if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
+
   const tabItem = [
     {
       label: `About ${data.name}`,
@@ -45,17 +45,23 @@ export default function Slug({ data }) {
 
       <div>
         {showMsg}
-        
-        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
-                        <WaveSvg fill={style.lightGrey} />
-                    </div>
-                    <img src={data.image} alt={data.name}
-                        style={{ height: 450, width: '100%', objectFit: 'cover' }}
-                    />
-                </div>
-        
-        <div style={{ display: 'flex', justifyContent: 'center', }}>
+
+        <div
+          data-aos="fade-down"
+          data-aos-anchor-placement="top-bottom"
+          data-aos-duration="2000"
+          style={{ display: 'flex', alignItems: 'flex-end' }}>
+          <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
+            <WaveSvg fill={style.lightGrey} />
+          </div>
+          <img src={data.image} alt={data.name}
+            style={{ height: 450, width: '100%', objectFit: 'cover' }}
+          />
+        </div>
+
+        <div
+          className='backCurve5'
+          style={{ display: 'flex', justifyContent: 'center', }}>
 
           <div style={{ width: '90%', display: "flex", gap: '3%', marginTop: '3%' }}>
             <div style={{ width: "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
@@ -75,64 +81,73 @@ export default function Slug({ data }) {
                   return f.ticketId == tk.ticketId
                 })
                 return (
-                  <Collapse key={i} accordion style={{ border: "none", marginBottom: '4%', background: 'white' }}>
-                    <Collapse.Panel
-                      showArrow={false}
-                      header={
-                        <div style={{ display: 'flex', gap: '3%' }}>
-                          <div style={{ width: '70%' }}>
-                            <p>From</p>
-                            <p style={{ color: style.secondaryColor }}><b>{tk.from} {">>"} {tk.to}</b></p>
-                            <p>Dep: {tk.departure} | Arr: {tk.arrival}</p>
-                            <Divider>
-                              <p style={{ color: 'white', background: style.secondaryColor, padding: '2px 10px', borderRadius: 20 }}>Distance {tk.distance}</p>
-                            </Divider>
-                          </div>
+                  <div
+                    data-aos="fade-up"
+                    data-aos-anchor-placement="top-bottom"
+                    data-aos-duration="2000"
+                    id='ticketCollapse'
+                    key={i}
+                  >
+                    <Collapse  accordion style={{ border: "none", marginBottom: '4%', background: 'white' }}>
+                      <Collapse.Panel
+                        showArrow={false}
+                        header={
+                          <div
+                            style={{ display: 'flex', gap: '3%' }}>
+                            <div style={{ width: '70%' }}>
+                              <p>From</p>
+                              <p style={{ color: style.secondaryColor }}><b>{tk.from} {">>"} {tk.to}</b></p>
+                              <p>Dep: {tk.departure} | Arr: {tk.arrival}</p>
+                              <Divider>
+                                <p style={{ color: 'white', background: style.secondaryColor, padding: '2px 10px', borderRadius: 20 }}>Distance {tk.distance}</p>
+                              </Divider>
+                            </div>
 
-                          <div style={{ flexDirection: 'column', display: 'flex', width: '30%' }}>
-                            <div style={{ ...bookStyle, height: '63%', }}>
-                              <p><b>Duration:</b></p>
-                              <p><b>{tk.duration}</b></p>
-                            </div>
-                            <div style={{ ...bookStyle, background: style.primaryColor, height: '30%' }}>
-                              <p style={{ color: 'white' }}><b>Book Here</b></p>
+                            <div style={{ flexDirection: 'column', display: 'flex', width: '30%' }}>
+                              <div style={{ ...bookStyle, height: '63%', }}>
+                                <p><b>Duration:</b></p>
+                                <p><b>{tk.duration}</b></p>
+                              </div>
+                              <div style={{ ...bookStyle, background: style.primaryColor, height: '30%' }}>
+                                <p style={{ color: 'white' }}><b>Book Here</b></p>
+                              </div>
                             </div>
                           </div>
+                        }
+                      >
+                        <div>
+                          {classes.map((cl, j) => (
+                            <div key={j} >
+                              <div style={{ display: 'flex', gap: '3%' }}>
+
+                                <div style={{ width: '60%' }}>
+                                  <p style={{ marginBottom: 15 }}>Class: <span style={{ fontWeight: 'bold', fontSize: '130%' }}>{cl.className}</span></p>
+                                  <p>For Kids (0-2 yrs): </p> <p>No Charges</p>
+                                </div>
+
+                                <div style={{ flexDirection: 'column', display: 'flex', width: '40%', alignItems:'center' }}>
+                                  <div style={{ ...bookStyle, height: '50%', }}>
+                                    <p><b>Price:</b></p>
+                                    <p><span style={{ fontWeight: 'bold', fontSize: '130%' }}>₹ {cl.price}</span> /adult</p>
+                                  </div>
+                                  <div style={{ height: '50%', marginTop: 15 }}>
+                                    <Button
+                                      onClick={() => { setOpenModal(true); setModalData({ ...tk, ...cl, ferryName: data.name }) }}
+                                      style={{ background: style.secondaryColor, color: 'white' }}>Book Now</Button>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              {j != classes.length - 1 &&
+                                <Divider />
+                              }
+                            </div>
+                          ))}
                         </div>
-                      }
-                    >
-                      <div>
-                        {classes.map((cl, j) => (
-                          <div key={j} >
-                            <div style={{ display: 'flex', gap: '3%' }}>
-
-                              <div style={{ width: '60%' }}>
-                                <p style={{ marginBottom: 15 }}>Class: <span style={{ fontWeight: 'bold', fontSize: '130%' }}>{cl.className}</span></p>
-                                <p>For Kids (0-2 yrs): </p> <p>No Charges</p>
-                              </div>
-
-                              <div style={{ flexDirection: 'column', display: 'flex', width: '40%' }}>
-                                <div style={{ ...bookStyle, height: '50%', }}>
-                                  <p><b>Price:</b></p>
-                                  <p><span style={{ fontWeight: 'bold', fontSize: '130%' }}>₹ {cl.price}</span> /adult</p>
-                                </div>
-                                <div style={{ height: '50%', marginTop: 15 }}>
-                                  <Button
-                                    onClick={() => { setOpenModal(true); setModalData({...tk, ...cl, ferryName:data.name}) }}
-                                    style={{ background: style.secondaryColor, color: 'white' }}>Book Now</Button>
-                                </div>
-
-                              </div>
-                            </div>
-
-                            {j != classes.length - 1 &&
-                              <Divider />
-                            }
-                          </div>
-                        ))}
-                      </div>
-                    </Collapse.Panel>
-                  </Collapse>
+                      </Collapse.Panel>
+                    </Collapse>
+                  </div>
                 )
               })
 

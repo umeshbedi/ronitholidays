@@ -25,7 +25,7 @@ export default function ContactUsPage() {
 
     return (
         <>
-            <h1>Connect With Us</h1><br />
+            <h1 style={{color:style.secondaryColor}}><span style={{color:style.primaryColor}}>Connect</span> With Us</h1><br />
             <p>We would love to respond to your queries and help you succeed.</p>
             <p>Feel free to get in touch with us.</p>
             <br />

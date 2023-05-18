@@ -35,11 +35,13 @@ export default function ActivityCarousel({ activityData }) {
 
   return (
 
-    <div style={{
+    <div 
+    className='backCurve3'
+    style={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      background: "url('/images/istockphoto-1168080557-612x612.jpg')",
+      // background: "url('/images/istockphoto-1168080557-612x612.jpg')",
       padding: '4% 0',
 
 

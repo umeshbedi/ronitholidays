@@ -2,6 +2,7 @@ import { Image } from 'antd';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { boxShadow, mobile } from '../variables';
+import Title from './Title';
 
 export default function Packages({ Package }) {
 
@@ -26,19 +27,27 @@ export default function Packages({ Package }) {
 
     return (
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '5% 0'}}>
-            <h1 style={{ textAlign: 'center', padding:'0 5%' }}>Andaman Best Packages</h1>
-            <img src="/images/noun-decorative-line-4253409.svg" alt="decorative line" style={{width:300, margin: '1% 0 3% 0'}}/>
-            <div style={{ 
-                display: isMobile?"flex":'grid', 
-                flexDirection:'column', 
-                alignItems:'center',
-                gridGap: 30, 
-                gridTemplateColumns: "repeat(4, auto)", 
-                padding:'0 0 2% 0',
-                marginTop:isMobile?'5%':null
+        <div
+        className='backCurve1' 
+        style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            margin: '5% 0',
             }}
-                >
+            >
+            <Title red={"Andaman"} blue={"Best Packages"}/>
+            <div 
+            style={{
+                display: isMobile ? "flex" : 'grid',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gridGap: 30,
+                gridTemplateColumns: "repeat(4, auto)",
+                padding: '0 0 2% 0',
+                marginTop: isMobile ? '5%' : null
+            }}
+            >
                 {data.map((image, i) => {
                     var newUrl = "";
                     const splitedUrl = image.thumbnail.split(".");
@@ -50,11 +59,11 @@ export default function Packages({ Package }) {
                         newUrl = image.thumbnail
                     }
                     return (
-                        <Link 
-                        data-aos="fade-up"
-                        data-aos-anchor-placement="top-bottom"
-                        data-aos-duration="2000"
-                        id='cardImage' target='blank' key={i} href={image.slug}>
+                        <Link
+                            data-aos="fade-up"
+                            data-aos-anchor-placement="top-bottom"
+                            data-aos-duration="2000"
+                            id='cardImage' target='blank' key={i} href={image.slug}>
                             <Image
                                 style={{ borderRadius: 20, boxShadow: boxShadow }}
                                 src={newUrl} alt={image.name}

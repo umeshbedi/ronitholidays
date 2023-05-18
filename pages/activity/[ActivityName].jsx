@@ -37,13 +37,12 @@ export default function ActivityName({ data }) {
           />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+        <div 
+        className='backCurve5'
+        style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
           <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
             <div
-              data-aos="fade-up"
-              data-aos-anchor-placement="top-bottom"
-              data-aos-duration="2000"
-              style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+             style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
               <h1>About {data.name}</h1>
               <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
               <String2Html id={'aboutIsland'} string={data.about} />

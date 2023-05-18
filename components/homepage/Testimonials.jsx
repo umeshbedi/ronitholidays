@@ -11,36 +11,16 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { FaQuoteLeft } from 'react-icons/fa';
 
-const data = [
-    {
-        name: "umesh",
-        post: "software Engineer",
-        content: "I had an amazing experience, Thanks to these guys I did not had to do anything, they took care of my whole journey, I will highly suggest "
-    },
-    {
-        name: "umesh",
-        post: "software Engineer",
-        content: "I had an amazing experience, Thanks to these guys I did not had to do anything, they took care of my whole journey, I will highly suggest"
-    },
-    {
-        name: "umesh",
-        post: "software Engineer",
-        content: "I had an amazing experience, Thanks to these guys I did not had to do anything, they took care of my whole journey, I will highly suggest"
-    },
-    {
-        name: "umesh",
-        post: "software Engineer",
-        content: "I had an amazing experience, Thanks to these guys I did not had to do anything, they took care of my whole journey, I will highly suggest"
-    },
-]
-
-export default function Testimonials({ activityData }) {
+export default function Testimonials({ testimonialsData }) {
 
     const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         setIsMobile(mobile())
     }, [isMobile])
+
+    
+
 
     return (
 
@@ -50,7 +30,7 @@ export default function Testimonials({ activityData }) {
                 <Swiper
                     effect={"coverflow"}
                     grabCursor={true}
-                    // centeredSlides={true}
+                    centeredSlides={true}
                     slidesPerView={"auto"}
                     coverflowEffect={{
                         rotate: 50,
@@ -64,7 +44,7 @@ export default function Testimonials({ activityData }) {
                     className="mySwiper"
 
                 >
-                    {data.map((item, i) => (
+                    {testimonialsData.map((item, i) => (
                         <SwiperSlide
                             key={i}>
                             <div

@@ -15,7 +15,16 @@ import Testimonials from '@/components/homepage/Testimonials'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
 
-export default function Home({ data, packageList, activityData, ferryData, islandData }) {
+export default function Home({ 
+  data, 
+  packageList, 
+  activityData, 
+  ferryData, 
+  islandData,
+  testimonials
+}) 
+
+{
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -49,7 +58,7 @@ export default function Home({ data, packageList, activityData, ferryData, islan
         
         <ActivityCarousel activityData={activityData}/>
         
-        <Testimonials/>
+        <Testimonials testimonialsData={testimonials}/>
 
         <Authorities/>
 
@@ -100,6 +109,10 @@ export const getStaticProps = async () => {
     return {name:data.name, thumbnail:data.image, slug:data.slug}
   })
 
+  //Getting Testimonials
+  const testimonials = await db.doc(`pages/testimonials`).get()
+
+
   
 
   return {
@@ -108,7 +121,8 @@ export const getStaticProps = async () => {
       packageList,
       islandData,
       activityData,
-      ferryData
+      ferryData,
+      testimonials:testimonials.data().testimonials
     },
     revalidate: 60,
 

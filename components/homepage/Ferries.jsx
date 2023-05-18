@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactCardCarousel from "react-card-carousel";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { mobile } from "../variables";
+import Title from "./Title";
 
 function CONTAINER_STYLE() {
     return {
@@ -29,13 +30,13 @@ export default function FerryCarousel({ ferryData }) {
     }, [isMobile])
 
     return (
-        <div style={{
+        <div 
+        className="backCurve2"
+        style={{
             padding: '5% 0',
+            
         }}>
-            <h1 style={{ textAlign: 'center' }}>Popular Cruise</h1>
-            <div style={{ width: '100%', display: 'flex', justifyContent: "center" }}>
-                <img src="/images/noun-decorative-line-4253409.svg" alt="decorative line" style={{ width: 300, margin: '1% 0 1% 0' }} />
-            </div>
+            <Title red={"Popular"} blue={"Cruise"}/>
             <div style={CONTAINER_STYLE()}>
                 <ReactCardCarousel autoplay={true} autoplay_speed={3000}>
                     {ferryData.map((item, i) => (

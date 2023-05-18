@@ -12,8 +12,8 @@ export default function IslandName({ data }) {
 
     useEffect(() => {
         setIsMobile(mobile())
-      }, [isMobile])
-      
+    }, [isMobile])
+
     if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
     // console.log(data)
     return (
@@ -24,32 +24,42 @@ export default function IslandName({ data }) {
                 <meta property='og:image' content={data.headerImage}></meta>
             </Head>
             <div>
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ width: '100%', height: isMobile?"30px":'68px', position: 'absolute' }}>
+                <div
+                    data-aos="fade-down"
+                    data-aos-anchor-placement="top-bottom"
+                    data-aos-duration="2000"
+                    style={{ display: 'flex', alignItems: 'flex-end' }}>
+                    <div style={{ width: '100%', height: isMobile ? "30px" : '68px', position: 'absolute' }}>
                         <WaveSvg fill={style.lightGrey} />
                     </div>
                     <img src={data.headerImage} alt={data.name}
-                        style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
+                        style={{ height: isMobile ? "auto" : 450, width: '100%', objectFit: 'cover' }}
                     />
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3%', gap: 30 }}>
+                <div
+                    className='backCurve3'
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3%', gap: 30 }}>
                     <h1>Places to Visit in {data.name}</h1>
-                    <div style={{ display: isMobile?"block":'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: isMobile?"auto":'90%', justifyContent: 'center', }}>
+                    <div style={{ display: isMobile ? "block" : 'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: isMobile ? "auto" : '90%', justifyContent: 'center', }}>
                         {data.data.map((item, i) => {
                             var newUrl = "";
                             const splitedUrl = item.thumbnail.split(".");
-                            
-                            if (splitedUrl=="imgur") {
+
+                            if (splitedUrl == "imgur") {
                                 splitedUrl[2] = splitedUrl[2] + "m";
                                 newUrl = splitedUrl.join('.')
-                            }else{
-                                newUrl=item.thumbnail
+                            } else {
+                                newUrl = item.thumbnail
                             }
 
                             return (
-                                <Link target='blank' key={i} href={item.slug}>
-                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden', marginBottom:isMobile?30:"auto" }}>
+                                <Link
+                                    data-aos="fade-up"
+                                    data-aos-anchor-placement="top-bottom"
+                                    data-aos-duration="2000"
+                                    target='blank' key={i} href={item.slug}>
+                                    <div id='cardImage' style={{ borderRadius: 20, background: 'white', display: 'flex', flexDirection: 'column', textAlign: 'center', boxShadow: boxShadow, width: 250, height: 340, overflow: 'hidden', marginBottom: isMobile ? 30 : "auto" }}>
                                         <Image
                                             src={newUrl}
                                             alt={item.name}

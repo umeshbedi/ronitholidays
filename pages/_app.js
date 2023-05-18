@@ -8,7 +8,8 @@ import dynamic from 'next/dynamic'
 import SHeader from '@/components/skeleton/SHeader'
 import { db } from '@/firebase';
 import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import 'aos/dist/aos.css';
+import Link from 'next/link';
 
 
 const Header = dynamic(() => import('../components/Header'), {
@@ -25,8 +26,8 @@ export default function App({ Component, pageProps }) {
     setPath(window.location.pathname)
     AOS.init();
   }, [])
-  
-  
+
+
   return (
     <>
       <ConfigProvider
@@ -43,6 +44,7 @@ export default function App({ Component, pageProps }) {
           <link rel="icon" href="/images/ronitholidays Logo icon.png" />
         </Head>
         <Layout>
+
           <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
             <Header />
           </div>
@@ -54,9 +56,15 @@ export default function App({ Component, pageProps }) {
           }
         </Layout>
       </ConfigProvider>
+      
+      <div style={{ position: 'fixed', right: 0, top: '30vh', zIndex:2 }}>
+        <Link href={"https://api.whatsapp.com/send?phone=919434261139"}>
+          <img src='/images/WhatsApp Right side icon.png' />
+        </Link>
+      </div>
     </>
   )
 
-  
+
 }
 

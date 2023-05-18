@@ -93,18 +93,19 @@ export default function Footer() {
         <Element
           heading={"Useful Links"}
           items={[
-            
+            { name: "Terms & Condition", link: '/terms-and-condition' },
+            { name: "Disclaimer", link: '/disclaimer' },
+            { name: "Privacy Policy", link: '/privacy-policy' },
           ]}
         />
 
         <Element
           heading={"Contact with Us"}
           items={[
-            { name: <><FaPhoneAlt /> +91 9434261139, +91 9933267038</>, link: "#" },
+            { name: <><FaPhoneAlt /> +91 9434261139</>, link: "#" },
+            { name: <><FaPhoneAlt /> +91 9933267038</>, link: "#" },
             { name: <><FiMail /> ronittravels1@gmail.com</>, link: 'mailto:ronittravels1@gmail.com' },
-            { name: "Terms & Condition", link: '/terms-and-condition' },
-            { name: "Disclaimer", link: '/disclaimer' },
-            { name: "Privacy Policy", link: '/privacy-policy' },
+            
           ]}
         />
 

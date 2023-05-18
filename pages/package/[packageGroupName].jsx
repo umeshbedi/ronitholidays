@@ -23,7 +23,9 @@ export default function TermsAndCondition({ entry, data }) {
             <div>
                 {contextHolder}
 
-                <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '3%', }}>
+                <div 
+                className='backCurve1'
+                style={{ display: 'flex', justifyContent: 'center', paddingTop: '3%', }}>
                     <div>
                         <h1 style={{ fontSize: '200%', marginBottom: '3%', textAlign: 'center' }}>Andaman Best {entry.name} Packages</h1>
 

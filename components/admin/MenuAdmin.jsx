@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined, BookOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusOutlined, MenuOutlined, MedicineBoxOutlined, BookOutlined, WechatFilled } from '@ant-design/icons';
 import { FaGoogleDrive, FaImage, FaList, FaMountain, FaNewspaper, FaShip, FaSwimmer } from 'react-icons/fa'
 import { Menu } from 'antd';
 
@@ -79,6 +79,9 @@ export default function MenuAdmin({ menuClick }) {
             <p>Disclaimer</p>
           </Menu.Item>
         </Menu.SubMenu>
+        <Menu.Item key={'Testimonials'}>
+          <p><WechatFilled /> Testimonials</p>
+        </Menu.Item>
         <Menu.Item key={'media'}>
           <p><FaImage /> Media</p>
         </Menu.Item>
