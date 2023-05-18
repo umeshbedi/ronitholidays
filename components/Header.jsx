@@ -239,7 +239,9 @@ export default function Header({ Island, }) {
         </Col>
         <Col span={6} pull={18} style={{}}>
           <Link href={'/'}>
-            <Image src='/images/ronitholidays Logo Final_h80.png' height={45} width={200} alt='ronitholidays Logo Final' />
+            <img src='/images/ronitholidays Logo Final_h80.png' 
+            style={{height:45}}
+            alt='ronitholidays Logo Final' />
           </Link>
         </Col>
       </Row>

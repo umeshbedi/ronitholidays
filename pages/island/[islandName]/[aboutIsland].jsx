@@ -14,16 +14,16 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
 
     useEffect(() => {
         setIsMobile(mobile())
-      }, [isMobile])
-      
-    
-    if (data == undefined) return <Skeleton active style={{marginTop:'3%'}}/>
-    const remainingData = data.filter((f)=>{
-        return f.slug!=islandItem.slug;
+    }, [isMobile])
+
+
+    if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
+    const remainingData = data.filter((f) => {
+        return f.slug != islandItem.slug;
     })
 
-    
-    
+
+
     return (
         <main>
             <Head>
@@ -32,41 +32,52 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                 <meta property='og:image' content={islandItem.thumbnail}></meta>
             </Head>
             <div>
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ width: '100%', height: isMobile?"30px":'68px', position: 'absolute' }}>
+                <div
+                    data-aos="fade-down"
+                    data-aos-anchor-placement="top-bottom"
+                    data-aos-duration="2000"
+                    style={{ display: 'flex', alignItems: 'flex-end' }}>
+                    <div style={{ width: '100%', height: isMobile ? "30px" : '68px', position: 'absolute' }}>
                         <WaveSvg fill={style.lightGrey} />
                     </div>
                     <img src={headerImage} alt={headerImgAlt}
-                        style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
+                        style={{ height: isMobile ? "auto" : 450, width: '100%', objectFit: 'cover' }}
                     />
                 </div>
-                
-                <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-                    <div style={{ width: '90%', display: isMobile?"block":"flex", gap: '4%', marginTop: '3%' }}>
-                        <div style={{ width: isMobile?'100%':"70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+
+                <div
+                    className='backCurve5'
+                    style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+                    <div style={{ width: '90%', display: isMobile ? "block" : "flex", gap: '4%', marginTop: '3%' }}>
+                        <div
+                            style={{ width: isMobile ? '100%' : "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
                             <h1>About {islandItem.name}</h1>
                             <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
-                            <String2Html id={'aboutIsland'} string={islandItem.about}/>
+                            <String2Html id={'aboutIsland'} string={islandItem.about} />
 
                         </div>
-                        
-                        <div style={{ width: isMobile?'100%':'30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection:'column', display:'flex', alignItems:'center' }}>
-                            <h2 style={{textAlign:'center'}}>Visit Other Places of {headerImgAlt}</h2>
+
+                        <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+                            <h2 style={{ textAlign: 'center' }}>Visit Other Places of {headerImgAlt}</h2>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
                             {remainingData.map((item, i) => (
-                            <Link key={i} target='blank' href={item.slug}>
-                                <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width:260, marginBottom:30 }}>
-                                    <Image
-                                        src={item.thumbnail}
-                                        alt={item.name}
-                                        preview={false}
-                                        width={260}
-                                        height={280}
-                                        style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                                    <h2 style={{ padding: '5%', textAlign:'center' }}>{item.name}</h2>
-                                </div>
-                            </Link>
-                        )).slice(0,5)}
+                                <Link
+                                    data-aos="fade-up"
+                                    data-aos-anchor-placement="top-bottom"
+                                    data-aos-duration="2000"
+                                    key={i} target='blank' href={item.slug}>
+                                    <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 260, marginBottom: 30 }}>
+                                        <Image
+                                            src={item.thumbnail}
+                                            alt={item.name}
+                                            preview={false}
+                                            width={260}
+                                            height={280}
+                                            style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
+                                        <h2 style={{ padding: '5%', textAlign: 'center' }}>{item.name}</h2>
+                                    </div>
+                                </Link>
+                            )).slice(0, 5)}
                         </div>
                     </div>
                 </div>
@@ -123,7 +134,7 @@ export async function getStaticProps(context) {
         props: {
             data: data.data,
             headerImage, islandItem,
-            headerImgAlt:data.name
+            headerImgAlt: data.name
         },
         revalidate: 10,
     }

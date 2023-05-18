@@ -18,6 +18,7 @@ const Ferry = dynamic(() => import('../components/admin/Ferry'), { ssr: false, l
 const Island = dynamic(() => import('../components/admin/Island'), { ssr: false, loading: () => <Skeleton /> })
 const Media = dynamic(() => import('../components/admin/Media'), { ssr: false, loading: () => <Skeleton /> })
 const Activity = dynamic(() => import('../components/admin/Activity'), { ssr: false, loading: () => <Skeleton /> })
+const TestiMonials = dynamic(() => import('../components/admin/AddTestimonials'), { ssr: false, loading: () => <Skeleton /> })
 
 
 export default function Admin() {
@@ -87,6 +88,9 @@ export default function Admin() {
     }
     else if(e == 'activity'){
       setContent(<Activity />)
+    }
+    else if(e == 'Testimonials'){
+      setContent(<TestiMonials />)
     }
     
     else if(e == 'media'){

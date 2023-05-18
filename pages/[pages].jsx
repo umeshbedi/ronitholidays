@@ -22,7 +22,11 @@ export default function Pages({ data, path }) {
             </Head>
             <div>
                 {data.headerImage != "" &&
-                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                    <div
+                        data-aos="fade-down"
+                        data-aos-anchor-placement="top-bottom"
+                        data-aos-duration="2000"
+                        style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <div style={{ width: '100%', height: '68px', position: 'absolute', zIndex: 1 }}>
                             <WaveSvg fill={style.lightGrey} />
                         </div>
@@ -35,14 +39,16 @@ export default function Pages({ data, path }) {
                         />
                     </div>
                 }
-                
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3%' }}>
-                
+
+                <div 
+                className='backCurve5'
+                style={{ display: 'flex', justifyContent: 'center', marginTop: '3%' }}>
+
                     <div style={{ width: '80%' }}>
                         <String2Html id={"extraPages"} string={data.about} />
-                        
+
                         {path == "contact-us" &&
-                            <ContactUsPage/>
+                            <ContactUsPage />
                         }
                     </div>
                 </div>

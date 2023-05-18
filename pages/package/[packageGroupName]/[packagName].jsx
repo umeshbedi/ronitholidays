@@ -68,7 +68,9 @@ export default function TermsAndCondition({ data }) {
                 </div>
 
 
-                <div style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+                <div 
+                className='backCurve5'
+                style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
                     <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
                         <div style={{ width: "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
                             <h1 id='packageTitle'>{data.title}</h1>

@@ -10,10 +10,21 @@ import Packages from '@/components/homepage/Packages'
 import Island from '@/components/homepage/Island'
 import FerryCarousel from '@/components/homepage/Ferries'
 import ActivityCarousel from '@/components/homepage/Activities'
+import Authorities from '@/components/homepage/Authorities'
+import Testimonials from '@/components/homepage/Testimonials'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
 
-export default function Home({ data, packageList, activityData, ferryData, islandData }) {
+export default function Home({ 
+  data, 
+  packageList, 
+  activityData, 
+  ferryData, 
+  islandData,
+  testimonials
+}) 
+
+{
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -44,8 +55,12 @@ export default function Home({ data, packageList, activityData, ferryData, islan
         <Island data={islandData}/>
         
         <FerryCarousel ferryData={ferryData}/>
-
+        
         <ActivityCarousel activityData={activityData}/>
+        
+        <Testimonials testimonialsData={testimonials}/>
+
+        <Authorities/>
 
         
       </div>
@@ -94,6 +109,10 @@ export const getStaticProps = async () => {
     return {name:data.name, thumbnail:data.image, slug:data.slug}
   })
 
+  //Getting Testimonials
+  const testimonials = await db.doc(`pages/testimonials`).get()
+
+
   
 
   return {
@@ -102,7 +121,8 @@ export const getStaticProps = async () => {
       packageList,
       islandData,
       activityData,
-      ferryData
+      ferryData,
+      testimonials:testimonials.data().testimonials
     },
     revalidate: 60,
 
