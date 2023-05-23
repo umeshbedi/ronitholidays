@@ -12,6 +12,7 @@ import FerryCarousel from '@/components/homepage/Ferries'
 import ActivityCarousel from '@/components/homepage/Activities'
 import Authorities from '@/components/homepage/Authorities'
 import Testimonials from '@/components/homepage/Testimonials'
+import Offer from '@/components/homepage/Offer'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
 
@@ -57,7 +58,9 @@ export default function Home({
         <FerryCarousel ferryData={ferryData}/>
         
         <ActivityCarousel activityData={activityData}/>
-        
+
+        <Offer/>
+
         <Testimonials testimonialsData={testimonials}/>
 
         <Authorities/>
@@ -113,7 +116,7 @@ export const getStaticProps = async () => {
   const testimonials = await db.doc(`pages/testimonials`).get()
 
 
-  
+  // console.log(testimonials.data().testimonials)
 
   return {
     props: {

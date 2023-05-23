@@ -25,7 +25,8 @@ export default function Testimonials({ testimonialsData }) {
     return (
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#252d35', padding: '4% 0' }}>
-            <Title red={"What"} blue={"people Say"} isdark />
+            <img src="/images/Google-Reviews.png" alt="Google Reviews" style={{height:70}}/>
+            <Title red={"Google Reviews for"} blue={"Ronit Holidays awesome services"} isdark />
             <div style={{ width: isMobile ? "90%" : "80%", marginTop: 20 }}>
                 <Swiper
                     effect={"coverflow"}

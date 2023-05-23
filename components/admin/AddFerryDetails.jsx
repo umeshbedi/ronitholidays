@@ -224,11 +224,11 @@ export default function AddFerryDetails({ details, ferryId }) {
             <Divider>SEO Section</Divider>
             <div>
                 <Space style={{ marginRight: 10 }}>
-                    <p>Meata Description:</p>
+                    <p>Meta Description:</p>
                     <input required defaultValue={details.metaDescription} placeholder='Enter Meta Description' onChange={(e) => setMetaDescription(e.target.value)} />
                 </Space>
                 <Space>
-                    <p>Meata Tag:</p>
+                    <p>Meta Tag:</p>
                     <input required defaultValue={details.metaTag} placeholder='Enter Meta Tag' onChange={(e) => setMetaTag(e.target.value)} />
                 </Space>
             </div>

@@ -245,27 +245,27 @@ body {
 
 }
 
-.backCurve1{
+.backCurve1 {
   position: relative;
 }
 
 .backCurve1::before {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 1.svg);
+  content: url(/images/Backgroung\ Curve\ 1.svg);
   width: 636px;
   height: 100%;
   left: 55%;
   transform: translateX(-50%);
-  
+
 }
 
-.backCurve2{
+.backCurve2 {
   position: relative;
 }
 
 .backCurve2::before {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 3.svg);
+  content: url(/images/Backgroung\ Curve\ 3.svg);
   width: 200px;
   left: 0;
   top: 200px;
@@ -273,14 +273,14 @@ body {
 
 .backCurve2::after {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 4.svg);
+  content: url(/images/Backgroung\ Curve\ 4.svg);
   width: 500px;
   left: 0;
   top: 100px;
-  
+
 }
 
-.backCurve3{
+.backCurve3 {
   position: relative;
   background: url(/images/Backgroung\ Curve\ 2.svg);
   background-repeat: no-repeat;
@@ -290,51 +290,65 @@ body {
 
 .backCurve3::before {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 5.svg);
+  content: url(/images/Backgroung\ Curve\ 5.svg);
   width: 400px;
   right: 0;
   top: -600px;
-  
+
 }
 
 
-.backCurve4{
+.backCurve4 {
   position: relative;
 }
 
 .backCurve4::before {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 6.svg);
+  content: url(/images/Backgroung\ Curve\ 6.svg);
   width: 250px;
   left: 0;
 }
 
 .backCurve4::after {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 9.svg);
+  content: url(/images/Backgroung\ Curve\ 9.svg);
   width: 300px;
   right: 0;
   top: -1px;
-  
+
 }
 
-.backCurve5{
+.backCurve5 {
   position: relative;
 }
 
 .backCurve5::before {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 8.svg);
+  content: url(/images/Backgroung\ Curve\ 8.svg);
   width: 150px;
   left: 0;
 }
 
 .backCurve5::after {
   position: absolute;
-  content:url(/images/Backgroung\ Curve\ 7.svg);
+  content: url(/images/Backgroung\ Curve\ 7.svg);
   width: 110px;
   right: 0;
   top: -1px;
-  
+
 }
 
+.ant-menu{
+
+  li:hover {
+    color: red !important
+  }
+  p:hover{
+    color: red !important;
+  }
+}
+
+#menuDiv a, p{
+  font-size: 17px !important;
+
+}
