@@ -57,14 +57,13 @@ export default function App({ Component, pageProps }) {
         </Layout>
       </ConfigProvider>
       
-      <div style={{ position: 'fixed', right: 0, top: '30vh', zIndex:2 }}>
+      <div style={{ position: 'fixed', bottom: 50, zIndex:2 }}>
         <Link href={"https://api.whatsapp.com/send?phone=919434261139"}>
-          <img src='/images/WhatsApp Right side icon.png' />
+          <img src='/images/WhatsApp Right side icon.png' style={{width:70}}/>
         </Link>
       </div>
     </>
   )
-
 
 }
 

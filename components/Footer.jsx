@@ -6,6 +6,7 @@ import { db } from '@/firebase'
 import { mobile } from './variables'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
+import WaveSvg from './WaveSvg'
 
 export default function Footer() {
   const [ferryList, setFerryList] = useState([])
@@ -31,16 +32,16 @@ export default function Footer() {
 
     //Getting Activity
     db.collection("activity")
-    .orderBy("order", "asc")
-    .limit(6)
-    .get().then((snap) => {
-      const tempActivity = []
-      snap.forEach((sndata) => {
-        const data = sndata.data()
-        tempActivity.push({ name: data.name, slug: data.slug })
-      })
-      setActivityList(tempActivity)
-    });
+      .orderBy("order", "asc")
+      .limit(6)
+      .get().then((snap) => {
+        const tempActivity = []
+        snap.forEach((sndata) => {
+          const data = sndata.data()
+          tempActivity.push({ name: data.name, slug: data.slug })
+        })
+        setActivityList(tempActivity)
+      });
 
   }, [])
 
@@ -67,7 +68,8 @@ export default function Footer() {
         display: isMobile ? "flex" : 'grid',
         flexDirection: 'column',
         gridTemplateColumns: `repeat(4, auto)`,
-        gap: 30
+        gap: 30,
+        position: 'relative'
 
       }}
       >
@@ -102,16 +104,40 @@ export default function Footer() {
         <Element
           heading={"Contact with Us"}
           items={[
-            { name: <><FaPhoneAlt /> +91 9434261139</>, link: "#" },
-            { name: <><FaPhoneAlt /> +91 9933267038</>, link: "#" },
+            { name: <><FaPhoneAlt /> +91 9434261139</>, link: "tel:+919434261139" },
+            { name: <><FaPhoneAlt /> +91 9933267038</>, link: "tel:+919933267038" },
             { name: <><FiMail /> ronittravels1@gmail.com</>, link: 'mailto:ronittravels1@gmail.com' },
-            
+
           ]}
         />
 
-
+        <div style={{ position: 'absolute', width: '100%', bottom: -5 }}>
+          <WaveSvg fill={"#10263b"} />
+        </div>
+        
 
       </div>
+
+      <div style={{ padding: "10px 5%", background: '#10263b', color: 'grey' }}>
+        <p>We accept payments using:</p><br />
+        <div style={{ display: 'flex', justifyContent: "space-between" }}>
+          <div style={{ display: 'flex', gap: 15 }}>
+            <img src="/payment/visa.png" alt="Visa" style={{ height: 20 }} />
+            <img src="/payment/maestro.png" alt="Visa" style={{ height: 20 }} />
+            <img src="/payment/rupay.png" alt="rupay" style={{ height: 20 }} />
+            <img src="/payment/upi.png" alt="UPI" style={{ height: 20 }} />
+            <img src="/payment/no-cost-emi.png" alt="no-cost-emi" style={{ height: 20 }} />
+
+          </div>
+
+          <div style={{ display: 'flex', gap: 15 }}>
+            <img src="/payment/secure.png" alt="secure payment" style={{ height: 20 }} />
+            <img src="/payment/encrypt.png" alt="Visa" style={{ height: 20 }} />
+            <img src="/payment/razorpay.png" alt="razorpay" style={{ height: 20, background: 'grey' }} />
+          </div>
+        </div>
+      </div>
+
       <div>
         <p style={{ textAlign: 'center', padding: '20px 0', backgroundColor: '#10263b', color: 'grey' }}>© 2023 <Link href={'/'}> ronitholidays.com </Link> - All rights reserved</p>
       </div>

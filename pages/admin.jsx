@@ -68,36 +68,36 @@ export default function Admin() {
     if (e == 'homepage') {
       setContent(<Hompage />)
     }
-    else if(e == 'dashboard'){
+    else if (e == 'dashboard') {
       setContent(<Dashboard />)
     }
-    else if(e == 'addcruises'){
+    else if (e == 'addcruises') {
       setContent(<Ferry />)
     }
-    else if(e == 'cruiseslist'){
+    else if (e == 'cruiseslist') {
       alert(e)
     }
-    else if(e == 'Packages'){
+    else if (e == 'Packages') {
       setContent(<AddPackage />)
     }
-    else if(e == 'PackagDetail'){
+    else if (e == 'PackagDetail') {
       setContent(<PackagesDetails />)
     }
-    else if(e == 'island'){
+    else if (e == 'island') {
       setContent(<Island />)
     }
-    else if(e == 'activity'){
+    else if (e == 'activity') {
       setContent(<Activity />)
     }
-    else if(e == 'Testimonials'){
+    else if (e == 'Testimonials') {
       setContent(<TestiMonials />)
     }
-    
-    else if(e == 'media'){
+
+    else if (e == 'media') {
       setOpen(true)
     }
-    
-    else{
+
+    else {
       setContent(<PageUpdate pageName={e} />)
     }
   }
@@ -142,7 +142,7 @@ export default function Admin() {
           style={{ backgroundColor: 'rgb(27, 27, 27)' }}
           collapsedWidth={30}
           width={'inherit'}
-          
+
         >
 
           <MenuAdmin
@@ -171,12 +171,12 @@ export default function Admin() {
 
       </Layout>
       <Modal
-                open={open}
-                onCancel={() => setOpen(false)}
-                footer={[]}
-            >
-                <Media />
-            </Modal>
+        open={open}
+        onCancel={() => setOpen(false)}
+        footer={[]}
+      >
+        <Media />
+      </Modal>
     </main>
   )
 }

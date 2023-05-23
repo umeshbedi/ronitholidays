@@ -122,7 +122,7 @@ export default function Slug({ data }) {
 
                                 <div style={{ width: '60%' }}>
                                   <p style={{ marginBottom: 15 }}>Class: <span style={{ fontWeight: 'bold', fontSize: '130%' }}>{cl.className}</span></p>
-                                  <p>For Kids (0-2 yrs): </p> <p>No Charges</p>
+                                  <p>For Kids (0-1 yrs): </p> <p>No Charges</p>
                                 </div>
 
                                 <div style={{ flexDirection: 'column', display: 'flex', width: '40%', alignItems:'center' }}>

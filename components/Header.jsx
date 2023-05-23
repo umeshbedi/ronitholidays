@@ -27,37 +27,37 @@ export default function Header({ Island, }) {
 
   useEffect(() => {
     db.collection("package")
-    .orderBy("order", "asc")
-    .onSnapshot((snap) => {
-      const packageTemp = []
-      snap.forEach((sndata => {
-        const data = sndata.data()
-        const singlePackageTemp = []
-        db.doc(`package/${sndata.id}`)
-          .collection('singlePackage')
-          .where("status", '==', 'published')
-          .orderBy("order", "asc")
-          .get()
-          .then((newpkg => {
-            newpkg.forEach((pkg) => {
-              singlePackageTemp.push({name:pkg.data().name, slug:pkg.data().slug})
-            })
-          }))
+      .orderBy("order", "asc")
+      .onSnapshot((snap) => {
+        const packageTemp = []
+        snap.forEach((sndata => {
+          const data = sndata.data()
+          const singlePackageTemp = []
+          db.doc(`package/${sndata.id}`)
+            .collection('singlePackage')
+            .where("status", '==', 'published')
+            .orderBy("order", "asc")
+            .get()
+            .then((newpkg => {
+              newpkg.forEach((pkg) => {
+                singlePackageTemp.push({ name: pkg.data().name, slug: pkg.data().slug })
+              })
+            }))
 
-        packageTemp.push({ name: data.name, slug:data.slug, singlePackage: singlePackageTemp })
+          packageTemp.push({ name: data.name, slug: data.slug, singlePackage: singlePackageTemp })
 
-      }))
+        }))
 
-      setPackages(packageTemp)
+        setPackages(packageTemp)
 
-    })
+      })
   }, [])
 
   useEffect(() => {
     db.collection('ferry').onSnapshot((snap) => {
       const tempFerry = []
       snap.forEach((sndata) => {
-        tempFerry.push({name:sndata.data().name, slug:sndata.data().slug})
+        tempFerry.push({ name: sndata.data().name, slug: sndata.data().slug })
       })
       setFerryList(tempFerry)
     })
@@ -65,26 +65,26 @@ export default function Header({ Island, }) {
 
   useEffect(() => {
     db.collection("island")
-    .orderBy("order", "asc")
-    .onSnapshot((snap) => {
-      const tempIsland = []
-      snap.forEach((sndata) => {
-        tempIsland.push({slug:sndata.data().slug, name:sndata.data().name})
+      .orderBy("order", "asc")
+      .onSnapshot((snap) => {
+        const tempIsland = []
+        snap.forEach((sndata) => {
+          tempIsland.push({ slug: sndata.data().slug, name: sndata.data().name })
+        })
+        setIslandList(tempIsland)
       })
-      setIslandList(tempIsland)
-    })
   }, [])
 
   useEffect(() => {
     db.collection("activity")
-    .orderBy("order", "asc")
-    .onSnapshot((snap) => {
-      const tempActivity = []
-      snap.forEach((sndata) => {
-        tempActivity.push({slug:sndata.data().slug, name:sndata.data().name})
+      .orderBy("order", "asc")
+      .onSnapshot((snap) => {
+        const tempActivity = []
+        snap.forEach((sndata) => {
+          tempActivity.push({ slug: sndata.data().slug, name: sndata.data().name })
+        })
+        setActivity(tempActivity)
       })
-      setActivity(tempActivity)
-    })
   }, [])
 
 
@@ -96,7 +96,7 @@ export default function Header({ Island, }) {
             <>
               <Menu
                 style={{ boxShadow: 'none', border: index == packages.length - 1 ? "none" : 'auto' }}
-                key={item.name+index}
+                key={item.name + index}
               >
                 <Menu.Item style={{ backgroundColor: 'white' }}>
                   <Link target='blank' href={item.slug}> <p ><b>{item.name}</b></p></Link>
@@ -125,7 +125,6 @@ export default function Header({ Island, }) {
       <Menu
         mode={isMobile ? 'inline' : 'horizontal'}
         style={{
-          textTransform: 'uppercase',
           fontWeight: 'bold',
           float: 'right',
           width: isMobile ? '100%' : 'auto',
@@ -133,12 +132,12 @@ export default function Header({ Island, }) {
           
         }}
         disabledOverflow
-        onClick={(e) => {setActive(e.key);setOpen(false)}}
+        onClick={(e) => { setActive(e.key); setOpen(false) }}
         activeKey={active}
 
       >
 
-        <Menu.Item key={'home'}>
+        <Menu.Item key={'home'} >
           <Link href={'/'}>Home</Link>
         </Menu.Item>
         <Menu.SubMenu title={<p >Know{isMobile ? null : <FaAngleDown />}</p>}>
@@ -159,7 +158,7 @@ export default function Header({ Island, }) {
         <Menu.SubMenu title={<p >Island{isMobile ? null : <FaAngleDown />}</p>}>
           {
             islandList.map((name, key) => (
-              <Menu.Item key={name.name+key}>
+              <Menu.Item key={name.name + key}>
                 <Link target='blank' href={name.slug}>{name.name}</Link>
               </Menu.Item>
             ))
@@ -217,7 +216,7 @@ export default function Header({ Island, }) {
         width={'70%'}
         open={open}
         onClose={() => setOpen(false)}
-        
+
 
       >
         <RespMenu />
@@ -239,9 +238,9 @@ export default function Header({ Island, }) {
         </Col>
         <Col span={6} pull={18} style={{}}>
           <Link href={'/'}>
-            <img src='/images/ronitholidays Logo Final_h80.png' 
-            style={{height:45}}
-            alt='ronitholidays Logo Final' />
+            <img src='/images/ronitholidays Logo Final_h80.png'
+              style={{ height: 45 }}
+              alt='ronitholidays Logo Final' />
           </Link>
         </Col>
       </Row>
