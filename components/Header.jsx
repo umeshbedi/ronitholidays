@@ -90,7 +90,7 @@ export default function Header({ Island, }) {
 
   function MegaMenu() {
     return (
-      <Space style={{ alignItems: 'flex-start' }}>
+      <Space direction={isMobile?"vertical":"horizontal"} style={{ alignItems: 'flex-start' }}>
         {packages.map((item, index) => {
           return (
             <>
@@ -178,7 +178,7 @@ export default function Header({ Island, }) {
         <Menu.SubMenu
           title={<p >Activity{isMobile ? null : <FaAngleDown />}</p>}
         >
-          <div style={{ display: 'grid', gridTemplateColumns: "repeat(4, auto)" }}>
+          <div style={{ display: isMobile?"block":'grid', gridTemplateColumns: "repeat(3, auto)" }}>
             {activity.map((act, key) => (
               <Menu.Item key={key}>
                 <Link target='blank' href={act.slug}>{act.name}</Link>
@@ -230,7 +230,7 @@ export default function Header({ Island, }) {
                 style={{ float: 'right', fontSize: 35, color: style.primaryColor }}
                 onClick={() => setOpen(true)}
               >
-                <IoIosMenu />
+                <IoIosMenu style={{fontSize:35}}/>
               </p>
             ) :
             <RespMenu />

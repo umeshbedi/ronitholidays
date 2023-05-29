@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
 import { mobile } from './variables'
-import { FaPhoneAlt } from 'react-icons/fa'
+import { FaAddressBook, FaPhoneAlt } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import WaveSvg from './WaveSvg'
+import { FacebookFilled, InstagramFilled, YoutubeFilled } from '@ant-design/icons'
 
 export default function Footer() {
   const [ferryList, setFerryList] = useState([])
@@ -45,14 +46,15 @@ export default function Footer() {
 
   }, [])
 
-  function Element({ heading, items }) {
+  function Element({ heading, items, extra }) {
     return (
-      <div>
+      <div style={{width:isMobile?"100%":'25%', zIndex:2}}>
         <h2 style={{ paddingBottom: 15, borderBottom: `2px solid ${style.primaryColor}`, display: 'inline' }}>{heading}</h2>
         <div style={{ marginTop: 30 }}>
           {items.map((item, i) => (
             <div key={i} style={{ marginBottom: 5 }}><Link target='blank' href={item.link}>{item.name}</Link></div>
           ))}
+          {extra}
         </div>
       </div>
     )
@@ -65,10 +67,8 @@ export default function Footer() {
       <div id='footerwave' style={{ marginBottom: -4 }} />
 
       <div className='footerdiv' style={{
-        display: isMobile ? "flex" : 'grid',
-        flexDirection: 'column',
-        gridTemplateColumns: `repeat(4, auto)`,
-        gap: 30,
+        display: "flex",
+        flexDirection: isMobile?'column':'row',
         position: 'relative'
 
       }}
@@ -107,11 +107,17 @@ export default function Footer() {
             { name: <><FaPhoneAlt /> +91 9434261139</>, link: "tel:+919434261139" },
             { name: <><FaPhoneAlt /> +91 9933267038</>, link: "tel:+919933267038" },
             { name: <><FiMail /> ronittravels1@gmail.com</>, link: 'mailto:ronittravels1@gmail.com' },
+            { name: <><b>Address:</b> Sardar Bhagwan Singh Shopping Complex, Dollygunj, Port Blair, Andaman and Nicobar Islands 744103.</>, link: '#' },
+            ]}
+          extra={<div id='socialMedia' style={{marginTop:15}}>
 
-          ]}
+          <InstagramFilled id='instaRef' onClick={()=>window.location.href="#"} style={{marginRight:10, fontSize:25}}/>
+          <FacebookFilled id='facebookRef' onClick={()=>window.location.href="#"} style={{marginRight:10, fontSize:25}}/>
+          <YoutubeFilled id='youtubeRef' onClick={()=>window.location.href="#"} style={{fontSize:25}}/>
+          </div>}
         />
 
-        <div style={{ position: 'absolute', width: '100%', bottom: -5 }}>
+        <div style={{ position: 'absolute', width: '100%', bottom: -5, left:0 }}>
           <WaveSvg fill={"#10263b"} />
         </div>
         
@@ -120,8 +126,8 @@ export default function Footer() {
 
       <div style={{ padding: "10px 5%", background: '#10263b', color: 'grey' }}>
         <p>We accept payments using:</p><br />
-        <div style={{ display: 'flex', justifyContent: "space-between" }}>
-          <div style={{ display: 'flex', gap: 15 }}>
+        <div style={{ display: 'flex', justifyContent: "space-between", flexDirection:isMobile?"column":'row', gap:10 }}>
+          <div style={{ display: 'flex', gap: isMobile?5:15, justifyContent:isMobile?"space-between":"flex-start" }}>
             <img src="/payment/visa.png" alt="Visa" style={{ height: 20 }} />
             <img src="/payment/maestro.png" alt="Visa" style={{ height: 20 }} />
             <img src="/payment/rupay.png" alt="rupay" style={{ height: 20 }} />
@@ -130,7 +136,7 @@ export default function Footer() {
 
           </div>
 
-          <div style={{ display: 'flex', gap: 15 }}>
+          <div style={{ display: 'flex', gap: isMobile?3:15 }}>
             <img src="/payment/secure.png" alt="secure payment" style={{ height: 20 }} />
             <img src="/payment/encrypt.png" alt="Visa" style={{ height: 20 }} />
             <img src="/payment/razorpay.png" alt="razorpay" style={{ height: 20, background: 'grey' }} />

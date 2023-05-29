@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import { mobile } from '../variables'
 
-export default function Title({ red, blue, isdark = false }) {
+export default function Title({ red, blue, isdark = false, extra }) {
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -24,6 +24,7 @@ export default function Title({ red, blue, isdark = false }) {
                 <span style={{ color: isdark ? "white" : style.secondaryColor }}>{blue}</span>
             </h1>
             </div>
+            {extra}
             <div style={{ width: '100%', display: 'flex', justifyContent: "center" }}>
                 <img
                     src={isdark
