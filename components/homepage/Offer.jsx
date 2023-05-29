@@ -1,56 +1,83 @@
 import { Button, Image, Skeleton } from 'antd'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import style from '@/styles/component.module.scss'
 import Link from 'next/link'
+import Title from './Title'
+import { mobile } from '../variables'
 
 export default function Offer() {
 
     const visit = ["#", "#", "#"]
 
-    return (
-        <div style={{ margin: "3% 0", position: 'relative' }}>
-            <div style={{ position: 'absolute', zIndex: 1, width: '100%', display: 'flex', height: '100%' }}>
-                <div style={{ width: '38%', }}>
-                </div>
+    const [isMobile, setIsMobile] = useState(false)
 
-                <div style={{ width: '36%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', color: "white" }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
-                        <h2>Special <span style={{ color: style.primaryColor }}>RonitHolidays</span> Offer</h2>
-                        <h1>Discount 10-30%</h1>
-                        <p>Get best offers on Hotel, Ferry, Sightseeing, Packages, Water sports activity at Andaman,</p>
-                        <h1 style={{ color: style.primaryColor }}>Hurry Up!!</h1>
-                        <div style={{ display: "flex", gap: 20 }}>
-                            {visit.map((item, i) => (
-                                <Link
-                                    key={i}
-                                    href={item}
-                                    style={{ 
-                                        padding: "5px 20px", 
-                                        background: style.primaryColor,
-                                        borderRadius:50,
-                                        fontWeight:'bold'
-                                    }}
-
-                                    >
-                                        Visit
-                                </Link>
-                            ))}
-
+    function Cruize({left, top, right, bottom, image, name, link}){
+        return(
+            <div style={{ position: 'absolute', left: left, top: top, right:right, bottom:bottom }}>
+                <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'absolute', flexDirection:'column', display:'flex', alignItems:'center', width:'100%', bottom:20, zIndex:2 }}>
+                        <h3 style={{color:'white', marginBottom:5, background:"rgba(0,0,0,.3)", padding:"0 5px"}}>{name}</h3>
+                        <div>
+                        <Button type='primary' onClick={()=>window.location.href=link}>Visit</Button>
                         </div>
                     </div>
+                    <img src={image} alt="" style={{ width: isMobile ? 200 : 300 }} />
                 </div>
+            </div>
+        )
+    }
 
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+
+    return (
+        <div style={{
+            margin: "3% 0",
+            position: 'relative',
+            width: "100%",
+            height: 600,
+            background: "url('/images/Ship Wallpapers.jpg')",
+            backgroundSize: 'cover',
+            backgroundPositionY: 'center',
+            backgroundPositionX: 'center'
+        }}
+        >
+
+            <div style={{ paddingTop: 20, height: '100%' }}>
+
+                <Title red={"Awesome"} blue={"Cruise Servies"} />
             </div>
 
-            <Image
-                preview={false}
-                src='/images/offer_29713-offer.webp'
-                alt='Andman Offer'
-                placeholder={<>
-                    <div><Skeleton.Button active block style={{ height: 600 }} /></div>
-                </>}
+            <Cruize 
+            left={isMobile?5:20} 
+            top={isMobile ? "35%" : '20%'} 
+            image={"/images/2.webp"} 
+            name={"Nautika"}
+            link={"/ferry/Nautika"}
             />
+
+            <Cruize 
+            right={isMobile?5:20} 
+            top={isMobile ? "35%" : '20%'} 
+            image={"/images/3.webp"} 
+            name={"Makruzz"}
+            link={"/ferry/Makruzz"}
+            />
+
+            
+            <div style={{ position: 'absolute', bottom: 10, display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <Cruize 
+            bottom={0}
+            image={"/images/4.webp"} 
+            name={"Green Ocean 1"}
+            link={"/ferry/Green-Ocean-1"}
+            />  
+            </div>
+
+
+
         </div>
     )
 }

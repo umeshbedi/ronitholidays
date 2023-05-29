@@ -22,6 +22,8 @@ const Footer = dynamic(() => import('../components/Footer'), { ssr: false, loadi
 
 export default function App({ Component, pageProps }) {
   const [path, setPath] = useState('/')
+
+
   useEffect(() => {
     setPath(window.location.pathname)
     AOS.init();

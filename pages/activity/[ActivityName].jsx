@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '@/firebase'
 import style from '@/styles/component.module.scss'
 import WaveSvg from '@/components/WaveSvg'
@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { Button, Divider, Image, Modal, Skeleton } from 'antd'
 import String2Html from '@/components/String2Html'
 import Link from 'next/link'
-import { boxShadow } from '@/components/variables'
+import { boxShadow, mobile } from '@/components/variables'
 import ContactForm from '@/components/ContactForm'
 
 export default function ActivityName({ data }) {
@@ -14,6 +14,11 @@ export default function ActivityName({ data }) {
   const [open, setOpen] = useState(false)
   const [price, setPrice] = useState(0)
 
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    setIsMobile(mobile())
+  }, [isMobile])
 
   if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
   return (
@@ -40,16 +45,16 @@ export default function ActivityName({ data }) {
         <div 
         className='backCurve5'
         style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-          <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%' }}>
+          <div style={{ width: '90%', display: isMobile?"block":"flex", gap: '4%', marginTop: '3%' }}>
             <div
-             style={{ width: "70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+             style={{ width: isMobile?"100%":"70%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
               <h1>About {data.name}</h1>
               <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
               <String2Html id={'aboutIsland'} string={data.about} />
 
             </div>
 
-            <div style={{ width: '30%', background: 'white', padding: '3% 0 0 0', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+            <div style={{ width: isMobile?"100%":'30%', background: 'white', padding: '3% 0 0 0', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
               <h2 style={{ textAlign: "center" }}>Activities in {data.name}</h2>
               <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
               {data.data.map((item, i) => (

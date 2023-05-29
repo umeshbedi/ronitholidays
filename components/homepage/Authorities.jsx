@@ -69,7 +69,7 @@ export default function Authorities() {
                     content={"Active Member, AATO"}
                 />
                 <Element
-                    image={"defence.png"}
+                    image={"About-msme.jpg"}
                     content={"Approved by ANC, Ministry of Defence"}
                 />
                 <Element

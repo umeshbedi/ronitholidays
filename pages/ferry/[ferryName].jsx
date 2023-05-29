@@ -6,14 +6,20 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import TicketQuery from '@/components/TicketQuery'
 import WaveSvg from '@/components/WaveSvg'
+import { mobile } from '@/components/variables'
 
 
 export default function Slug({ data }) {
 
-
+  const [isMobile, setIsMobile] = useState(false)
   const [msg, showMsg] = message.useMessage()
   const [openModal, setOpenModal] = useState(false)
   const [modalData, setModalData] = useState({})
+
+  useEffect(() => {
+    setIsMobile(mobile())
+  }, [isMobile])
+
 
   if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
 
@@ -63,8 +69,8 @@ export default function Slug({ data }) {
           className='backCurve5'
           style={{ display: 'flex', justifyContent: 'center', }}>
 
-          <div style={{ width: '90%', display: "flex", gap: '3%', marginTop: '3%' }}>
-            <div style={{ width: "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+          <div style={{ width: '90%', display: isMobile?"block":"flex", gap: '3%', marginTop: '3%' }}>
+            <div style={{ width: isMobile?"100%":"65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
               <Tabs
                 size='large'
                 type='card'
@@ -74,7 +80,7 @@ export default function Slug({ data }) {
 
             </div>
 
-            <div style={{ width: '35%', height: 'fit-content' }} id='ticketCollapse'>
+            <div style={{ width: isMobile?"100%":'35%', height: 'fit-content' }} id='ticketCollapse'>
               <h2 style={{ marginBottom: '5%' }}>Get Instant Ticket</h2>
               {data.ticket.map((tk, i) => {
                 const classes = data.classes.filter(f => {
@@ -88,7 +94,7 @@ export default function Slug({ data }) {
                     id='ticketCollapse'
                     key={i}
                   >
-                    <Collapse  accordion style={{ border: "none", marginBottom: '4%', background: 'white' }}>
+                    <Collapse accordion style={{ border: "none", marginBottom: '4%', background: 'white' }}>
                       <Collapse.Panel
                         showArrow={false}
                         header={
@@ -109,7 +115,7 @@ export default function Slug({ data }) {
                                 <p><b>{tk.duration}</b></p>
                               </div>
                               <div style={{ ...bookStyle, background: style.primaryColor, height: '30%' }}>
-                                <p style={{ color: 'white' }}><b>Book Here</b></p>
+                                <p style={{ color: 'white', padding:5, textAlign:'center' }}><b>Book Here</b></p>
                               </div>
                             </div>
                           </div>
@@ -125,7 +131,7 @@ export default function Slug({ data }) {
                                   <p>For Kids (0-1 yrs): </p> <p>No Charges</p>
                                 </div>
 
-                                <div style={{ flexDirection: 'column', display: 'flex', width: '40%', alignItems:'center' }}>
+                                <div style={{ flexDirection: 'column', display: 'flex', width: '40%', alignItems: 'center' }}>
                                   <div style={{ ...bookStyle, height: '50%', }}>
                                     <p><b>Price:</b></p>
                                     <p><span style={{ fontWeight: 'bold', fontSize: '130%' }}>₹ {cl.price}</span> /adult</p>

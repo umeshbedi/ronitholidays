@@ -26,7 +26,14 @@ export default function Testimonials({ testimonialsData }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#252d35', padding: '4% 0' }}>
             <img src="/images/Google-Reviews.png" alt="Google Reviews" style={{height:70}}/>
-            <Title red={"Google Reviews for"} blue={"Ronit Holidays awesome services"} isdark />
+            <Title 
+            red={"Google Reviews for"} 
+            blue={"Ronit Holidays awesome services"} isdark 
+            extra={
+                <div>
+                    <p style={{textAlign:'center', color:'white', padding:"0 10px"}}>You can review us for our services ➡ <span><a href='#' style={{color:'#4285F4'}}>Click Here</a></span></p>
+                </div>
+            }/>
             <div style={{ width: isMobile ? "90%" : "80%", marginTop: 20 }}>
                 <Swiper
                     effect={"coverflow"}
