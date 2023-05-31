@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {Modal, Button} from 'antd'
 import ContactForm from './ContactForm'
 
-export default function TicketQuery({open, data, cancel}) {
+export default function TicketQuery({open, data, cancel, to}) {
 
     useEffect(()=>{
         console.log(data)
@@ -17,7 +17,7 @@ export default function TicketQuery({open, data, cancel}) {
       >
         <div style={{ flexDirection: 'column', display: 'flex', gap: 10, padding: '2%' }}>
           <h2>Fill the form given below:</h2>
-          <ContactForm to={'ferry'}/>
+          <ContactForm to={to}/>
         </div>
       </Modal>
   )

@@ -11,6 +11,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Link from 'next/link';
 
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react'
+
 
 const Header = dynamic(() => import('../components/Header'), {
   ssr: false,
@@ -50,10 +52,10 @@ export default function App({ Component, pageProps }) {
           <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
             <Header />
           </div>
-
-
-
-
+          <TawkMessengerReact
+            propertyId="647705c374285f0ec46eaaf3"
+            widgetId="1h1oqikt2"
+          />
 
           <Component {...pageProps} />
 
