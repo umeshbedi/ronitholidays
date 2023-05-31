@@ -40,7 +40,7 @@ export default function IslandName({ data }) {
                 <div
                     className='backCurve3'
                     style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3%', gap: 30 }}>
-                    <h1>Places to Visit in {data.name}</h1>
+                    <h1 style={{textAlign:'center', padding:"0 10px"}}>Places to Visit in {data.name}</h1>
                     <div style={{ display: isMobile ? "block" : 'grid', gridTemplateColumns: "repeat(4, auto)", gridGap: '3%', width: isMobile ? "auto" : '90%', justifyContent: 'center', }}>
                         {data.data.map((item, i) => {
                             var newUrl = "";

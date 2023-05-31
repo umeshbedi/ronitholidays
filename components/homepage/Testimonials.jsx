@@ -31,7 +31,12 @@ export default function Testimonials({ testimonialsData }) {
             blue={"Ronit Holidays awesome services"} isdark 
             extra={
                 <div>
-                    <p style={{textAlign:'center', color:'white', padding:"0 10px"}}>You can review us for our services ➡ <span><a href='#' style={{color:'#4285F4'}}>Click Here</a></span></p>
+                    <p style={{textAlign:'center', color:'white', padding:"0 10px"}}>You can review us for our services ➡ <span>
+                        <a href='https://www.google.com/search?q=RONIT+TRAVELS+%26+HOLIDAYS&stick=H4sIAAAAAAAA_-NgU1I1qDA2sLCwNDVLNjRNSzZJMTO0MqhIMUi1TDUzNkk0SEpOMTW3XMQqEeTv5xmiEBLkGObqE6ygpuDh7-Pp4hgZDAA0X8lvRAAAAA&hl=en&mat=Ce2Mtunz_4eRElcBpsFAC74yMHlFTBKoEQSCaBeuk8ja5vKDP30qubt1d9pvedQv8Jpg4FZUM-KsjJ8RBZINcCl6CPiLuqBeiogn2wt6YBERqZXLbCV2hJJqWA4HPfj4dAY&authuser=1' 
+                        target='blank'
+                        style={{color:'#4285F4'}}>Click Here
+                        </a>
+                        </span></p>
                 </div>
             }/>
             <div style={{ width: isMobile ? "90%" : "80%", marginTop: 20 }}>

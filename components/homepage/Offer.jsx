@@ -12,14 +12,18 @@ export default function Offer() {
 
     const [isMobile, setIsMobile] = useState(false)
 
-    function Cruize({left, top, right, bottom, image, name, link}){
-        return(
-            <div style={{ position: 'absolute', left: left, top: top, right:right, bottom:bottom }}>
+    function Cruize({ left, top, right, bottom, image, name, link }) {
+        return (
+            <div
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom"
+                data-aos-duration="2000"
+                style={{ position: 'absolute', left: left, top: top, right: right, bottom: bottom }}>
                 <div style={{ position: 'relative' }}>
-                    <div style={{ position: 'absolute', flexDirection:'column', display:'flex', alignItems:'center', width:'100%', bottom:20, zIndex:2 }}>
-                        <h3 style={{color:'white', marginBottom:5, background:"rgba(0,0,0,.3)", padding:"0 5px"}}>{name}</h3>
+                    <div style={{ position: 'absolute', flexDirection: 'column', display: 'flex', alignItems: 'center', width: '100%', bottom: 20, zIndex: 2 }}>
+                        <h3 style={{ color: 'white', marginBottom: 5, background: "rgba(0,0,0,.3)", padding: "0 5px" }}>{name}</h3>
                         <div>
-                        <Button type='primary' onClick={()=>window.location.href=link}>Visit</Button>
+                            <Button type='primary' onClick={() => window.location.href = link}>Visit</Button>
                         </div>
                     </div>
                     <img src={image} alt="" style={{ width: isMobile ? 200 : 300 }} />
@@ -38,42 +42,42 @@ export default function Offer() {
             position: 'relative',
             width: "100%",
             height: 600,
-            background: "url('/images/Ship Wallpapers.jpg')",
+            background: "url('/images/Awesome Cruise Services.jpg')",
             backgroundSize: 'cover',
             backgroundPositionY: 'center',
             backgroundPositionX: 'center'
         }}
         >
 
-            <div style={{ paddingTop: 20, height: '100%' }}>
+            {/* <div style={{ paddingTop: 20, height: '100%' }}>
 
                 <Title red={"Awesome"} blue={"Cruise Servies"} />
-            </div>
+            </div> */}
 
-            <Cruize 
-            left={isMobile?5:20} 
-            top={isMobile ? "35%" : '20%'} 
-            image={"/images/2.webp"} 
-            name={"Nautika"}
-            link={"/ferry/Nautika"}
+            <Cruize
+                left={isMobile ? 5 : 20}
+                top={isMobile ? "35%" : '20%'}
+                image={"/images/2.webp"}
+                name={"Nautika"}
+                link={"/ferry/Nautika"}
             />
 
-            <Cruize 
-            right={isMobile?5:20} 
-            top={isMobile ? "35%" : '20%'} 
-            image={"/images/3.webp"} 
-            name={"Makruzz"}
-            link={"/ferry/Makruzz"}
+            <Cruize
+                right={isMobile ? 5 : 20}
+                top={isMobile ? "35%" : '20%'}
+                image={"/images/3.webp"}
+                name={"Makruzz"}
+                link={"/ferry/Makruzz"}
             />
 
-            
+
             <div style={{ position: 'absolute', bottom: 10, display: 'flex', justifyContent: 'center', width: '100%' }}>
-            <Cruize 
-            bottom={0}
-            image={"/images/4.webp"} 
-            name={"Green Ocean 1"}
-            link={"/ferry/Green-Ocean-1"}
-            />  
+                <Cruize
+                    bottom={0}
+                    image={"/images/4.webp"}
+                    name={"Green Ocean 1"}
+                    link={"/ferry/Green-Ocean-1"}
+                />
             </div>
 
 

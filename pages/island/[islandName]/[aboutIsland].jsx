@@ -77,7 +77,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                                         <h2 style={{ padding: '5%', textAlign: 'center' }}>{item.name}</h2>
                                     </div>
                                 </Link>
-                            )).slice(0, 5)}
+                            ))}
                         </div>
                     </div>
                 </div>
