@@ -111,9 +111,9 @@ export default function Footer() {
             ]}
           extra={<div id='socialMedia' style={{marginTop:15}}>
 
-          <InstagramFilled id='instaRef' onClick={()=>window.location.href="#"} style={{marginRight:10, fontSize:25}}/>
-          <FacebookFilled id='facebookRef' onClick={()=>window.location.href="#"} style={{marginRight:10, fontSize:25}}/>
-          <YoutubeFilled id='youtubeRef' onClick={()=>window.location.href="#"} style={{fontSize:25}}/>
+          <InstagramFilled id='instaRef' onClick={()=>window.open("#", "blank")} style={{marginRight:10, fontSize:25}}/>
+          <FacebookFilled id='facebookRef' onClick={()=>window.open("https://www.facebook.com/ronitholidays/", "blank")} style={{marginRight:10, fontSize:25}}/>
+          <YoutubeFilled id='youtubeRef' onClick={()=>window.open("#", "blank")} style={{fontSize:25}}/>
           </div>}
         />
 

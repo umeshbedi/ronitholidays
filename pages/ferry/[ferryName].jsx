@@ -57,11 +57,11 @@ export default function Slug({ data }) {
           data-aos-anchor-placement="top-bottom"
           data-aos-duration="2000"
           style={{ display: 'flex', alignItems: 'flex-end' }}>
-          <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
+          <div style={{ width: '100%', height: isMobile?28:'68px', position: 'absolute' }}>
             <WaveSvg fill={style.lightGrey} />
           </div>
           <img src={data.image} alt={data.name}
-            style={{ height: 450, width: '100%', objectFit: 'cover' }}
+            style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
           />
         </div>
 

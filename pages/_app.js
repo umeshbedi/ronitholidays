@@ -51,6 +51,10 @@ export default function App({ Component, pageProps }) {
             <Header />
           </div>
 
+
+
+
+
           <Component {...pageProps} />
 
           {path !== '/admin' &&
@@ -58,10 +62,10 @@ export default function App({ Component, pageProps }) {
           }
         </Layout>
       </ConfigProvider>
-      
-      <div style={{ position: 'fixed', bottom: 50, zIndex:2 }}>
-        <Link href={"https://api.whatsapp.com/send?phone=919434261139"}>
-          <img src='/images/WhatsApp Right side icon.png' style={{width:70}}/>
+
+      <div style={{ position: 'fixed', bottom: 50, zIndex: 2 }}>
+        <Link href={"https://api.whatsapp.com/send?phone=919933267038"}>
+          <img src='/images/WhatsApp Right side icon.png' style={{ width: 70 }} />
         </Link>
       </div>
     </>

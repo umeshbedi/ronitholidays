@@ -65,12 +65,12 @@ export default function Authorities() {
                     content={"Gold Category Tour Operator Awarded by Dept. of Tourism, A&N Administration."}
                 />
                 <Element
-                    image={"iato.png"}
-                    content={"Active Member, AATO"}
+                    image={"l EXPERTS.jpg"}
+                    content={"LTC Package Experts"}
                 />
                 <Element
                     image={"About-msme.jpg"}
-                    content={"Approved by ANC, Ministry of Defence"}
+                    content={"Registered in Micro, Small & Medium Enterprises"}
                 />
                 <Element
                     image={"iatte.png"}
@@ -119,7 +119,7 @@ export default function Authorities() {
                         image={"gullak.svg"}
                         service
                         heading={"Guaranteed Savings"}
-                        content={"Get best deals and offers for Hotels, sightseeing, ferry, Packages only at TryTrabby"}
+                        content={"Get best deals and offers for water Sports, sightseeing, ferry, Packages"}
                     />
 
                 </div>

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import WaveSvg from '@/components/WaveSvg'
 import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
@@ -7,9 +7,17 @@ import { Button, Skeleton, Image } from 'antd'
 import String2Html from '@/components/String2Html'
 import ContactForm from '@/components/ContactForm'
 import ContactUsPage from '@/components/ContactUsPage'
+import { mobile } from '@/components/variables'
 
 export default function Pages({ data, path }) {
     // console.log(path)
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+
 
     if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
 
@@ -26,15 +34,15 @@ export default function Pages({ data, path }) {
                         data-aos="fade-down"
                         data-aos-anchor-placement="top-bottom"
                         data-aos-duration="2000"
-                        style={{ display: 'flex', alignItems: 'flex-end' }}>
-                        <div style={{ width: '100%', height: '68px', position: 'absolute', zIndex: 1 }}>
+                        style={{ position:'relative' }}>
+                        <div style={{ width: '100%', height: isMobile?28:'68px', position: 'absolute', zIndex: 1, bottom:0 }}>
                             <WaveSvg fill={style.lightGrey} />
                         </div>
                         <Image
                             preview={false}
                             src={data.headerImage} alt={data.title}
                             width={"100%"}
-                            style={{ height: 400, objectFit: 'cover' }}
+                            style={{ height: isMobile?"auto":400, objectFit: 'cover' }}
                             placeholder={<Skeleton.Button active block style={{ width: '100%', height: 400 }} />}
                         />
                     </div>
