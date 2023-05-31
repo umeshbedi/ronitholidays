@@ -6,6 +6,7 @@ import style from '@/styles/component.module.scss'
 import { mobile, homepageImage, Wave } from '@/components/variables'
 import dynamic from 'next/dynamic'
 import SHome from '@/components/skeleton/SHome'
+
 import Packages from '@/components/homepage/Packages'
 import Island from '@/components/homepage/Island'
 import FerryCarousel from '@/components/homepage/Ferries'
@@ -16,16 +17,14 @@ import Offer from '@/components/homepage/Offer'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
 
-export default function Home({ 
-  data, 
-  packageList, 
-  activityData, 
-  ferryData, 
+export default function Home({
+  data,
+  packageList,
+  activityData,
+  ferryData,
   islandData,
   testimonials
-}) 
-
-{
+}) {
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -33,7 +32,7 @@ export default function Home({
     setIsMobile(mobile())
   }, [isMobile])
 
-  if (data == undefined) return <SHome />
+  if (data == undefined || packageList == undefined || activityData == undefined || ferryData == undefined || islandData == undefined || testimonials == undefined) return <SHome />
 
   return (
     <main>
@@ -50,22 +49,22 @@ export default function Home({
           </div>
           <Slider banner={data.banner} />
         </div>
-        
+
         <Packages Package={packageList} />
-        
-        <Island data={islandData}/>
-        
-        <FerryCarousel ferryData={ferryData}/>
-        
-        <ActivityCarousel activityData={activityData}/>
 
-        <Offer/>
+        <Island data={islandData} />
 
-        <Testimonials testimonialsData={testimonials}/>
+        <FerryCarousel ferryData={ferryData} />
 
-        <Authorities/>
+        <ActivityCarousel activityData={activityData} />
 
-        
+        <Offer />
+
+        <Testimonials testimonialsData={testimonials} />
+
+        <Authorities />
+
+
       </div>
     </main>
   )
@@ -93,23 +92,23 @@ export const getStaticProps = async () => {
 
   //Getting Island Data
   const island = await db.collection("island").get();
-  const islandData = island.docs.map((isl)=>{
+  const islandData = island.docs.map((isl) => {
     const data = isl.data()
-    return {name:data.name, slug:data.slug, thumbnail:data.thumbnail}
+    return { name: data.name, slug: data.slug, thumbnail: data.thumbnail }
   })
 
   //Getting Activity
   const actvty = await db.collection("activity").get();
-  const activityData = actvty.docs.map((act)=>{
+  const activityData = actvty.docs.map((act) => {
     const data = act.data()
-    return {name:data.name, thumbnail:data.thumbnail, slug:data.slug}
+    return { name: data.name, thumbnail: data.thumbnail, slug: data.slug }
   })
-  
+
   //Getting Ferry
   const ferry = await db.collection("ferry").get();
-  const ferryData = ferry.docs.map((fer)=>{
+  const ferryData = ferry.docs.map((fer) => {
     const data = fer.data()
-    return {name:data.name, thumbnail:data.image, slug:data.slug}
+    return { name: data.name, thumbnail: data.image, slug: data.slug }
   })
 
   //Getting Testimonials
@@ -125,7 +124,7 @@ export const getStaticProps = async () => {
       islandData,
       activityData,
       ferryData,
-      testimonials:testimonials.data().testimonials
+      testimonials: testimonials.data().testimonials
     },
     revalidate: 60,
 

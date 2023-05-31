@@ -167,6 +167,7 @@ export default function Slug({ data }) {
           open={openModal}
           cancel={() => setOpenModal(false)}
           data={modalData}
+          to={"ferry"}
         />
 
       </div>

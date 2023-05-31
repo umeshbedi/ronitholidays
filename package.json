@@ -29,7 +29,8 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.9.0",
     "swiper": "^9.3.2",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "@tawk.to/tawk-messenger-react": "^2.0.2"
   },
   "devDependencies": {
     "sass": "^1.59.3"
