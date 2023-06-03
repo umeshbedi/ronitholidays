@@ -1,10 +1,11 @@
-import { Image } from "antd";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ReactCardCarousel from "react-card-carousel";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { mobile } from "../variables";
 import Title from "./Title";
+import Image from 'next/image';
 
 function CONTAINER_STYLE() {
     return {
@@ -22,7 +23,7 @@ function CONTAINER_STYLE() {
 
 
 export default function FerryCarousel({ ferryData }) {
-    
+
     const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
@@ -30,44 +31,55 @@ export default function FerryCarousel({ ferryData }) {
     }, [isMobile])
 
     return (
-        <div 
-        className="backCurve2"
-        style={{
-            padding: '5% 0',
-            
-        }}>
-            <Title red={"Popular"} blue={"Cruise"}/>
+        <div
+            className="backCurve2"
+            style={{
+                padding: '5% 0',
+
+            }}>
+            <Title red={"Popular"} blue={"Cruise"} />
             <div style={CONTAINER_STYLE()}>
                 <ReactCardCarousel autoplay={true} autoplay_speed={3000}>
                     {ferryData.map((item, i) => (
 
                         <div key={i} style={{
-                            width: isMobile?300: 500,
+                            width: isMobile ? 300 : 500,
                             height: 300,
-                            borderRadius: "10px",
                             boxSizing: "border-box",
-                            background: `url(${item.thumbnail})`,
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'flex-end',
                             backgroundSize: 'cover',
-                            backgroundPositionX:'center'
+                            backgroundPositionX: 'center',
+                            position: 'relative'
                         }}>
+                            <Image
+                                src={item.thumbnail}
+                                height={300}
+                                width={isMobile ? 300 : 500}
+                                style={{ objectFit: 'cover', borderRadius: "10px", }}
+                                loading='lazy'
+                                placeholder='blur'
+                                blurDataURL="/images/Loading_icon.gif"
+                                alt={item.name}
+                            />
                             <Link href={item.slug} target="blank"
-                            style={{
-                                padding: '3%',
-                                color: 'white',
-                                background: "rgba(0,0,0,.4)",
-                                borderRadius: "0 0 10px 10px",
-                                display:'flex',
-                                alignItems:'center',
-                                justifyContent:'center'
-                            }}
+                                style={{
+                                    width: '100%',
+                                    position: 'absolute',
+                                    padding: '3%',
+                                    color: 'white',
+                                    background: "rgba(0,0,0,.4)",
+                                    borderRadius: "0 0 10px 10px",
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
                             >
                                 <h2>
                                     {item.name}
                                 </h2>
-                                <FaLongArrowAltRight style={{marginLeft:10}}/>
+                                <FaLongArrowAltRight style={{ marginLeft: 10 }} />
                             </Link>
                         </div>
 

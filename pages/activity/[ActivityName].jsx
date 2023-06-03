@@ -3,16 +3,19 @@ import { db } from '@/firebase'
 import style from '@/styles/component.module.scss'
 import WaveSvg from '@/components/WaveSvg'
 import Head from 'next/head'
-import { Button, Divider, Image, Modal, Skeleton } from 'antd'
+import { Button, Divider, Modal, Skeleton } from 'antd'
 import String2Html from '@/components/String2Html'
 import Link from 'next/link'
 import { boxShadow, mobile } from '@/components/variables'
 import ContactForm from '@/components/ContactForm'
+import Image from 'next/image'
+
 
 export default function ActivityName({ data }) {
 
   const [open, setOpen] = useState(false)
-  const [price, setPrice] = useState(0)
+  
+  const [activityDetails, setActivityDetails] = useState({})
 
   const [isMobile, setIsMobile] = useState(false)
   
@@ -37,9 +40,15 @@ export default function ActivityName({ data }) {
           <div style={{ width: '100%', height: '68px', position: 'absolute' }}>
             <WaveSvg fill={style.lightGrey} />
           </div>
-          <img src={data.headerImage} alt={data.name}
-            style={{ height: 450, width: '100%', objectFit: 'cover' }}
+          <div style={{height:isMobile?"auto":450, width: '100%', position:'relative'}}>
+
+          <Image src={data.headerImage} alt={data.name}
+            style={{ objectFit: 'cover' }}
+            fill
+            loading='lazy'
           />
+          </div>
+          
         </div>
 
         <div 
@@ -64,10 +73,10 @@ export default function ActivityName({ data }) {
                   data-aos-duration="2000"
                   key={i} id='cardImage' 
                   style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: "100%", marginBottom: i!=(data.data.length-1)?30:0 }}>
-                  <Image
+                  <img
                     src={item.thumbnail}
                     alt={item.name}
-                    preview={false}
+                    // preview={false}
                     width={"100%"}
                     style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
                   <h2 style={{ padding: '5% 5% 0 5%', textAlign: 'center' }}>{item.name}</h2>
@@ -83,7 +92,11 @@ export default function ActivityName({ data }) {
                     <div
                       onClick={() => {
                         setOpen(true);
-                        setPrice(item.price)
+                        setActivityDetails({
+                          name:item.name,
+                          duration:item.duration,
+                          price:item.price
+                        })
                       }}
                       style={{ height: 50, width: '50%', background: style.primaryColor, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                       <p style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Book Now</p>
@@ -106,8 +119,16 @@ export default function ActivityName({ data }) {
       >
         <h2>Booking:</h2>
         <Divider style={{ margin: '1%' }} />
-        <h1 style={{ margin: '1% 0' }}>₹{price}</h1>
-        <ContactForm to={'activity'} />
+        <h1 style={{ margin: '1% 0' }}>₹{activityDetails.price}</h1>
+        <ContactForm 
+        to={'activity'} 
+        packageName={data.name}
+        packageDetail={`
+          <p>Activity Name: ${activityDetails.name}</p>
+          <p>Price: ₹${activityDetails.price}</p>
+          <p>Duration: ${activityDetails.duration}</p>
+        `}
+        />
       </Modal>
 
     </main>

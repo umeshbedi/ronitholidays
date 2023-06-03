@@ -1,8 +1,10 @@
-import { Image } from 'antd';
+// import { Image } from 'antd';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { boxShadow, mobile } from '../variables';
 import Title from './Title';
+
+import Image from 'next/image'
 
 export default function Packages({ Package }) {
 
@@ -64,17 +66,15 @@ export default function Packages({ Package }) {
                             data-aos-anchor-placement="top-bottom"
                             data-aos-duration="2000"
                             id='cardImage' target='blank' key={i} href={image.slug}>
-                            <Image
+                            
+                           <Image
                                 style={{ borderRadius: 20, boxShadow: boxShadow }}
                                 src={newUrl} alt={image.name}
-                                preview={false}
-                                placeholder={<Image
-                                    preview={false}
-                                    src='/images/Loading_icon.gif'
-                                    width={250}
-                                    height={250}
-                                    style={{ objectFit: 'cover' }}
-                                />}
+                                width={250}   
+                                height={250}
+                                loading='lazy'
+                                placeholder='blur'
+                                blurDataURL="/images/Loading_icon.gif"
                             />
                         </Link>
                     )

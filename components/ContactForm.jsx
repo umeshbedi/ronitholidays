@@ -41,6 +41,37 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
           <p>Total Childs: <span style="font-weight: bold;">${e.kids}</span></p>
           <p>Date of Travel: <span style="font-weight: bold;">${date}</span></p>
           <p>Message: <span style="font-weight: bold;">${e.message}</span></p>
+        
+          ${to == "ferry"?
+            `
+            <hr/>
+            <h2>Passengers' List</h2>
+            <table style="border-collapse: collapse;width: 100%;">
+            <tr>
+            <th style="border: 1px solid #dddddd;padding: 8px;text-align: left;">Name</th>
+            <th style="border: 1px solid #dddddd;padding: 8px;text-align: left;">Age</th>
+            <th style="border: 1px solid #dddddd;padding: 8px;text-align: left;">Gender</th>
+            <th style="border: 1px solid #dddddd;padding: 8px;text-align: left;">Aadhar Card No.</th>
+            </tr>
+
+            ${passengers.map((item, i)=>(
+                `<tr>
+                <td style="border: 1px solid #dddddd;padding: 8px;text-align: left;">${item.psName}</td>
+                <td style="border: 1px solid #dddddd;padding: 8px;text-align: left;">${item.psAge}</td>
+                <td style="border: 1px solid #dddddd;padding: 8px;text-align: left;">${item.psGender}</td>
+                <td style="border: 1px solid #dddddd;padding: 8px;text-align: left;">${item.psAadhar}</td>
+                </tr>
+                `
+            ))
+            }
+
+
+            </table>
+            `
+            :
+            "<p></p>"
+            }
+
           </div>
           </body> </html>`,
 
@@ -114,46 +145,46 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
                     <DatePicker size='large'
                         onChange={(e, d) => setDate(d)}
                         format={"DD-MM-YYYY"}
-                        
+
                     />
 
                     <Form.Item name={"message"} style={{ margin: 0 }} required >
                         <Input.TextArea rows={4} placeholder='Write Message' required />
                     </Form.Item>
 
-                    {to=='ferry'&&
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
-                        <h3>Add Passenger Details (including self)</h3>
-                        {passengers.map((ps, i) => (
-                            <p key={i}><i><b>#{i + 1}</b> {ps.psName} | {ps.psAge} | {ps.psGender} | {ps.psAadhar} </i>
-                                <DeleteFilled onClick={() => {
-                                    setPassengers([
-                                        ...passengers.slice(0, i),
-                                        ...passengers.slice(i + 1, passengers.length)
-                                    ]);
-                                }}
-                                    style={{ color: 'red', cursor: 'pointer', marginLeft: 5 }} /></p>
-                        ))}
-                        <Space>
-                            <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
-                            <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
-                            <Select
-                                placeholder={"Gender"}
-                                onSelect={setPsGender}
-                                options={genders.map((item, i) => {
-                                    return ({
-                                        label: item,
-                                        value: item
-                                    })
-                                })} />
-                            <Input type='number' placeholder='Aadhar Card' required onChange={(e) => setPsAadhar(e.target.value)} />
+                    {to == 'ferry' &&
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
+                            <h3>Add Passenger Details (including self)</h3>
+                            {passengers.map((ps, i) => (
+                                <p key={i}><i><b>#{i + 1}</b> {ps.psName} | {ps.psAge} | {ps.psGender} | {ps.psAadhar} </i>
+                                    <DeleteFilled onClick={() => {
+                                        setPassengers([
+                                            ...passengers.slice(0, i),
+                                            ...passengers.slice(i + 1, passengers.length)
+                                        ]);
+                                    }}
+                                        style={{ color: 'red', cursor: 'pointer', marginLeft: 5 }} /></p>
+                            ))}
+                            <Space>
+                                <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
+                                <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
+                                <Select
+                                    placeholder={"Gender"}
+                                    onSelect={setPsGender}
+                                    options={genders.map((item, i) => {
+                                        return ({
+                                            label: item,
+                                            value: item
+                                        })
+                                    })} />
+                                <Input type='number' placeholder='Aadhar Card' required onChange={(e) => setPsAadhar(e.target.value)} />
 
-                        </Space>
-                        <div>
-                            <Button onClick={addPassenger} type='dashed'><PlusOutlined /> Add Passengers</Button>
+                            </Space>
+                            <div>
+                                <Button onClick={addPassenger} type='dashed'><PlusOutlined /> Add Passengers</Button>
+                            </div>
+
                         </div>
-                    
-                    </div>
                     }
 
 

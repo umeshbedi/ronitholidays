@@ -5,6 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { boxShadow, mobile } from '../variables';
 import Title from './Title';
+import Image from 'next/image'
 
 const responsive = {
   desktop: {
@@ -20,7 +21,8 @@ const responsive = {
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1,// optional, default to 1.
+    partialVisibilityGutter:5
   }
 };
 
@@ -35,17 +37,17 @@ export default function ActivityCarousel({ activityData }) {
 
   return (
 
-    <div 
-    className='backCurve3'
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      // background: "url('/images/istockphoto-1168080557-612x612.jpg')",
-      padding: '4% 0',
+    <div
+      className='backCurve3'
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        // background: "url('/images/istockphoto-1168080557-612x612.jpg')",
+        padding: '4% 0',
 
 
-    }}
+      }}
     >
       <Title red={"Trending"} blue={"Activities"} />
       <div style={{ width: isMobile ? "90%" : "80%", marginTop: 20 }}>
@@ -56,6 +58,7 @@ export default function ActivityCarousel({ activityData }) {
           customTransition="all 1.5s"
           containerClass="Activity-carousel"
           removeArrowOnDeviceType={["tablet", "mobile"]}
+          
 
         >
           {activityData.map((item, i) => (
@@ -64,18 +67,18 @@ export default function ActivityCarousel({ activityData }) {
               data-aos="fade-up"
               data-aos-duration="2000"
               key={i} target='blank' href={item.slug}>
-              <div style={{
-                width: 250,
-                height: 250,
-                background: `url(${item.thumbnail})`,
-                backgroundSize: 'cover',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                boxShadow: boxShadow
-              }}>
 
-              </div>
+              <Image
+                src={item.thumbnail}
+                loading='lazy'
+                placeholder='blur'
+                blurDataURL="/images/Loading_icon.gif"
+                width={250}
+                height={250}
+                style={{ objectFit: 'cover' }}
+                alt={item.name}
+              />
+
             </Link>
           ))
           }

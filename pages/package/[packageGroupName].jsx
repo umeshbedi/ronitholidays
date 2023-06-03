@@ -1,10 +1,12 @@
 // import PageHeader from '@/components/PageHeader'
 import { boxShadow } from '@/components/variables'
 import { db } from '@/firebase'
-import { Image, Skeleton, message } from 'antd'
+import { Skeleton, message } from 'antd'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+
 
 
 export default function TermsAndCondition({ entry, data }) {
@@ -45,14 +47,11 @@ export default function TermsAndCondition({ entry, data }) {
                                     <Image 
                                         style={{ borderRadius: 20, boxShadow: boxShadow }} 
                                         src={newUrl} alt={image.name}
-                                        preview={false}
-                                        placeholder={<Image
-                                            preview={false}
-                                            src='/images/Loading_icon.gif'
-                                            width={250}
-                                            height={250}
-                                            style={{objectFit:'cover'}}
-                                        />}
+                                        placeholder="blur"
+                                        blurDataURL="/images/Loading_icon.gif"
+                                        height={250}
+                                        width={250}
+                                        loading='lazy'
                                     />
                                 </Link>
                             )})
