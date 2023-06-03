@@ -1,9 +1,11 @@
-import { Image } from 'antd';
+// import { Image } from 'antd';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { boxShadow, mobile } from '../variables';
 import style from '@/styles/component.module.scss'
 import Title from './Title';
+
+import Image from "next/image"
 
 export default function Island({ data }) {
     const [isMobile, setIsMobile] = useState(false)
@@ -66,17 +68,7 @@ export default function Island({ data }) {
                                 <Image
                                     src={newUrl}
                                     alt={item.name}
-                                    preview={false}
                                     width={250} height={250}
-                                    placeholder={
-                                        <Image
-                                            preview={false}
-                                            src="/images/Loading_icon.gif"
-                                            width={250}
-                                            height={250}
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    }
                                     style={{ objectFit: 'cover' }} />
                                 <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     <h2 style={{ padding: '5%' }}>{item.name}</h2>

@@ -12,6 +12,7 @@ import 'aos/dist/aos.css';
 import Link from 'next/link';
 
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react'
+import Image from 'next/image';
 
 
 const Header = dynamic(() => import('../components/Header'), {
@@ -67,7 +68,7 @@ export default function App({ Component, pageProps }) {
 
       <div style={{ position: 'fixed', bottom: 50, zIndex: 2 }}>
         <Link href={"https://api.whatsapp.com/send?phone=919933267038"}>
-          <img src='/images/WhatsApp Right side icon.png' style={{ width: 70 }} />
+          <Image src='/images/WhatsApp Right side icon.png' width={70} height={70} loading='lazy'/>
         </Link>
       </div>
     </>

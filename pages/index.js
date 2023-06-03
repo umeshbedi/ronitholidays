@@ -7,15 +7,24 @@ import { mobile, homepageImage, Wave } from '@/components/variables'
 import dynamic from 'next/dynamic'
 import SHome from '@/components/skeleton/SHome'
 
-import Packages from '@/components/homepage/Packages'
-import Island from '@/components/homepage/Island'
-import FerryCarousel from '@/components/homepage/Ferries'
-import ActivityCarousel from '@/components/homepage/Activities'
-import Authorities from '@/components/homepage/Authorities'
-import Testimonials from '@/components/homepage/Testimonials'
-import Offer from '@/components/homepage/Offer'
+// import Packages from '@/components/homepage/Packages'
+// import Island from '@/components/homepage/Island'
+// import FerryCarousel from '@/components/homepage/Ferries'
+// import ActivityCarousel from '@/components/homepage/Activities'
+// import Authorities from '@/components/homepage/Authorities'
+// import Testimonials from '@/components/homepage/Testimonials'
+// import Offer from '@/components/homepage/Offer'
 
 const Slider = dynamic(() => import('../components/Slider'), { ssr: false, loading: () => <SHome /> })
+const Packages = dynamic(() => import('@/components/homepage/Packages'), { ssr: false, loading: () => <SHome /> })
+const Island = dynamic(() => import('@/components/homepage/Island'), { ssr: false, loading: () => <SHome /> })
+const FerryCarousel = dynamic(() => import('@/components/homepage/Ferries'), { ssr: false, loading: () => <SHome /> })
+const ActivityCarousel = dynamic(() => import('@/components/homepage/Activities'), { ssr: false, loading: () => <SHome /> })
+const Offer = dynamic(() => import('@/components/homepage/Offer'), { ssr: false, loading: () => <SHome /> })
+const Authorities = dynamic(() => import('@/components/homepage/Authorities'), { ssr: false, loading: () => <SHome /> })
+const Testimonials = dynamic(() => import('@/components/homepage/Testimonials'), { ssr: false, loading: () => <SHome /> })
+
+
 
 export default function Home({
   data,

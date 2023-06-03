@@ -3,6 +3,7 @@ import { Carousel, Row, Col, Space, Button } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { mobile } from './variables'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Slider({ banner }) {
     const [isMobile, setIsMobile] = useState(false)
@@ -21,18 +22,32 @@ export default function Slider({ banner }) {
                 banner.map((item, index) => (
                     <div key={index}>
                         <div
-                            className='homeBanner'
                             style={{
+                                width:'100%',
+                                display:'flex',
+                                alignItems:'center',
+                                height: isMobile ? 300 : 550,
+                                position: 'relative'
+                            }}>
+
+                            <Image
+                                src={item.image}
+                                fill
+                                loading='lazy'
+                                style={{objectFit:'cover'}}
+                            />
+                            <div style={{
                                 height: isMobile ? 300 : 550,
                                 backgroundImage: `linear-gradient(
                                                 90deg,rgba(0,0,0, 0.9),
                                                 rgba(0,0,0, .3),${isMobile ? null : "rgba(0,0,0, .2)"}
                                                 ), 
-                                                url('${item.image}')`,
-                                backgroundPositionX: 'center'
-                            }}>
-
-                            <Row style={{ width: '95%' }}>
+                                                url('')`,
+                                position: 'absolute',
+                                width:'100%'
+                            }}
+                            />
+                            <Row style={{ width: '95%', position: 'absolute', padding:"10%" }}>
                                 <Col span={isMobile ? 16 : 10} style={{}}>
 
                                     <h1 style={{ color: 'white' }}>{item.heading}</h1>

@@ -31,7 +31,7 @@ export default function TermsAndCondition({ data }) {
     const cruize = [
         {name:"Nautika", link:"/ferry/Nautika",thumbnail:"/images/Nautika.jpg"},
         {name:"GreenOcean", link:"/ferry/Green-Ocean-2",thumbnail:"/images/GreenOcean.jpg"},
-        {name:"Makruzz.jpg", link:"/ferry/Makruzz",thumbnail:"/images/Makruzz.jpg"},
+        {name:"Makruzz", link:"/ferry/Makruzz",thumbnail:"/images/Makruzz.jpg"},
         
     ]
 

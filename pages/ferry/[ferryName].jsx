@@ -1,13 +1,13 @@
 import String2Html from '@/components/String2Html'
 import { db } from '@/firebase'
-import { Button, Collapse, Divider, Skeleton, Tabs, message, Image, Modal } from 'antd'
+import { Button, Collapse, Divider, Skeleton, Tabs, message, Modal } from 'antd'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/component.module.scss'
 import TicketQuery from '@/components/TicketQuery'
 import WaveSvg from '@/components/WaveSvg'
 import { mobile } from '@/components/variables'
-
+import Image from 'next/image'
 
 export default function Slug({ data }) {
 
@@ -60,9 +60,14 @@ export default function Slug({ data }) {
           <div style={{ width: '100%', height: isMobile?28:'68px', position: 'absolute' }}>
             <WaveSvg fill={style.lightGrey} />
           </div>
-          <img src={data.image} alt={data.name}
-            style={{ height: isMobile?"auto":450, width: '100%', objectFit: 'cover' }}
+          <div style={{height:isMobile?"auto":450, width: '100%', position:'relative'}}>
+
+          <Image src={data.image} alt={data.name}
+            style={{ objectFit: 'cover' }}
+            fill
+            loading='lazy'
           />
+          </div>
         </div>
 
         <div

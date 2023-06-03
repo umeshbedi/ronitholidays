@@ -1,10 +1,11 @@
-import { Button, Image, Skeleton } from 'antd'
+import { Button, Skeleton } from 'antd'
 import React, { useState, useEffect } from 'react'
 
 import style from '@/styles/component.module.scss'
 import Link from 'next/link'
 import Title from './Title'
 import { mobile } from '../variables'
+import Image from 'next/image'
 
 export default function Offer() {
 
@@ -26,7 +27,9 @@ export default function Offer() {
                             <Button type='primary' onClick={() => window.location.href = link}>Visit</Button>
                         </div>
                     </div>
-                    <img src={image} alt="" style={{ width: isMobile ? 200 : 300 }} />
+                    <div style={{position:'relative', width:isMobile ? 200 : 300, height:isMobile ? 171 : 257}}>
+                    <Image src={image} alt={name} fill style={{ }} />
+                    </div>
                 </div>
             </div>
         )
@@ -42,7 +45,7 @@ export default function Offer() {
             position: 'relative',
             width: "100%",
             height: 600,
-            background: "url('/images/Awesome Cruise Services.jpg')",
+            // background: "url('/images/Awesome Cruise Services.jpg')",
             backgroundSize: 'cover',
             backgroundPositionY: 'center',
             backgroundPositionX: 'center'
@@ -53,6 +56,20 @@ export default function Offer() {
 
                 <Title red={"Awesome"} blue={"Cruise Servies"} />
             </div> */}
+            <Image
+            src={"/images/Awesome Cruise Services.jpg"}
+            fill
+            style={{objectFit:'cover'}}
+            />
+            
+            <div style={{position:'absolute', display:'flex', justifyContent:'center', width:'100%', marginTop:isMobile?30:0}}>
+            <Image
+            src={"/images/exciting offer.png"}
+            width={isMobile?360: 792}
+            height={isMobile?96: 202}
+            style={{}}
+            />
+            </div>
 
             <Cruize
                 left={isMobile ? 5 : 20}

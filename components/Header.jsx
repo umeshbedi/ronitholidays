@@ -199,7 +199,7 @@ export default function Header({ Island, }) {
           }
         </Menu.SubMenu>
         <Menu.Item key={'blog'}>
-          <Link target='blank' href={'/blog'}>Blog</Link>
+          <Link target='blank' href={'#'}>Blog</Link>
         </Menu.Item>
         <Menu.Item key={'contact'}>
           <Link target='blank' href={'/contact-us'}>Contact Us</Link>
@@ -238,8 +238,11 @@ export default function Header({ Island, }) {
         </Col>
         <Col span={6} pull={18} style={{}}>
           <Link href={'/'}>
-            <img src='/images/ronitholidays Logo Final_h80.png'
-              style={{ height: 45 }}
+            <Image src='/images/ronitholidays Logo Final_h80.png'
+              height={45}
+              width={200}
+              loading='lazy'
+              style={{  }}
               alt='ronitholidays Logo Final' />
           </Link>
         </Col>
