@@ -1,5 +1,5 @@
 // import PageHeader from '@/components/PageHeader'
-import { boxShadow } from '@/components/variables'
+import { boxShadow, mobile } from '@/components/variables'
 import { db } from '@/firebase'
 import { Skeleton, message } from 'antd'
 import Head from 'next/head'
@@ -11,8 +11,12 @@ import React, { useEffect, useState } from 'react'
 
 export default function TermsAndCondition({ entry, data }) {
     const [messageApi, contextHolder] = message.useMessage()
+    const [isMobile, setIsMobile] = useState(false)
     
-
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+   
     if (entry==undefined) return(<div style={{height:'30vh', padding:'2%'}}><Skeleton active/></div>)
 
     return (
@@ -27,11 +31,11 @@ export default function TermsAndCondition({ entry, data }) {
 
                 <div 
                 className='backCurve1'
-                style={{ display: 'flex', justifyContent: 'center', paddingTop: '3%', }}>
-                    <div>
-                        <h1 style={{ fontSize: '200%', marginBottom: '3%', textAlign: 'center' }}>Andaman Best {entry.name} Packages</h1>
+                style={{ display: 'flex', justifyContent: 'center', paddingTop: '3%'}}>
+                    <div style={{zIndex:2}}>
+                        <h1 style={{ fontSize: '200%', marginBottom: 30, textAlign: 'center' }}>Andaman Best {entry.name} Packages</h1>
 
-                        <div style={{ display: 'grid', gridGap: 30, gridTemplateColumns: "repeat(4, auto)" }}>
+                        <div style={{ display: 'grid', gridGap: 30, gridTemplateColumns: `repeat(${isMobile?1:4}, auto)`, justifyContent:'center' }}>
                             {data.map((image, i) => {
                                 var newUrl = "";
                                 const splitedUrl = image.thumbnail.split(".");
