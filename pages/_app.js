@@ -47,6 +47,7 @@ export default function App({ Component, pageProps }) {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/images/ronitholidays Logo icon.png" />
+          <meta name="google-site-verification" content="12QRPWYDypd8mAbJt5hfmxIkB_0DN78MF1E7HKCingE" />
         </Head>
         <Layout>
 
