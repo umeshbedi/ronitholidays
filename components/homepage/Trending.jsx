@@ -11,8 +11,13 @@ export default function Trending({ offerItems }) {
     const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
-        const newOffer = [...offerItems[0]]
-        setOffer(newOffer)
+        const tempData = []
+        offerItems.forEach(d => {
+            d.forEach(e => {
+                tempData.push(e)
+            })
+        })
+        setOffer(tempData)
     }, [offerItems])
 
     console.log(offer)
