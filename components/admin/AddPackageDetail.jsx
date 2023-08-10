@@ -24,6 +24,8 @@ export default function AddPackageDetail() {
     const [selectedSinglePackage, setSelectedSinglePackage] = useState(null)
     const [sSPD, setsSPD] = useState(null)
 
+    const [isOffer, setIsOffer] = useState(null)
+
     let tempIcon = []
 
     useEffect(() => {
@@ -68,6 +70,7 @@ export default function AddPackageDetail() {
         if (selectedSinglePackage != null) {
             const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
             setsSPD(result)
+            setIsOffer(result.isOffer)
             // setIncludeIcon(result.includeIcon)
         }
     }, [selectedSinglePackage])
@@ -93,7 +96,8 @@ export default function AddPackageDetail() {
                 metaDescription: val.metaDescription,
                 metaTag: val.metaTag,
                 status: 'published',
-                includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon
+                includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon,
+                isOffer,
             })
             .then(() => {
                 messageApi.success("Added Package Details Successfully")
@@ -111,11 +115,19 @@ export default function AddPackageDetail() {
                 {sSPD != null &&
                     <Form onFinish={(e) => submitPackageDetail(e)}>
 
+
                         <Form.Item name='packageTitle' initialValue={sSPD.title} label={"Package Title"} >
                             <Input required placeholder='Enter Package Title' />
                         </Form.Item>
+
                         <Form.Item name='packageSubTitle' initialValue={sSPD.subtitle} label={"Package Subtitle"}>
                             <Input required placeholder='Enter Package SubTitle' />
+                        </Form.Item>
+
+                        <Form.Item name={"isOffer"} label={"Is Offer"}>
+                            <Input type='checkbox' style={{ width: 'fit-content' }} checked={isOffer!=undefined?isOffer:null} 
+                            onChange={(e)=>setIsOffer(e.target.checked)}
+                            />
                         </Form.Item>
 
                         <Form.Item name='includeIcon' label={"Include Icon"}>

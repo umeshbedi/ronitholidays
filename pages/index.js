@@ -23,6 +23,7 @@ const ActivityCarousel = dynamic(() => import('@/components/homepage/Activities'
 const Offer = dynamic(() => import('@/components/homepage/Offer'), { ssr: false, loading: () => <SHome /> })
 const Authorities = dynamic(() => import('@/components/homepage/Authorities'), { ssr: false, loading: () => <SHome /> })
 const Testimonials = dynamic(() => import('@/components/homepage/Testimonials'), { ssr: false, loading: () => <SHome /> })
+const Trending = dynamic(() => import('@/components/homepage/Trending'), { ssr: false, loading: () => <SHome /> })
 
 
 
@@ -32,7 +33,8 @@ export default function Home({
   activityData,
   ferryData,
   islandData,
-  testimonials
+  testimonials,
+  offerItems
 }) {
 
   const [isMobile, setIsMobile] = useState(false)
@@ -58,6 +60,8 @@ export default function Home({
           </div>
           <Slider banner={data.banner} />
         </div>
+
+        <Trending offerItems={offerItems}/>
 
         <Packages Package={packageList} />
 
@@ -89,6 +93,7 @@ export const getStaticProps = async () => {
   })
 
   let packageList = []
+  let offerItems = []
 
   for (let i = 0; i < pkgId.length; i++) {
     const pkgd = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").limit(4).get();
@@ -97,6 +102,13 @@ export const getStaticProps = async () => {
       return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
     })
     packageList.push(pkgdata)
+
+    const offer = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").where("isOffer","==", true).get();
+    const offerData = offer.docs.map((d) => {
+      const data = d.data()
+      return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
+    })
+    offerItems.push(offerData)
   }
 
   //Getting Island Data
@@ -133,6 +145,7 @@ export const getStaticProps = async () => {
       islandData,
       activityData,
       ferryData,
+      offerItems,
       testimonials: testimonials.data().testimonials
     },
     revalidate: 60,
