@@ -75,7 +75,11 @@ export default function AddPackageDetail() {
             setsSPD(result)
             setIsOffer(result.isOffer)
             setIsPrice(result.isPrice)
-            localStorage.setItem("hotelName", JSON.stringify(result.hotelName))
+            if (result.hotelName!=undefined) {
+                localStorage.setItem("hotelName", JSON.stringify(result.hotelName))
+            }else{
+                localStorage.clear()
+            }
             // setIncludeIcon(result.includeIcon)
         }
     }, [selectedSinglePackage])

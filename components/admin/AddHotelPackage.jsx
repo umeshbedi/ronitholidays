@@ -4,12 +4,17 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 
 
-export default function AddHotelPackage({ hotelItem = (e) => void (0) }) {
-    const [hotels, setHotels] = useState([...JSON.parse(localStorage.getItem("hotelName"))])
+export default function AddHotelPackage() {
+    const [hotels, setHotels] = useState([])
 
     useEffect(() => {
-
-        // console.log(setHotels())
+        setTimeout(() => {
+            const localData = localStorage.getItem("hotelName")
+            if (localData != null) {
+                setHotels(JSON.parse(localData))
+            }
+            // console.log(localData)
+        }, 500);
     }, [])
 
     function addHotels() {
@@ -30,7 +35,7 @@ export default function AddHotelPackage({ hotelItem = (e) => void (0) }) {
                 }
             })
 
-            
+
             console.log(tempHotel)
             setHotels(tempHotel)
             localStorage.setItem("hotelName", JSON.stringify(tempHotel))

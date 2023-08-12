@@ -72,7 +72,7 @@ export default function TermsAndCondition({ data }) {
                             <h4 >Hotels Name</h4>
                         </div>
                         {data.hotelName.map((item, index)=>(
-                            <p key={index}>{item}</p>
+                            <p key={index}>{index+1}. {item}</p>
                         ))}
                     </div>
                 </div>
