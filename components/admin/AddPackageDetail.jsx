@@ -7,6 +7,8 @@ import 'react-quill/dist/quill.snow.css';
 import ImageUpload from './ImageUpload';
 import TravelJourney from './TravelJourney';
 import { IncludesIconName } from '../variables';
+import { FaCross } from 'react-icons/fa';
+import AddHotelPackage from './AddHotelPackage';
 
 
 const packagedb = db.collection("package")
@@ -25,6 +27,7 @@ export default function AddPackageDetail() {
     const [sSPD, setsSPD] = useState(null)
 
     const [isOffer, setIsOffer] = useState(null)
+    const [isPrice, setIsPrice] = useState(null)
 
     let tempIcon = []
 
@@ -71,6 +74,8 @@ export default function AddPackageDetail() {
             const result = selectedGroupPackageDetail.find(f => f.id == selectedSinglePackage)
             setsSPD(result)
             setIsOffer(result.isOffer)
+            setIsPrice(result.isPrice)
+            localStorage.setItem("hotelName", JSON.stringify(result.hotelName))
             // setIncludeIcon(result.includeIcon)
         }
     }, [selectedSinglePackage])
@@ -95,9 +100,13 @@ export default function AddPackageDetail() {
                 exclusion: val.exclusion,
                 metaDescription: val.metaDescription,
                 metaTag: val.metaTag,
+                price:val.price,
                 status: 'published',
                 includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon,
                 isOffer,
+                isPrice,
+                hotelName:JSON.parse(localStorage.getItem("hotelName"))
+
             })
             .then(() => {
                 messageApi.success("Added Package Details Successfully")
@@ -107,6 +116,8 @@ export default function AddPackageDetail() {
             })
 
     }
+
+    
 
     function AddSinglePackageDetail() {
 
@@ -125,10 +136,31 @@ export default function AddPackageDetail() {
                         </Form.Item>
 
                         <Form.Item name={"isOffer"} label={"Is Offer"}>
-                            <Input type='checkbox' style={{ width: 'fit-content' }} checked={isOffer!=undefined?isOffer:null} 
-                            onChange={(e)=>setIsOffer(e.target.checked)}
+                            <Input type='checkbox' style={{ width: 'fit-content' }} checked={isOffer != undefined ? isOffer : null}
+                                onChange={(e) => setIsOffer(e.target.checked)}
                             />
                         </Form.Item>
+
+
+                        <div style={{ padding: '1%', border: "solid .3px rgba(0,0,0,.2)", marginBottom: '2rem' }}>
+                            <Form.Item name={"isPrice"} label={"Is Price"}>
+                                <Input type='checkbox' style={{ width: 'fit-content' }} checked={isPrice != undefined ? isPrice : null}
+                                    onChange={(e) => setIsPrice(e.target.checked)}
+                                />
+                            </Form.Item>
+                            {isPrice != undefined && isPrice &&
+                                <>
+                                    <Form.Item name='price' initialValue={sSPD.price} label={"Price"}>
+                                        <Input type='number' required placeholder='Enter Price' />
+                                    </Form.Item>
+                                    <Form.Item label={"Hotels"}>
+                                        <AddHotelPackage/>
+                                        
+                                    </Form.Item>
+                                </>
+                            }
+
+                        </div>
 
                         <Form.Item name='includeIcon' label={"Include Icon"}>
                             <Select

@@ -29,10 +29,10 @@ export default function TermsAndCondition({ data }) {
     }, [isMobile])
 
     const cruize = [
-        {name:"Nautika", link:"/ferry/Nautika",thumbnail:"/images/Nautika.jpg"},
-        {name:"GreenOcean", link:"/ferry/Green-Ocean-2",thumbnail:"/images/GreenOcean.jpg"},
-        {name:"Makruzz", link:"/ferry/Makruzz",thumbnail:"/images/Makruzz.jpg"},
-        
+        { name: "Nautika", link: "/ferry/Nautika", thumbnail: "/images/Nautika.jpg" },
+        { name: "GreenOcean", link: "/ferry/Green-Ocean-2", thumbnail: "/images/GreenOcean.jpg" },
+        { name: "Makruzz", link: "/ferry/Makruzz", thumbnail: "/images/Makruzz.jpg" },
+
     ]
 
     function Include({ icon, name }) {
@@ -46,16 +46,52 @@ export default function TermsAndCondition({ data }) {
 
     if (data == undefined) return (<div style={{ height: '30vh', padding: '2%' }}><Skeleton active /></div>)
 
+    function CostSection() {
+        return (
+            <>
+                <div style={{ background: 'white', width: '100%' }}>
+                    <div style={{ background: style.secondaryColor, padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
+                        <div>
+                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>₹{(Number(data.price)+(Number(data.price)*30/100)).toFixed(0)}</h4>
+                            <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : ₹{data.price}</h4>
+                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)" }}>{"(inclusive 5% GST)"}</h4>
+                        </div>
+                        <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', borderRadius: 20 }}>
+                            <h4 style={{ fontSize: 16 }}>Save 30%</h4>
+                        </div>
+                    </div>
+                    <div style={{ padding: '5%' }}>
+                        <h4 style={{ fontWeight: 'bold', color: style.primaryColor }}>Number of Persons</h4>
+                        <p>Number Of Adult - 2</p>
+                        <p>Number Of Child (5-12) -0</p>
+                        <p>Number Of Child (0-5) - 0</p>
+                        <Divider style={{ backgroundColor: style.lightGrey, margin: "10px 0" }} />
+                        <h4 style={{ fontWeight: 'bold', color: style.primaryColor }}>Number of Rooms: 1</h4>
+                        <Divider style={{ backgroundColor: style.lightGrey, margin: "10px 0" }} />
+                        <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', width: 'fit-content', marginBottom: 5 }}>
+                            <h4 >Hotels Name</h4>
+                        </div>
+                        {data.hotelName.map((item, index)=>(
+                            <p key={index}>{item}</p>
+                        ))}
+                    </div>
+                </div>
+
+                <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
+            </>
+        )
+    }
+
     return (
         <main>
             <Head>
                 <title>{data.title}</title>
                 <meta name="description" content={data.metaDescription}></meta>
                 <meta name="keywords" content={data.metaTag}></meta>
-                <meta property="og:image" content={data.thumbnail}/>
+                <meta property="og:image" content={data.thumbnail} />
             </Head>
             <div id='packageDiv'>
-                <div style={{display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                     <div style={{ width: '100%', height: '68px', position: 'absolute', zIndex: 1 }}>
                         <WaveSvg fill={style.lightGrey} />
                     </div>
@@ -81,22 +117,24 @@ export default function TermsAndCondition({ data }) {
                 </div>
 
 
-                <div 
-                className='backCurve5'
-                style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-                    <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%', flexDirection:isMobile?"column":"row" }}>
-                        <div style={{ width: isMobile?"100%":"65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+                <div
+                    className='backCurve5'
+                    style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+                    <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%', flexDirection: isMobile ? "column" : "row" }}>
+                        <div style={{ width: isMobile ? "100%" : "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
                             <h1 id='packageTitle'>{data.title}</h1>
                             <h3 id='packageDetail' ><ClockCircleFilled /> {data.subtitle}</h3>
                             <Divider style={{ margin: '2%' }} />
+                            
+                            {isMobile && data.isPrice==true && <CostSection/>}
 
                             <div>
                                 <h2>Includes</h2>
-                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: `repeat(${isMobile?"2":"4"}, auto)`, marginTop: '3%' }}>
-                                    {data.includeIcon.map((item, i)=>(
-                                     <Include key={i} icon={item.icon} name={item.name} />
+                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: `repeat(${isMobile ? "2" : "4"}, auto)`, marginTop: '3%' }}>
+                                    {data.includeIcon.map((item, i) => (
+                                        <Include key={i} icon={item.icon} name={item.name} />
                                     ))}
-                                    
+
                                 </div>
                             </div>
 
@@ -138,33 +176,44 @@ export default function TermsAndCondition({ data }) {
 
                         </div>
 
+                        {isMobile && <Divider />}
 
-                        <div style={{ width: isMobile?'100%':'35%', background: 'white', padding: '3%', height: 'fit-content', flexDirection:'column', display:'flex', alignItems:'center' }}>
-                            <ContactForm
-                                packageName={packageName}
-                                packageDetail={packageDetail}
-                            />
+
+                        <div style={{ width: isMobile ? '100%' : '35%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+                            
+                            {!isMobile && data.isPrice==true && <CostSection/>}
+
+                            <div style={{ background: 'white', width: '100%', padding: '5%', }}>
+                                <ContactForm
+                                    packageName={packageName}
+                                    packageDetail={packageDetail}
+                                />
+                            </div>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
-                            <h2 style={{ textAlign: 'center', padding:"0 10px 20px 10px" }}>Exciting Offers on Ferry Bookings</h2>
-                            {cruize.map((item, i) => (
-                                
-                                <Link
-                                    data-aos="fade-up"
-                                    data-aos-anchor-placement="top-bottom"
-                                    data-aos-duration="2000"
-                                    key={i} target='blank' href={item.link}>
-                                    <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 260, marginBottom: 30 }}>
-                                        <Image
-                                            src={item.thumbnail}
-                                            alt={item.name}
-                                            preview={false}
-                                            width={250}
-                                            height={250}
-                                            style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                                        <h2 style={{ padding: '5%', textAlign: 'center' }}>{item.name}</h2>
-                                    </div>
-                                </Link>
-                            ))}
+
+                            <div style={{ background: 'white', width: '100%', padding: '5%', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+
+                                <h2 style={{ textAlign: 'center', padding: "0 10px 20px 10px" }}>Exciting Offers on Ferry Bookings</h2>
+                                {cruize.map((item, i) => (
+
+                                    <Link
+                                        data-aos="fade-up"
+                                        data-aos-anchor-placement="top-bottom"
+                                        data-aos-duration="2000"
+                                        key={i} target='blank' href={item.link}>
+                                        <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 260, marginBottom: 30 }}>
+                                            <Image
+                                                src={item.thumbnail}
+                                                alt={item.name}
+                                                preview={false}
+                                                width={250}
+                                                height={250}
+                                                style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
+                                            <h2 style={{ padding: '5%', textAlign: 'center' }}>{item.name}</h2>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

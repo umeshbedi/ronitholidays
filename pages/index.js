@@ -136,7 +136,7 @@ export const getStaticProps = async () => {
   const testimonials = await db.doc(`pages/testimonials`).get()
 
 
-  console.log(offerItems)
+  // console.log(offerItems)
 
   return {
     props: {
