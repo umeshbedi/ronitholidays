@@ -69,8 +69,8 @@ export default function Footer() {
       <div className='footerdiv' style={{
         display: "flex",
         flexDirection: isMobile?'column':'row',
-        position: 'relative'
-
+        position: 'relative',
+        gap:isMobile?'2rem':null
       }}
       >
         <Element
