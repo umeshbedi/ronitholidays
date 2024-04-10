@@ -13,6 +13,7 @@ import Link from 'next/link';
 
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react'
 import Image from 'next/image';
+import Suspended from '@/components/Suspended';
 
 
 const Header = dynamic(() => import('../components/Header'), {
@@ -25,13 +26,14 @@ const Footer = dynamic(() => import('../components/Footer'), { ssr: false, loadi
 
 export default function App({ Component, pageProps }) {
   const [path, setPath] = useState('/')
-
+  const [isSuspended, setIsSuspended] = useState(true)
 
   useEffect(() => {
     setPath(window.location.pathname)
     AOS.init();
   }, [])
 
+  if(isSuspended)return <Suspended/>
 
   return (
     <>

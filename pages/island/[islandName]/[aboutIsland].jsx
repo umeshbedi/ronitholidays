@@ -18,9 +18,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
 
 
     if (data == undefined) return <Skeleton active style={{ marginTop: '3%' }} />
-    const remainingData = data.filter((f) => {
-        return f.slug != islandItem.slug;
-    })
+   
 
 
 
@@ -60,7 +58,7 @@ export default function AboutIsland({ data, headerImage, islandItem, headerImgAl
                         <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
                             <h2 style={{ textAlign: 'center' }}>Visit Other Places of {headerImgAlt}</h2>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
-                            {remainingData.map((item, i) => (
+                            {data.map((item, i) => (
                                 <Link
                                     data-aos="fade-up"
                                     data-aos-anchor-placement="top-bottom"
