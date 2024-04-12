@@ -26,7 +26,7 @@ const Footer = dynamic(() => import('../components/Footer'), { ssr: false, loadi
 
 export default function App({ Component, pageProps }) {
   const [path, setPath] = useState('/')
-  const [isSuspended, setIsSuspended] = useState(true)
+  const [isSuspended, setIsSuspended] = useState(false)
 
   useEffect(() => {
     setPath(window.location.pathname)
