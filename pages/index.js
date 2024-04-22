@@ -61,9 +61,9 @@ export default function Home({
           <Slider banner={data.banner} />
         </div>
 
-        <Trending offerItems={offerItems}/>
+        {/* <Trending offerItems={offerItems}/> */}
 
-        <Packages Package={packageList} />
+        {/* <Packages Package={packageList} /> */}
 
         <Island data={islandData} />
 
