@@ -1,0 +1,356 @@
+$primary-color: #ff0000;
+$secondary-color: #10263b;
+$secondary-dark: #17334e;
+
+
+.ant-menu-dark {
+  background-color: rgb(27, 27, 27);
+}
+
+.ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background-color: rgb(0, 0, 0);
+}
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  // font-family: Roboto;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+
+html,
+body {
+  max-width: 100vw;
+  background-color: rgb(241, 241, 241);
+
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  a:hover {
+    color: #fc4131;
+
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+
+  input {
+    width: 100%;
+    padding: 4px 11px;
+    line-height: 1.5;
+    font-size: 14px;
+    border: solid 1px #d9d9d9;
+    border-radius: 16px;
+  }
+
+  input:hover {
+    border: solid 1px #fc4131;
+    outline-style: none;
+    box-shadow: none;
+  }
+
+  input:focus {
+    outline-style: none;
+    box-shadow: none;
+    border: solid 1px #fc4131;
+  }
+
+  ::placeholder {
+    color: #d9d9d9;
+  }
+
+}
+
+.footerdiv {
+  background-color: $secondary-dark;
+  display: flex;
+  // justify-content: space-between;
+  padding: 2% 5%;
+  color: rgb(162, 162, 162);
+  gap: 5%;
+}
+
+.pageHeader {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+}
+
+
+.ant-checkbox-wrapper+.ant-checkbox-wrapper {
+  margin-inline-start: 0;
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  height: 50px !important;
+  width: 70% !important;
+}
+
+.ant-layout .ant-layout-sider-trigger {
+  background: rgb(63, 63, 63);
+}
+
+.ant-menu-horizontal>.ant-menu-item::after,
+.ant-menu-horizontal>.ant-menu-submenu::after {
+  border-bottom: none !important;
+  transition: none !important;
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover {
+  left: 10px;
+  z-index: 2;
+  color: white;
+  font-size: 130%;
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover {
+  right: 10px;
+  z-index: 2;
+  color: white;
+  font-size: 130%;
+
+
+}
+
+#packageContainer,
+#extraPages {
+  p {
+    line-height: 140%;
+    text-align: justify;
+  }
+
+  li {
+    font-size: 18px;
+    margin-left: 5%;
+    line-height: 140%;
+  }
+
+
+}
+
+.APDC {
+  display: flex;
+  align-items: center;
+}
+
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active {
+  background: #25527b;
+
+}
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white;
+}
+
+
+#ticketCollapse>.ant-collapse .ant-collapse-content>.ant-collapse-content-box {
+  background: #e1f1ff;
+}
+
+#cardImage:hover {
+  transition: .5s;
+  transform: scale(1.02);
+}
+
+#menuDiv {
+  p {
+    font-size: 15px;
+  }
+
+  a {
+    font-size: 15px;
+  }
+}
+
+#aboutFerry,
+#termAndCondtionFerry,
+#aboutIsland {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.jodit .jodit-workplace .jodit-wysiwyg,
+.jodit .jodit-workplace .jodit-wysiwyg_iframe,
+.jodit-container .jodit-workplace .jodit-wysiwyg,
+.jodit-container .jodit-workplace .jodit-wysiwyg_iframe {
+  height: 400px !important;
+}
+
+
+.list-container {
+  display: flex;
+  font-size: 18px;
+  background-color: #eee;
+  flex-direction: column;
+}
+
+.item-container {
+  background-color: #fff;
+  border: 1px solid black;
+  padding: 25px 70px;
+  margin: 15px 50px;
+}
+
+.ant-drawer .ant-drawer-body {
+  padding: 0;
+}
+
+.mySwiper {
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 350px;
+    margin-bottom: 50px;
+  }
+
+}
+
+.backCurve1 {
+  position: relative;
+}
+
+.backCurve1::before {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 1.svg);
+  width: 636px;
+  height: 100%;
+  left: 55%;
+  transform: translateX(-50%);
+
+}
+
+.backCurve2 {
+  position: relative;
+}
+
+.backCurve2::before {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 3.svg);
+  width: 200px;
+  left: 0;
+  top: 200px;
+}
+
+.backCurve2::after {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 4.svg);
+  width: 500px;
+  left: 0;
+  top: 100px;
+
+}
+
+.backCurve3 {
+  position: relative;
+  background: url(/images/Backgroung\ Curve\ 2.svg);
+  background-repeat: no-repeat;
+  background-size: 400px 400px;
+  background-position-x: left;
+}
+
+.backCurve3::before {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 5.svg);
+  width: 400px;
+  right: 0;
+  top: -600px;
+
+}
+
+
+.backCurve4 {
+  position: relative;
+}
+
+.backCurve4::before {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 6.svg);
+  width: 250px;
+  left: 0;
+}
+
+.backCurve4::after {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 9.svg);
+  width: 300px;
+  right: 0;
+  top: -1px;
+
+}
+
+.backCurve5 {
+  position: relative;
+}
+
+.backCurve5::before {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 8.svg);
+  width: 150px;
+  left: 0;
+}
+
+.backCurve5::after {
+  position: absolute;
+  content: url(/images/Backgroung\ Curve\ 7.svg);
+  width: 110px;
+  right: 0;
+  top: -1px;
+
+}
+
+.ant-menu{
+
+  li:hover {
+    color: red !important
+  }
+  p:hover{
+    color: red !important;
+  }
+}
+
+#menuDiv a, p{
+  font-size: 17px !important;
+
+}
+
+#facebookRef:hover{
+  color:#3b5998;
+}
+#instaRef:hover{
+  color:#d62976;
+}
+#youtubeRef:hover{
+  color:red;
+}

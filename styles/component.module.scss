@@ -1,0 +1,25 @@
+$primary-color: #ff0000;
+$secondary-color:#25527b;
+$lightGrey:#f1f1f1;
+
+:export {
+  primaryColor: $primary-color;
+  secondaryColor:$secondary-color;
+  lightGrey:$lightGrey;
+}
+
+.AdminLogin{
+    background-color: #f7f7f7;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .gutter-row {
+    padding: 8px 0;
+    background: #feffff;
+  }
+  
+  
